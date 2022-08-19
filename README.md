@@ -58,6 +58,14 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Database
+
+```
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=mysql -e MYSQL_DATABASE=tretori-dev -e MYSQL_USER=tretori-user -e MYSQL_PASSWORD=tr3t0r! -p 3306:3306 -d mysql
+```
+
+For troubleshooting connection in DBeaver, check https://stackoverflow.com/questions/61749304/connection-between-dbeaver-mysql
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
