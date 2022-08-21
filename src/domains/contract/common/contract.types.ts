@@ -1,5 +1,5 @@
 export interface IAccess {
-  id?: string
+  id?: number
   system: string
   login_tret?: string
   pass_tret?: string
