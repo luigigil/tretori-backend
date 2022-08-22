@@ -15,8 +15,10 @@ export class AccessService {
     return this.accessRepository.find()
   }
 
-  findOne(id: number): Promise<Access> {
-    return this.accessRepository.findOneBy({ id })
+  async findOne(id: number): Promise<Access> {
+    const access = this.accessRepository.findOne({ where: { id } })
+    if (!access) throw new NotFoundException('Access not found')
+    return access
   }
 
   create(Access: IAccess): Promise<Access> {
@@ -25,7 +27,7 @@ export class AccessService {
 
   async update(id: number, Access: IAccess): Promise<UpdateResult> {
     let access = await this.accessRepository.update(id, Access)
-    if(!access) throw new NotFoundException('Access not found')
+    if (!access) throw new NotFoundException('Access not found')
     return access
   }
 

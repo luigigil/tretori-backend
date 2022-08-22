@@ -7,4 +7,4 @@ import { AccessController } from './access.controller'
   controllers: [AccessController],
   providers: [AccessService],
 })
-export class LegalPersonModule {}
+export class AccessModule {}

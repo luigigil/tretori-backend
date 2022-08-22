@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { LegalPersonModule } from './domains/client/legal-person/legal-person.module'
+import { AccessModule } from './domains/contract/access/acces.module'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { LegalPersonModule } from './domains/client/legal-person/legal-person.mo
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AccessModule,
     LegalPersonModule,
   ],
 })
