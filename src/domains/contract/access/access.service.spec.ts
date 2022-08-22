@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { DeleteResult, Repository } from 'typeorm'
 import { accessFixture } from './fixtures'
 import { AccessService } from './access.service'
 import { Access } from './access.entity'
+import { NotFoundException } from '@nestjs/common'
 
 describe('AccessService', () => {
   let service: AccessService
@@ -16,10 +17,13 @@ describe('AccessService', () => {
         {
           provide: getRepositoryToken(Access),
           useValue: {
-            findOne: jest.fn().mockResolvedValue(accessFixture),
-            save: jest.fn().mockResolvedValue(accessFixture),
-            remove: jest.fn(),
-            delete: jest.fn(),
+            findOne: jest
+              .fn()
+              .mockResolvedValueOnce(accessFixture)
+              .mockRejectedValueOnce(new NotFoundException('Access not found')),
+            create: jest.fn().mockResolvedValue(accessFixture),
+            remove: jest.fn().mockResolvedValue(DeleteResult),
+            update: jest.fn().mockResolvedValue(accessFixture),
           },
         },
       ],
@@ -33,41 +37,31 @@ describe('AccessService', () => {
     expect(service).toBeDefined()
   })
 
-  describe('create()', () => {})
+  describe('create()', () => {
+    it('should successfully insert a access', async () => {
+      await expect(service.create(accessFixture)).resolves.toEqual(accessFixture)
+    })
+  })
 
   describe('findOne()', () => {
-    it('should return null', async () => {
-      expect(await service.findOne(1)).toEqual(accessFixture)
+    it('should return access', async () => {
+      await expect(service.findOne(1)).resolves.toBe(accessFixture)
+    })
+    it('should throw NotFoundException', async () => {
+      service.findOne(1)
+      await expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Access not found'))
+    })
+  })
+
+  describe('remove()', () => {
+    it('should call remove with the passed value', async () => {
+      await expect(service.remove(1)).resolves.toBe(DeleteResult)
+    })
+  })
+
+  describe('update()', () => {
+    it('should call update with the passed value', async () => {
+      await expect(service.update(1, accessFixture)).resolves.toBe(accessFixture)
     })
   })
 })
-
-//   describe('create()', () => {
-//     it('should successfully insert a legal person', () => {
-//       expect(service.create(oneLegalPersonFixture)).resolves.toEqual(oneLegalPersonFixture)
-//     })
-//   })
-
-//   describe('findAll()', () => {
-//     it('should return an array of legal person', async () => {
-//       const legalPersonArray = await service.findAll()
-//       expect(legalPersonArray).toEqual(legalPersonArrayFixture)
-//     })
-//   })
-
-//   describe('findOne()', () => {
-//     it('should get a single legal person', () => {
-//       const repoSpy = jest.spyOn(repository, 'findOneBy')
-//       expect(service.findOne(1)).resolves.toEqual(oneLegalPersonFixture)
-//       expect(repoSpy).toBeCalledWith({ id: 1 })
-//     })
-//   })
-
-//   describe('remove()', () => {
-//     it('should call remove with the passed value', async () => {
-//       const removeSpy = jest.spyOn(repository, 'delete')
-//       const retVal = await service.remove(2)
-//       expect(removeSpy).toBeCalledWith(2)
-//       expect(retVal).toBeUndefined()
-//     })
-//   })

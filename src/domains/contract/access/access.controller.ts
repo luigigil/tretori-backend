@@ -19,12 +19,15 @@ export class AccessController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() Access: IAccess): Promise<UpdateResult> {
-    return this.accessService.update(id, Access)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateAccess: IAccess
+  ): Promise<UpdateResult> {
+    return this.accessService.update(id, updateAccess)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<void> {
+  remove(@Param('id') id: number): Promise<Access> {
     return this.accessService.remove(id)
   }
 }

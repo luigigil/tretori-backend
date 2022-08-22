@@ -11,27 +11,23 @@ export class AccessService {
     private readonly accessRepository: Repository<Access>
   ) {}
 
-  findAll(): Promise<Access[]> {
-    return this.accessRepository.find()
-  }
-
   async findOne(id: number): Promise<Access> {
     const access = this.accessRepository.findOne({ where: { id } })
     if (!access) throw new NotFoundException('Access not found')
     return access
   }
 
-  create(Access: IAccess): Promise<Access> {
-    return this.accessRepository.save(Access)
+  async create(access: IAccess): Promise<Access> {
+    return this.accessRepository.create(access)
   }
 
-  async update(id: number, Access: IAccess): Promise<UpdateResult> {
-    let access = await this.accessRepository.update(id, Access)
-    if (!access) throw new NotFoundException('Access not found')
-    return access
+  async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {
+    const access = await this.findOne(id)
+    return this.accessRepository.update(access, updateAccess)
   }
 
-  async remove(id: number): Promise<void> {
-    await this.accessRepository.delete(id)
+  async remove(id: number): Promise<Access> {
+    const access = await this.findOne(id)
+    return this.accessRepository.remove(access)
   }
 }
