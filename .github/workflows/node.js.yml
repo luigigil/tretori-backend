@@ -20,6 +20,17 @@ jobs:
     env:
       NODE_ENV: test
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: tr3t0r!
+          MYSQL_DATABASE: tretori-dev
+          MYSQL_USER: tretori-user
+          MYSQL_PASSWORD: tr3t0r!
+        ports:
+          - 3307:3306
+
     steps:
       - name: Checkout
         uses: actions/checkout@master
