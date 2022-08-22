@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm'
-import { Client } from '../common/client.entity'
+import { Customer } from '../common/customer.entity'
 
 @Entity()
-export class LegalPerson extends Client {
+export class LegalPerson extends Customer {
   @Column()
   fantasy_name: string
 
@@ -19,5 +19,5 @@ export class LegalPerson extends Client {
   size: string
 
   @Column()
-  representatives: string[]
+  representatives: string
 }

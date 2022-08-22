@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm'
-import { Client } from '../common/client.entity'
+import { Customer } from '../common/customer.entity'
 
 @Entity()
-export class PhysicalPerson extends Client {
+export class PhysicalPerson extends Customer {
   @Column()
   name: string
 
