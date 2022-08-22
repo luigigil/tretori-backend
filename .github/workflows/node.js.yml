@@ -25,7 +25,7 @@ jobs:
         image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: tr3t0r!
-          MYSQL_DATABASE: tretori-dev
+          MYSQL_DATABASE: tretori-test
           MYSQL_USER: tretori-user
           MYSQL_PASSWORD: tr3t0r!
         ports:
