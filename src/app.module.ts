@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { LegalPersonModule } from './domains/client/legal-person/legal-person.module'
+import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
+import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { LegalPersonModule } from './domains/client/legal-person/legal-person.mo
       synchronize: true,
     }),
     LegalPersonModule,
+    PhysicalPersonModule,
   ],
 })
 export class AppModule {}

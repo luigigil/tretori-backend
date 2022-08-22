@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: tr3t0r!
+      MYSQL_DATABASE: tretori-dev
+      MYSQL_USER: tretori-user
+      MYSQL_PASSWORD: tr3t0r!
+    ports:
+      - "3306:3306"
+  db-test:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: tr3t0r!
+      MYSQL_DATABASE: tretori-test
+      MYSQL_USER: tretori-user
+      MYSQL_PASSWORD: tr3t0r!
+    ports:
+      - "3307:3306"
