@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ILegalPerson } from '../common/client.types'
-import { LegalPerson } from './legal_person.entity'
+import { ILegalPerson } from '../common/customer.types'
+import { LegalPerson } from './legal-person.entity'
 
 @Injectable()
 export class LegalPersonService {

@@ -1,4 +1,4 @@
-import { ILegalPerson } from '../../common/client.types'
+import { ILegalPerson } from '../../common/customer.types'
 
 export const legalPersonArrayFixture = [
   {
@@ -53,7 +53,7 @@ export const oneLegalPersonFixture: ILegalPerson = {
   neighborhood: 'Suite 544',
   phone: '1-704-744-9892',
   phone_secondary: '(425) 512-2938',
-  representatives: [],
+  representatives: '',
   size: 'mountainous',
   social_reason: 'Hauck, Wunsch and Halvorson',
   type: 'h',

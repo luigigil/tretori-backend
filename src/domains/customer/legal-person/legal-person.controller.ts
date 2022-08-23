@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
-import { ILegalPerson } from '../common/client.types'
+import { ILegalPerson } from '../common/customer.types'
 import { LegalPersonService } from './legal-person.service'
-import { LegalPerson } from './legal_person.entity'
+import { LegalPerson } from './legal-person.entity'
 
-@Controller('clients/legal-person')
+@Controller('legal-person')
 export class LegalPersonController {
   constructor(private readonly legalPersonService: LegalPersonService) {}
 

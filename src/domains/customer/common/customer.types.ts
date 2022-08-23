@@ -1,4 +1,4 @@
-export interface IClient {
+export interface ICustomer {
   id?: number
   code: string
   phone: string
@@ -12,7 +12,7 @@ export interface IClient {
   contract: string
 }
 
-export interface IPhysicalPerson extends IClient {
+export interface IPhysicalPerson extends ICustomer {
   name: string
   birthdate: string
   cpf: string
@@ -21,13 +21,13 @@ export interface IPhysicalPerson extends IClient {
   rg_emissor_uf: string
 }
 
-export interface ILegalPerson extends IClient {
+export interface ILegalPerson extends ICustomer {
   fantasy_name: string
   cnpj: string
   social_reason: string
   type: string
   size: string
-  representatives: string[]
+  representatives: string
 }
 
-export type Client = IPhysicalPerson | ILegalPerson
+export type Customer = IPhysicalPerson | ILegalPerson

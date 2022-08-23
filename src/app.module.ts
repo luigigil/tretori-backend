@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { LegalPersonModule } from './domains/client/legal-person/legal-person.module'
 import { AccessModule } from './domains/contract/access/acces.module'
+import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
+import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AccessModule } from './domains/contract/access/acces.module'
     }),
     AccessModule,
     LegalPersonModule,
+    PhysicalPersonModule,
   ],
 })
 export class AppModule {}
