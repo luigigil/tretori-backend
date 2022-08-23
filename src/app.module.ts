@@ -1,19 +1,22 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
 import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'tretori-user',
-      password: 'tr3t0r!',
-      database: 'tretori-dev',
-      autoLoadEntities: true,
-      synchronize: true,
+      autoLoadEntities: process.env.DB_AUTOLOAD_ENTITIES === 'true',
+      synchronize: process.env.DB_SYNCHRONIZE === 'true',
+      url: process.env.CLEARDB_DATABASE_URL,
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
     }),
     LegalPersonModule,
     PhysicalPersonModule,
