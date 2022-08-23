@@ -6,9 +6,7 @@ import { PhysicalPersonModule } from './domains/customer/physical-person/physica
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      ignoreEnvFile: process.env.NODE_ENV === 'production',
-    }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       autoLoadEntities: process.env.DB_AUTOLOAD_ENTITIES === 'true',
