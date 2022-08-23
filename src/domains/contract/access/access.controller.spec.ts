@@ -1,9 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { AccessService } from './access.service'
 import { AccessController } from './access.controller'
-import { accessFixture, createAcessFixture, updateAcessFixture } from './fixtures'
+import { accessFixture, createAccessFixture, updateAccessFixture } from './fixtures'
 import { DeleteResult } from 'typeorm'
-import { UploadedFile } from '@nestjs/common'
 
 describe('AccessController', () => {
   let accessController: AccessController
@@ -24,7 +23,7 @@ describe('AccessController', () => {
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...accessFixture })),
             remove: jest.fn().mockImplementation(() => Promise.resolve(DeleteResult)),
-            update: jest.fn().mockImplementation(() => Promise.resolve({ ...updateAcessFixture })),
+            update: jest.fn().mockImplementation(() => Promise.resolve({ ...updateAccessFixture })),
           },
         },
       ],
@@ -45,7 +44,7 @@ describe('AccessController', () => {
 
   describe('Create access', () => {
     it('Should create an access', () => {
-      expect(accessController.create(createAcessFixture)).resolves.toEqual({
+      expect(accessController.create(createAccessFixture)).resolves.toEqual({
         id: 1,
         ...accessFixture,
       })
@@ -61,7 +60,7 @@ describe('AccessController', () => {
   describe('Update access', () => {
     it('Should update an access', () => {
       expect(accessController.update(1, accessFixture)).resolves.toEqual({
-        ...updateAcessFixture,
+        ...updateAccessFixture,
       })
     })
   })

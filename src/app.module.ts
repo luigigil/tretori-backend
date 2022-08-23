@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AccessModule } from './domains/contract/access/acces.module'
+import { AccessModule } from './domains/contract/access/access.module'
 import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
 import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
 
