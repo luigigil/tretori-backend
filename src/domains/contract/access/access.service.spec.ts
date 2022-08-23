@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
-import { accessFixture, accessUpdateFixture } from './fixtures'
+import { accessFixture, updateAcessFixture } from './fixtures'
 import { AccessService } from './access.service'
 import { Access } from './access.entity'
 import { NotFoundException } from '@nestjs/common'
@@ -23,7 +23,7 @@ describe('AccessService', () => {
               .mockRejectedValueOnce(new NotFoundException('Access not found')),
             create: jest.fn().mockResolvedValue(accessFixture),
             remove: jest.fn().mockResolvedValue(DeleteResult),
-            update: jest.fn().mockResolvedValue(accessUpdateFixture),
+            update: jest.fn().mockResolvedValue(updateAcessFixture),
           },
         },
       ],
@@ -61,7 +61,7 @@ describe('AccessService', () => {
 
   describe('update()', () => {
     it('should call update with the passed value', async () => {
-      await expect(service.update(1, accessUpdateFixture)).resolves.toBe(accessUpdateFixture)
+      await expect(service.update(1, updateAcessFixture)).resolves.toBe(updateAcessFixture)
     })
   })
 })
