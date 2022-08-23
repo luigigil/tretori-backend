@@ -1,36 +1,36 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
-import { accessFixture, updateAcessFixture } from './fixtures'
+import { AccessFixture, UpdateAccessFixture } from './fixtures'
 import { AccessService } from './access.service'
-import { Access } from './access.entity'
+import { AccessRepository } from './access.entity'
 import { NotFoundException } from '@nestjs/common'
 
 describe('AccessService', () => {
   let service: AccessService
-  let repository: Repository<Access>
+  let repository: Repository<AccessRepository>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AccessService,
         {
-          provide: getRepositoryToken(Access),
+          provide: getRepositoryToken(AccessRepository),
           useValue: {
             findOne: jest
               .fn()
-              .mockResolvedValueOnce(accessFixture)
+              .mockResolvedValueOnce(AccessFixture)
               .mockRejectedValueOnce(new NotFoundException('Access not found')),
-            create: jest.fn().mockResolvedValue(accessFixture),
+            create: jest.fn().mockResolvedValue(AccessFixture),
             remove: jest.fn().mockResolvedValue(DeleteResult),
-            update: jest.fn().mockResolvedValue(updateAcessFixture),
+            update: jest.fn().mockResolvedValue(UpdateAccessFixture),
           },
         },
       ],
     }).compile()
 
     service = module.get<AccessService>(AccessService)
-    repository = module.get<Repository<Access>>(getRepositoryToken(Access))
+    repository = module.get<Repository<AccessRepository>>(getRepositoryToken(AccessRepository))
   })
 
   it('should be defined', () => {
@@ -39,13 +39,13 @@ describe('AccessService', () => {
 
   describe('create()', () => {
     it('should successfully insert a access', async () => {
-      await expect(service.create(accessFixture)).resolves.toEqual(accessFixture)
+      await expect(service.create(AccessFixture)).resolves.toEqual(AccessFixture)
     })
   })
 
   describe('findOne()', () => {
     it('should return access', async () => {
-      await expect(service.findOne(1)).resolves.toBe(accessFixture)
+      await expect(service.findOne(1)).resolves.toBe(AccessFixture)
     })
     it('should throw NotFoundException', async () => {
       service.findOne(1)
@@ -61,7 +61,7 @@ describe('AccessService', () => {
 
   describe('update()', () => {
     it('should call update with the passed value', async () => {
-      await expect(service.update(1, updateAcessFixture)).resolves.toBe(updateAcessFixture)
+      await expect(service.update(1, UpdateAccessFixture)).resolves.toBe(UpdateAccessFixture)
     })
   })
 })

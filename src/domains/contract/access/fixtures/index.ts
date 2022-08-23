@@ -1,6 +1,6 @@
 import { IAccess } from '../../common/contract.types'
 
-export const accessFixture: IAccess = {
+export const AccessFixture: IAccess = {
   id: 1,
   system: 'system',
   login_tret: 'login_tret',
@@ -10,7 +10,7 @@ export const accessFixture: IAccess = {
   contract: '1',
 }
 
-export const updateAccessFixture: IAccess = {
+export const UpdateAccessFixture: IAccess = {
   id: 1,
   system: 'system2',
   login_tret: 'login_tret2',
@@ -20,7 +20,7 @@ export const updateAccessFixture: IAccess = {
   contract: '1',
 }
 
-export const createAccessFixture: IAccess = {
+export const CreateAccessFixture: IAccess = {
   system: 'system',
   login_tret: 'login_tret',
   pass_tret: 'pass_tret',

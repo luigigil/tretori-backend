@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
 import { IAccess } from '../common/contract.types'
 import { AccessService } from './access.service'
-import { Access } from './access.entity'
+import { AccessRepository } from './access.entity'
 import { UpdateResult } from 'typeorm'
 
 @Controller('contract/access')
@@ -9,12 +9,12 @@ export class AccessController {
   constructor(private readonly accessService: AccessService) {}
 
   @Post()
-  create(@Body() access: IAccess): Promise<Access> {
+  create(@Body() access: IAccess): Promise<AccessRepository> {
     return this.accessService.create(access)
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<Access> {
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<AccessRepository> {
     return this.accessService.findOne(id)
   }
 
@@ -27,7 +27,7 @@ export class AccessController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<Access> {
+  remove(@Param('id') id: number): Promise<AccessRepository> {
     return this.accessService.remove(id)
   }
 }
