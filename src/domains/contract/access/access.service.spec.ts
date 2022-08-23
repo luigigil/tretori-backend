@@ -21,7 +21,7 @@ describe('AccessService', () => {
               .fn()
               .mockResolvedValueOnce(AccessFixture)
               .mockRejectedValueOnce(new NotFoundException('Access not found')),
-            create: jest.fn().mockResolvedValue(AccessFixture),
+            save: jest.fn().mockResolvedValue(AccessFixture),
             remove: jest.fn().mockResolvedValue(DeleteResult),
             update: jest.fn().mockResolvedValue(UpdateAccessFixture),
           },

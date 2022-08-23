@@ -18,7 +18,7 @@ export class AccessService {
   }
 
   async create(access: IAccess): Promise<AccessRepository> {
-    return this.accessRepository.create(access)
+    return this.accessRepository.save(access)
   }
 
   async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {

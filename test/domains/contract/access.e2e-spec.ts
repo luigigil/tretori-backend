@@ -12,6 +12,8 @@ import { AccessModule } from 'src/domains/contract/access/access.module'
 
 describe('Access - /access (e2e)', () => {
   const access: IAccess = AccessFixture
+  const createAccess = CreateAccessFixture
+  const updateAccess = UpdateAccessFixture
 
   let app: INestApplication
 
@@ -31,19 +33,42 @@ describe('Access - /access (e2e)', () => {
         AccessModule,
       ],
     }).compile()
-  
+
     app = moduleFixture.createNestApplication()
     await app.init()
   })
 
   it('Create [POST /access]', () => {
     return request(app.getHttpServer())
-      .post('/access')
-      .send(access as IAccess)
+      .post('/contract/access')
+      .send(createAccess)
       .expect(201)
       .then(({ body }) => {
         expect(body).toEqual({ ...access, id: body.id })
       })
   })
 
+  it('Get access [GET /access]', () => {
+    return request(app.getHttpServer())
+      .get('/contract/access/1')
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toBeDefined()
+      })
+  })
+
+  it('Updates access [PATCH /access/:id]', () => {
+    return request(app.getHttpServer())
+      .patch('/contract/access/1')
+      .send({ ...updateAccess })
+      .expect(200)
+  })
+
+  it('Deletes access [DELETE /access/:id]', () => {
+    return request(app.getHttpServer()).delete('/contract/access/1').expect(200)
+  })
+
+  afterAll(async () => {
+    await app.close()
+  })
 })
