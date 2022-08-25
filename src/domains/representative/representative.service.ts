@@ -17,10 +17,13 @@ export class RepresentativeService {
     return representative
   }
 
+  // TODO After creating the relations, create a service to return all company representative
+  // ('representative/company') and all insurance representatives ('representative/insurance')
+
   async findAll(): Promise<RepresentativeRepository[]> {
-    const representative = await this.representativeRepository.find({})
-    if (!representative) throw new NotFoundException('Representative not found')
-    return representative
+    const representative = await this.representativeRepository.find({ take: 10 })
+    if (representative.length) return representative
+    throw new NotFoundException('Representative not found')
   }
 
   async create(representative: IRepresentative): Promise<RepresentativeRepository> {

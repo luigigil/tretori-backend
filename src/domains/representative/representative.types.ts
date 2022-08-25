@@ -7,5 +7,6 @@ export interface IRepresentative {
   email: string
   phone: string
   birthdate: string
-  insurance: string
+  insurance?: string
+  company?: string
 }

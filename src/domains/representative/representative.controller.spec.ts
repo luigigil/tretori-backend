@@ -4,6 +4,7 @@ import { RepresentativeController } from './representative.controller'
 import {
   CreateRepresentativeFixture,
   RepresentativeFixture,
+  RepresentativeFixtureArray,
   UpdateRepresentativeFixture,
 } from './fixtures/representative.fixtures'
 import { DeleteResult } from 'typeorm'
@@ -28,6 +29,9 @@ describe('AccessController', () => {
               .mockImplementation((id: number) =>
                 Promise.resolve({ id, ...RepresentativeFixture })
               ),
+            findAll: jest
+              .fn()
+              .mockImplementation(() => Promise.resolve([RepresentativeFixtureArray])),
             remove: jest.fn().mockImplementation(() => Promise.resolve(DeleteResult)),
             update: jest
               .fn()
@@ -59,9 +63,12 @@ describe('AccessController', () => {
     })
   })
 
-  describe('FindOne Representative', () => {
-    it('Should find one access', () => {
+  describe('Get Representative', () => {
+    it('Should find one representative', () => {
       expect(controller.findOne(1)).resolves.toEqual(RepresentativeFixture)
+    })
+    it('Should get a list of all representatives', () => {
+      expect(controller.findAll()).resolves.toEqual([RepresentativeFixtureArray])
     })
   })
 

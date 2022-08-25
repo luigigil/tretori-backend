@@ -1,7 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
-import { RepresentativeFixture } from './fixtures/representative.types'
+import {
+  RepresentativeFixture,
+  RepresentativeFixtureArray,
+  UpdateRepresentativeFixture,
+} from './fixtures/representative.fixtures'
 import { RepresentativeService } from './representative.service'
 import { RepresentativeRepository } from './representative.entity'
 import { NotFoundException } from '@nestjs/common'
@@ -17,20 +21,24 @@ describe('RepresentativeService', () => {
         {
           provide: getRepositoryToken(RepresentativeRepository),
           useValue: {
+            find: jest.fn().mockImplementation(() => Promise.resolve(RepresentativeFixtureArray)),
             findOne: jest
               .fn()
-              .mockResolvedValueOnce(AccessFixture)
-              .mockRejectedValueOnce(new NotFoundException('Access not found')),
-            save: jest.fn().mockResolvedValue(AccessFixture),
+              .mockResolvedValueOnce(RepresentativeFixture)
+              .mockRejectedValueOnce(new NotFoundException('Representative not found')),
+            findAll: jest.fn().mockReturnValue([RepresentativeFixtureArray]),
+            save: jest.fn().mockResolvedValue(RepresentativeFixture),
             remove: jest.fn().mockResolvedValue(DeleteResult),
-            update: jest.fn().mockResolvedValue(UpdateAccessFixture),
+            update: jest.fn().mockResolvedValue(UpdateRepresentativeFixture),
           },
         },
       ],
     }).compile()
 
-    service = module.get<AccessService>(AccessService)
-    repository = module.get<Repository<AccessRepository>>(getRepositoryToken(AccessRepository))
+    service = module.get<RepresentativeService>(RepresentativeService)
+    repository = module.get<Repository<RepresentativeRepository>>(
+      getRepositoryToken(RepresentativeRepository)
+    )
   })
 
   it('should be defined', () => {
@@ -38,18 +46,26 @@ describe('RepresentativeService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a access', async () => {
-      await expect(service.create(AccessFixture)).resolves.toEqual(AccessFixture)
+    it('should successfully insert a Representative', async () => {
+      await expect(service.create(RepresentativeFixture)).resolves.toEqual(RepresentativeFixture)
     })
   })
 
   describe('findOne()', () => {
-    it('should return access', async () => {
-      await expect(service.findOne(1)).resolves.toBe(AccessFixture)
+    it('should return Representative', async () => {
+      await expect(service.findOne(1)).resolves.toBe(RepresentativeFixture)
     })
     it('should throw NotFoundException', async () => {
       service.findOne(1)
-      await expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Access not found'))
+      await expect(service.findOne(1)).rejects.toThrow(
+        new NotFoundException('Representative not found')
+      )
+    })
+  })
+
+  describe('findAll()', () => {
+    it('should return an array of Representatives', async () => {
+      await expect(service.findAll()).resolves.toEqual(RepresentativeFixtureArray)
     })
   })
 
@@ -61,7 +77,9 @@ describe('RepresentativeService', () => {
 
   describe('update()', () => {
     it('should call update with the passed value', async () => {
-      await expect(service.update(1, UpdateAccessFixture)).resolves.toBe(UpdateAccessFixture)
+      await expect(service.update(1, UpdateRepresentativeFixture)).resolves.toBe(
+        UpdateRepresentativeFixture
+      )
     })
   })
 })

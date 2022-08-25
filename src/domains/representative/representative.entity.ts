@@ -26,6 +26,9 @@ export class RepresentativeRepository {
   @Column()
   birthdate: string
 
-  @Column()
+  @Column({ nullable: true })
   insurance: string
+
+  @Column({ nullable: true })
+  company: string
 }
