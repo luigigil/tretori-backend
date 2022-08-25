@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
-import { representativeFixture } from './fixtures/representative.types'
-import { AccessService } from './representative.service'
-import { AccessRepository } from './representative.entity'
+import { RepresentativeFixture } from './fixtures/representative.types'
+import { RepresentativeService } from './representative.service'
+import { RepresentativeRepository } from './representative.entity'
 import { NotFoundException } from '@nestjs/common'
 
-describe('AccessService', () => {
-  let service: AccessService
-  let repository: Repository<AccessRepository>
+describe('RepresentativeService', () => {
+  let service: RepresentativeService
+  let repository: Repository<RepresentativeRepository>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AccessService,
+        RepresentativeService,
         {
-          provide: getRepositoryToken(AccessRepository),
+          provide: getRepositoryToken(RepresentativeRepository),
           useValue: {
             findOne: jest
               .fn()

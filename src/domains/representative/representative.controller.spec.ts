@@ -9,8 +9,8 @@ import {
 import { DeleteResult } from 'typeorm'
 
 describe('AccessController', () => {
-  let representativeController: RepresentativeController
-  let representativeService: RepresentativeService
+  let controller: RepresentativeController
+  let service: RepresentativeService
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -36,23 +36,23 @@ describe('AccessController', () => {
         },
       ],
     }).compile()
-    representativeController = app.get<RepresentativeController>(RepresentativeController)
-    representativeService = app.get<RepresentativeService>(RepresentativeService)
+    controller = app.get<RepresentativeController>(RepresentativeController)
+    service = app.get<RepresentativeService>(RepresentativeService)
   })
 
   describe('Service is defined', () => {
     it('should be defined', () => {
-      expect(representativeController).toBeDefined()
+      expect(controller).toBeDefined()
     })
 
     it('Should be defined', () => {
-      expect(representativeService).toBeDefined()
+      expect(service).toBeDefined()
     })
   })
 
   describe('Create representative', () => {
     it('Should create an representative', () => {
-      expect(representativeController.create(CreateRepresentativeFixture)).resolves.toEqual({
+      expect(controller.create(CreateRepresentativeFixture)).resolves.toEqual({
         id: 1,
         ...RepresentativeFixture,
       })
@@ -61,13 +61,13 @@ describe('AccessController', () => {
 
   describe('FindOne Representative', () => {
     it('Should find one access', () => {
-      expect(representativeController.findOne(1)).resolves.toEqual(RepresentativeFixture)
+      expect(controller.findOne(1)).resolves.toEqual(RepresentativeFixture)
     })
   })
 
   describe('Update representative', () => {
     it('Should update an representative', () => {
-      expect(representativeController.update(1, RepresentativeFixture)).resolves.toEqual({
+      expect(controller.update(1, RepresentativeFixture)).resolves.toEqual({
         ...UpdateRepresentativeFixture,
       })
     })
@@ -75,7 +75,7 @@ describe('AccessController', () => {
 
   describe('Delete Representative', () => {
     it('Should delete an Representative', () => {
-      expect(representativeController.remove(1)).resolves.toEqual(DeleteResult)
+      expect(controller.remove(1)).resolves.toEqual(DeleteResult)
     })
   })
 })
