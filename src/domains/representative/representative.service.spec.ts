@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
-import { AccessFixture, UpdateAccessFixture } from './fixtures'
+import { representativeFixture } from './fixtures/representative.types'
 import { AccessService } from './representative.service'
 import { AccessRepository } from './representative.entity'
 import { NotFoundException } from '@nestjs/common'

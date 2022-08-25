@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { AccessService } from './representative.service'
 import { AccessController } from './representative.controller'
-import { AccessFixture, CreateAccessFixture, UpdateAccessFixture } from './fixtures'
+import { AccessFixture, CreateAccessFixture, UpdateAccessFixture } from './fixtures/representative.types'
 import { DeleteResult } from 'typeorm'
 
 describe('AccessController', () => {
