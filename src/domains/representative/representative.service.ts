@@ -1,33 +1,39 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, UpdateResult } from 'typeorm'
-import { IAccess } from '../common/contract.types'
-import { AccessRepository } from './representative.entity'
+import { IRepresentative } from './representative.types'
+import { RepresentativeRepository } from './representative.entity'
 
 @Injectable()
-export class AccessService {
+export class RepresentativeService {
   constructor(
-    @InjectRepository(AccessRepository)
-    private readonly accessRepository: Repository<AccessRepository>
+    @InjectRepository(RepresentativeRepository)
+    private readonly representativeRepository: Repository<RepresentativeRepository>
   ) {}
 
-  async findOne(id: number): Promise<AccessRepository> {
-    const access = this.accessRepository.findOne({ where: { id } })
-    if (!access) throw new NotFoundException('Access not found')
-    return access
+  async findOne(id: number): Promise<RepresentativeRepository> {
+    const representative = this.representativeRepository.findOne({ where: { id } })
+    if (!representative) throw new NotFoundException('Representative not found')
+    return representative
   }
 
-  async create(access: IAccess): Promise<AccessRepository> {
-    return this.accessRepository.save(access)
+  async findAll(): Promise<RepresentativeRepository[]> {
+    const representative = await this.representativeRepository.find({})
+    if (!representative) throw new NotFoundException('Representative not found')
+    return representative
   }
 
-  async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {
-    const access = await this.findOne(id)
-    return this.accessRepository.update(access, updateAccess)
+  async create(representative: IRepresentative): Promise<RepresentativeRepository> {
+    return this.representativeRepository.save(representative)
   }
 
-  async remove(id: number): Promise<AccessRepository> {
-    const access = await this.findOne(id)
-    return this.accessRepository.remove(access)
+  async update(id: number, updateRepresentative: IRepresentative): Promise<UpdateResult> {
+    const representative = await this.findOne(id)
+    return this.representativeRepository.update(representative, updateRepresentative)
+  }
+
+  async remove(id: number): Promise<RepresentativeRepository> {
+    const representative = await this.findOne(id)
+    return this.representativeRepository.remove(representative)
   }
 }

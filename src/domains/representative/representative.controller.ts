@@ -1,33 +1,38 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
-import { IAccess } from '../common/contract.types'
-import { AccessService } from './representative.service'
-import { AccessRepository } from './representative.entity'
+import { IRepresentative } from './representative.types'
+import { RepresentativeService } from './representative.service'
+import { RepresentativeRepository } from './representative.entity'
 import { UpdateResult } from 'typeorm'
 
-@Controller('contract/access')
-export class AccessController {
-  constructor(private readonly accessService: AccessService) {}
+@Controller('representative')
+export class RepresentativeController {
+  constructor(private readonly representativeService: RepresentativeService) {}
 
   @Post()
-  create(@Body() access: IAccess): Promise<AccessRepository> {
-    return this.accessService.create(access)
+  create(@Body() access: IRepresentative): Promise<RepresentativeRepository> {
+    return this.representativeService.create(access)
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<AccessRepository> {
-    return this.accessService.findOne(id)
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<RepresentativeRepository> {
+    return this.representativeService.findOne(id)
+  }
+
+  @Get()
+  findAll(): Promise<RepresentativeRepository[]> {
+    return this.representativeService.findAll()
   }
 
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateAccess: IAccess
+    @Body() updateAccess: IRepresentative
   ): Promise<UpdateResult> {
-    return this.accessService.update(id, updateAccess)
+    return this.representativeService.update(id, updateAccess)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<AccessRepository> {
-    return this.accessService.remove(id)
+  remove(@Param('id') id: number): Promise<RepresentativeRepository> {
+    return this.representativeService.remove(id)
   }
 }
