@@ -9,8 +9,8 @@ export class RepresentativeController {
   constructor(private readonly representativeService: RepresentativeService) {}
 
   @Post()
-  create(@Body() access: IRepresentative): Promise<RepresentativeRepository> {
-    return this.representativeService.create(access)
+  create(@Body() representative: IRepresentative): Promise<RepresentativeRepository> {
+    return this.representativeService.create(representative)
   }
 
   @Get(':id')
@@ -26,9 +26,9 @@ export class RepresentativeController {
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateAccess: IRepresentative
+    @Body() updateRepresentative: IRepresentative
   ): Promise<UpdateResult> {
-    return this.representativeService.update(id, updateAccess)
+    return this.representativeService.update(id, updateRepresentative)
   }
 
   @Delete(':id')

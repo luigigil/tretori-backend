@@ -2,18 +2,18 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { IAccess } from 'src/domains/contract/common/contract.types'
+import { IRepresentative } from 'src/domains/representative/representative.types'
 import {
-  CreateAccessFixture,
-  UpdateAccessFixture,
-  AccessFixture,
-} from 'src/domains/contract/access/fixtures/index'
-import { AccessModule } from 'src/domains/contract/access/access.module'
+  CreateRepresentativeFixture,
+  RepresentativeFixture,
+  UpdateRepresentativeFixture,
+} from 'src/domains/representative/fixtures/representative.fixtures'
+import { RepresentativeModule } from 'src/domains/representative/representative.module'
 
-describe('Access - /access (e2e)', () => {
-  const access: IAccess = AccessFixture
-  const createAccess = CreateAccessFixture
-  const updateAccess = UpdateAccessFixture
+describe('Representative - /representative (e2e)', () => {
+  const representative: IRepresentative = RepresentativeFixture
+  const createRepresentative = CreateRepresentativeFixture
+  const updateRepresentative = UpdateRepresentativeFixture
 
   let app: INestApplication
 
@@ -30,7 +30,7 @@ describe('Access - /access (e2e)', () => {
           autoLoadEntities: true,
           synchronize: true,
         }),
-        AccessModule,
+        RepresentativeModule,
       ],
     }).compile()
 
@@ -38,34 +38,43 @@ describe('Access - /access (e2e)', () => {
     await app.init()
   })
 
-  it('Create [POST /access]', () => {
+  it('Create [POST /representative]', () => {
     return request(app.getHttpServer())
-      .post('/contract/access')
-      .send(createAccess)
+      .post('/representative')
+      .send(createRepresentative)
       .expect(201)
       .then(({ body }) => {
-        expect(body).toEqual({ ...access, id: body.id })
+        expect(body).toEqual({ ...representative, id: body.id, company: null })
       })
   })
 
-  it('Get access [GET /access]', () => {
+  it('Get all representative [GET /representative]', () => {
     return request(app.getHttpServer())
-      .get('/contract/access/1')
+      .get('/representative/')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Updates access [PATCH /access/:id]', () => {
+  it('Get representative [GET /representative/id]', () => {
     return request(app.getHttpServer())
-      .patch('/contract/access/1')
-      .send({ ...updateAccess })
+      .get('/representative/2')
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toBeDefined()
+      })
+  })
+
+  it('Updates representative [PATCH /representative/:id]', () => {
+    return request(app.getHttpServer())
+      .patch('/representative/2')
+      .send({ ...updateRepresentative })
       .expect(200)
   })
 
-  it('Deletes access [DELETE /access/:id]', () => {
-    return request(app.getHttpServer()).delete('/contract/access/1').expect(200)
+  it('Deletes representative [DELETE /representative/:id]', () => {
+    return request(app.getHttpServer()).delete('/representative/2').expect(200)
   })
 
   afterAll(async () => {

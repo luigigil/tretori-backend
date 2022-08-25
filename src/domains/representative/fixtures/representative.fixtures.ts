@@ -10,6 +10,7 @@ export const RepresentativeFixture: IRepresentative = {
   phone: '+55 (11) 99999-9999',
   birthdate: '01/02/1990',
   insurance: 'Seguradora Segura',
+  company: null,
 }
 
 export const CreateRepresentativeFixture: IRepresentative = {
@@ -21,10 +22,10 @@ export const CreateRepresentativeFixture: IRepresentative = {
   phone: '+55 (11) 99999-9999',
   birthdate: '01/02/1990',
   insurance: 'Seguradora Segura',
+  company: null,
 }
 
 export const UpdateRepresentativeFixture: IRepresentative = {
-  id: 1,
   type: 'Insurance',
   name: 'José da silva Sauro',
   role: 'Diretor de RH',
@@ -33,6 +34,7 @@ export const UpdateRepresentativeFixture: IRepresentative = {
   phone: '+55 (11) 99999-9999',
   birthdate: '01/02/1990',
   insurance: 'Seguradora Segura',
+  company: null,
 }
 
 export const RepresentativeFixtureArray: IRepresentative[] = [
@@ -46,6 +48,7 @@ export const RepresentativeFixtureArray: IRepresentative[] = [
     phone: '+55 (11) 99999-9999',
     birthdate: '01/02/1990',
     insurance: 'Seguradora Segura',
+    company: null,
   },
   {
     id: 2,
@@ -57,5 +60,6 @@ export const RepresentativeFixtureArray: IRepresentative[] = [
     phone: '+55 (21) 98888-9999',
     birthdate: '02/03/1970',
     company: 'Casa do Amaro',
+    insurance: null,
   },
 ]

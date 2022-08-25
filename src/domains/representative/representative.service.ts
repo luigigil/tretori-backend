@@ -12,7 +12,7 @@ export class RepresentativeService {
   ) {}
 
   async findOne(id: number): Promise<RepresentativeRepository> {
-    const representative = this.representativeRepository.findOne({ where: { id } })
+    const representative = await this.representativeRepository.findOne({ where: { id } })
     if (!representative) throw new NotFoundException('Representative not found')
     return representative
   }
