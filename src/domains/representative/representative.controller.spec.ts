@@ -1,73 +1,81 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { AccessService } from './representative.service'
-import { AccessController } from './representative.controller'
-import { AccessFixture, CreateAccessFixture, UpdateAccessFixture } from './fixtures/representative.types'
+import { RepresentativeService } from './representative.service'
+import { RepresentativeController } from './representative.controller'
+import {
+  CreateRepresentativeFixture,
+  RepresentativeFixture,
+  UpdateRepresentativeFixture,
+} from './fixtures/representative.fixtures'
 import { DeleteResult } from 'typeorm'
 
 describe('AccessController', () => {
-  let accessController: AccessController
-  let accessService: AccessService
+  let representativeController: RepresentativeController
+  let representativeService: RepresentativeService
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AccessController],
+      controllers: [RepresentativeController],
       providers: [
-        AccessService,
+        RepresentativeService,
         {
-          provide: AccessService,
+          provide: RepresentativeService,
           useValue: {
             create: jest
               .fn()
-              .mockImplementation(() => Promise.resolve({ id: 1, ...AccessFixture })),
+              .mockImplementation(() => Promise.resolve({ id: 1, ...RepresentativeFixture })),
             findOne: jest
               .fn()
-              .mockImplementation((id: number) => Promise.resolve({ id, ...AccessFixture })),
+              .mockImplementation((id: number) =>
+                Promise.resolve({ id, ...RepresentativeFixture })
+              ),
             remove: jest.fn().mockImplementation(() => Promise.resolve(DeleteResult)),
-            update: jest.fn().mockImplementation(() => Promise.resolve({ ...UpdateAccessFixture })),
+            update: jest
+              .fn()
+              .mockImplementation(() => Promise.resolve({ ...UpdateRepresentativeFixture })),
           },
         },
       ],
     }).compile()
-    accessController = app.get<AccessController>(AccessController)
-    accessService = app.get<AccessService>(AccessService)
+    representativeController = app.get<RepresentativeController>(RepresentativeController)
+    representativeService = app.get<RepresentativeService>(RepresentativeService)
   })
 
   describe('Service is defined', () => {
     it('should be defined', () => {
-      expect(AccessController).toBeDefined()
+      expect(representativeController).toBeDefined()
     })
 
     it('Should be defined', () => {
-      expect(accessService).toBeDefined()
+      expect(representativeService).toBeDefined()
     })
   })
 
-  describe('Create access', () => {
-    it('Should create an access', () => {
-      expect(accessController.create(CreateAccessFixture)).resolves.toEqual({
+  describe('Create representative', () => {
+    it('Should create an representative', () => {
+      expect(representativeController.create(CreateRepresentativeFixture)).resolves.toEqual({
         id: 1,
-        ...AccessFixture,
+        ...RepresentativeFixture,
       })
     })
   })
 
-  describe('FindOne access', () => {
+  describe('FindOne Representative', () => {
     it('Should find one access', () => {
-      expect(accessController.findOne(1)).resolves.toEqual(AccessFixture)
+      expect(representativeController.findOne(1)).resolves.toEqual(RepresentativeFixture)
     })
   })
 
-  describe('Update access', () => {
-    it('Should update an access', () => {
-      expect(accessController.update(1, AccessFixture)).resolves.toEqual({
-        ...UpdateAccessFixture,
+  describe('Update representative', () => {
+    it('Should update an representative', () => {
+      expect(representativeController.update(1, RepresentativeFixture)).resolves.toEqual({
+        ...UpdateRepresentativeFixture,
       })
     })
   })
 
-  describe('Delete access', () => {
-    it('Should delete an access', () => {
-      expect(accessController.remove(1)).resolves.toEqual(DeleteResult)
+  describe('Delete Representative', () => {
+    it('Should delete an Representative', () => {
+      expect(representativeController.remove(1)).resolves.toEqual(DeleteResult)
     })
   })
 })
