@@ -1,13 +1,13 @@
-import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ILegalPerson } from 'src/domains/customer/common/customer.types'
-import { LegalPersonModule } from 'src/domains/customer/legal-person/legal-person.module'
-import { oneLegalPersonFixture } from 'src/domains/customer/legal-person/test/fixtures'
+import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { IProduct } from 'src/domains/product/product.types'
+import { oneProductFixture } from 'src/domains/product/test/fixtures'
+import { ProductModule } from 'src/domains/product/product.module'
 
-describe('Legal Person - /legal-person (e2e)', () => {
-  const legalPerson: ILegalPerson = oneLegalPersonFixture
+describe('Product - /product (e2e)', () => {
+  const product: IProduct = oneProductFixture
 
   let app: INestApplication
 
@@ -24,7 +24,7 @@ describe('Legal Person - /legal-person (e2e)', () => {
           autoLoadEntities: true,
           synchronize: true,
         }),
-        LegalPersonModule,
+        ProductModule,
       ],
     }).compile()
 
@@ -32,36 +32,36 @@ describe('Legal Person - /legal-person (e2e)', () => {
     await app.init()
   })
 
-  it('Create [POST /legal-person]', () => {
+  it('Create [POST /product]', () => {
     return request(app.getHttpServer())
-      .post('/legal-person')
-      .send(legalPerson as ILegalPerson)
+      .post('/product')
+      .send(product as IProduct)
       .expect(201)
       .then(({ body }) => {
-        expect(body).toEqual({ ...legalPerson, id: body.id })
+        expect(body).toEqual({ ...product, id: body.id })
       })
   })
 
-  it('Get all legal person [GET /legal-person]', () => {
+  it('Get all product [GET /product]', () => {
     return request(app.getHttpServer())
-      .get('/legal-person')
+      .get('/product')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one legal person [GET /legal-person/:id]', () => {
+  it('Get one product [GET /product/:id]', () => {
     return request(app.getHttpServer())
-      .get('/legal-person/2')
+      .get('/product/2')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Delete one legal person [DELETE /legal-person/:id]', () => {
-    return request(app.getHttpServer()).delete('/legal-person/1').expect(200)
+  it('Delete one product [DELETE /product/:id]', () => {
+    return request(app.getHttpServer()).delete('/product/1').expect(200)
   })
 
   afterAll(async () => {

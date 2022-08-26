@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { legalPersonArrayFixture, oneLegalPersonFixture } from './fixtures'
-import { LegalPersonService } from './legal-person.service'
-import { LegalPerson } from './legal-person.entity'
+import { LegalPersonService } from '../legal-person.service'
+import { LegalPerson } from '../legal-person.entity'
 
 describe('LegalPersonService', () => {
   let service: LegalPersonService

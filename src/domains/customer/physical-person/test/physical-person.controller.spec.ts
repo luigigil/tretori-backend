@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { IPhysicalPerson } from '../common/customer.types'
+import { IPhysicalPerson } from '../../common/customer.types'
 import { onePhysicalPersonFixture, physicalPersonArrayFixture } from './fixtures'
-import { PhysicalPersonController } from './physical-person.controller'
-import { PhysicalPersonService } from './physical-person.service'
+import { PhysicalPersonController } from '../physical-person.controller'
+import { PhysicalPersonService } from '../physical-person.service'
 
 describe('PhysicalPersonController', () => {
   let physicalPersonController: PhysicalPersonController
