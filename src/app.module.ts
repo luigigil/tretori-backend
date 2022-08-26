@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConctractModule } from './domains/core/contract/contract.module'
+import { MoveModule } from './domains/core/move/move.module'
+import { RenewModule } from './domains/core/renew/renew.module'
 import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
 import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
+import { ProductModule } from './domains/product/product.module'
 
 @Module({
   imports: [
@@ -18,8 +22,12 @@ import { PhysicalPersonModule } from './domains/customer/physical-person/physica
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     }),
+    ConctractModule,
+    MoveModule,
     LegalPersonModule,
     PhysicalPersonModule,
+    ProductModule,
+    RenewModule,
   ],
 })
 export class AppModule {}
