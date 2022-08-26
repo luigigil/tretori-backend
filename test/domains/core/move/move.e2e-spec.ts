@@ -1,13 +1,13 @@
-import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ILegalPerson } from 'src/domains/customer/common/customer.types'
-import { LegalPersonModule } from 'src/domains/customer/legal-person/legal-person.module'
-import { oneLegalPersonFixture } from 'src/domains/customer/legal-person/test/fixtures'
+import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { IMove } from 'src/domains/core/move/move.types'
+import { oneMoveFixture } from 'src/domains/core/move/test/fixtures'
+import { MoveModule } from 'src/domains/core/move/move.module'
 
-describe('Legal Person - /legal-person (e2e)', () => {
-  const legalPerson: ILegalPerson = oneLegalPersonFixture
+describe('Move - /move (e2e)', () => {
+  const move: IMove = oneMoveFixture
 
   let app: INestApplication
 
@@ -24,7 +24,7 @@ describe('Legal Person - /legal-person (e2e)', () => {
           autoLoadEntities: true,
           synchronize: true,
         }),
-        LegalPersonModule,
+        MoveModule,
       ],
     }).compile()
 
@@ -32,36 +32,36 @@ describe('Legal Person - /legal-person (e2e)', () => {
     await app.init()
   })
 
-  it('Create [POST /legal-person]', () => {
+  it('Create [POST /move]', () => {
     return request(app.getHttpServer())
-      .post('/legal-person')
-      .send(legalPerson as ILegalPerson)
+      .post('/move')
+      .send(move as IMove)
       .expect(201)
       .then(({ body }) => {
-        expect(body).toEqual({ ...legalPerson, id: body.id })
+        expect(body).toEqual({ ...move, id: body.id })
       })
   })
 
-  it('Get all legal person [GET /legal-person]', () => {
+  it('Get all move [GET /move]', () => {
     return request(app.getHttpServer())
-      .get('/legal-person')
+      .get('/move')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one legal person [GET /legal-person/:id]', () => {
+  it('Get one move [GET /move/:id]', () => {
     return request(app.getHttpServer())
-      .get('/legal-person/2')
+      .get('/move/2')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Delete one legal person [DELETE /legal-person/:id]', () => {
-    return request(app.getHttpServer()).delete('/legal-person/1').expect(200)
+  it('Delete one move [DELETE /move/:id]', () => {
+    return request(app.getHttpServer()).delete('/move/1').expect(200)
   })
 
   afterAll(async () => {

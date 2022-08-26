@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { IPhysicalPerson } from 'src/domains/customer/common/customer.types'
-import { onePhysicalPersonFixture } from 'src/domains/customer/physical-person/fixtures'
+import { onePhysicalPersonFixture } from 'src/domains/customer/physical-person/test/fixtures'
 import { PhysicalPersonModule } from 'src/domains/customer/physical-person/physical-person.module'
 
 describe('Physical Person - /physical-person (e2e)', () => {
