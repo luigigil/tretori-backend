@@ -59,7 +59,7 @@ describe('Representative - /representative (e2e)', () => {
 
   it('Get representative [GET /representative/id]', () => {
     return request(app.getHttpServer())
-      .get('/representative/2')
+      .get('/representative/1')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -68,13 +68,13 @@ describe('Representative - /representative (e2e)', () => {
 
   it('Updates representative [PATCH /representative/:id]', () => {
     return request(app.getHttpServer())
-      .patch('/representative/2')
+      .patch('/representative/1')
       .send({ ...updateRepresentative })
       .expect(200)
   })
 
   it('Deletes representative [DELETE /representative/:id]', () => {
-    return request(app.getHttpServer()).delete('/representative/2').expect(200)
+    return request(app.getHttpServer()).delete('/representative/1').expect(200)
   })
 
   afterAll(async () => {
