@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ILegalPerson } from '../common/customer.types'
+import { ILegalPerson } from '../../common/customer.types'
 import { legalPersonArrayFixture, oneLegalPersonFixture } from './fixtures'
-import { LegalPersonController } from './legal-person.controller'
-import { LegalPersonService } from './legal-person.service'
+import { LegalPersonController } from '../legal-person.controller'
+import { LegalPersonService } from '../legal-person.service'
 
 describe('LegalPersonController', () => {
   let legalPersonController: LegalPersonController

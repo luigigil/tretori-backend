@@ -2,14 +2,17 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Contract } from 'src/domains/core/contract/contract.entity'
-import { ILegalPerson } from 'src/domains/customer/common/customer.types'
-import { LegalPerson } from 'src/domains/customer/legal-person/legal-person.entity'
-import { LegalPersonModule } from 'src/domains/customer/legal-person/legal-person.module'
-import { oneLegalPersonFixture } from 'src/domains/customer/legal-person/test/fixtures'
+import { ContractModule } from 'src/domains/core/contract/contract.module'
+import { IContract } from 'src/domains/core/contract/contract.types'
+import { oneContractFixture } from 'src/domains/core/contract/test/fixtures'
+import { Move } from 'src/domains/core/move/move.entity'
+import { MoveModule } from 'src/domains/core/move/move.module'
+import { Renew } from 'src/domains/core/renew/renew.entity'
+import { RenewModule } from 'src/domains/core/renew/renew.module'
 import * as request from 'supertest'
 
-describe('Legal Person - /legal-person (e2e)', () => {
-  const legalPerson: ILegalPerson = oneLegalPersonFixture
+describe('Contract - /contract (e2e)', () => {
+  const contract: IContract = oneContractFixture
 
   let app: INestApplication
 
@@ -26,7 +29,9 @@ describe('Legal Person - /legal-person (e2e)', () => {
           entities: ['src/**/*.entity.ts'],
           synchronize: true,
         }),
-        LegalPersonModule,
+        ContractModule,
+        MoveModule,
+        RenewModule,
       ],
     }).compile()
 
@@ -34,36 +39,37 @@ describe('Legal Person - /legal-person (e2e)', () => {
     await app.init()
   })
 
-  it('Create [POST /legal-person]', () => {
+  it('Create [POST /contract]', () => {
     return request(app.getHttpServer())
-      .post('/legal-person')
-      .send(legalPerson as ILegalPerson)
+      .post('/contract')
+      .send(contract as IContract)
       .expect(201)
       .then(({ body }) => {
-        expect(body).toEqual({ ...legalPerson, id: body.id })
+        console.log(body)
+        expect(body).toEqual({ ...contract, id: body.id })
       })
   })
 
-  it('Get all legal person [GET /legal-person]', () => {
+  it('Get all contract [GET /contract]', () => {
     return request(app.getHttpServer())
-      .get('/legal-person')
+      .get('/contract')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one legal person [GET /legal-person/:id]', () => {
+  it('Get one contract [GET /contract/:id]', () => {
     return request(app.getHttpServer())
-      .get('/legal-person/2')
+      .get('/contract/2')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Delete one legal person [DELETE /legal-person/:id]', () => {
-    return request(app.getHttpServer()).delete('/legal-person/1').expect(200)
+  it('Delete one contract [DELETE /contract/:id]', () => {
+    return request(app.getHttpServer()).delete('/contract/1').expect(200)
   })
 
   afterAll(async () => {

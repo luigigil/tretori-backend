@@ -3,8 +3,10 @@ import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { IPhysicalPerson } from 'src/domains/customer/common/customer.types'
-import { onePhysicalPersonFixture } from 'src/domains/customer/physical-person/fixtures'
+import { onePhysicalPersonFixture } from 'src/domains/customer/physical-person/test/fixtures'
 import { PhysicalPersonModule } from 'src/domains/customer/physical-person/physical-person.module'
+import { Contract } from 'src/domains/core/contract/contract.entity'
+import { PhysicalPerson } from 'src/domains/customer/physical-person/physical-person.entity'
 
 describe('Physical Person - /physical-person (e2e)', () => {
   const physicalPerson: IPhysicalPerson = onePhysicalPersonFixture
@@ -21,7 +23,7 @@ describe('Physical Person - /physical-person (e2e)', () => {
           username: 'tretori-user',
           password: 'tr3t0r!',
           database: 'tretori-test',
-          autoLoadEntities: true,
+          entities: ['src/**/*.entity.ts'],
           synchronize: true,
         }),
         PhysicalPersonModule,
