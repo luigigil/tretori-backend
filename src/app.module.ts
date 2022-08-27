@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AccessModule } from './domains/contract/access/access.module'
+import { AccessModule } from './domains/core/access/access.module'
 import { ContractModule } from './domains/core/contract/contract.module'
 import { MoveModule } from './domains/core/move/move.module'
 import { RenewModule } from './domains/core/renew/renew.module'

@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
-import { IAccess } from '../common/contract.types'
+import { IAccess } from './access.types'
 import { AccessService } from './access.service'
 import { AccessRepository } from './access.entity'
 import { UpdateResult } from 'typeorm'

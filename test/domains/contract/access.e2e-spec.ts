@@ -2,13 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { IAccess } from 'src/domains/contract/common/contract.types'
+import { IAccess } from 'src/domains/core/access/access.types'
 import {
   CreateAccessFixture,
   UpdateAccessFixture,
   AccessFixture,
-} from 'src/domains/contract/access/fixtures/index'
-import { AccessModule } from 'src/domains/contract/access/access.module'
+} from 'src/domains/core/access/access.fixtures'
+import { AccessModule } from 'src/domains/core/access/access.module'
 
 describe('Access - /access (e2e)', () => {
   const access: IAccess = AccessFixture

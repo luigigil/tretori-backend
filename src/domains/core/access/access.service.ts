@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, UpdateResult } from 'typeorm'
-import { IAccess } from '../common/contract.types'
+import { IAccess } from './access.types'
 import { AccessRepository } from './access.entity'
 
 @Injectable()

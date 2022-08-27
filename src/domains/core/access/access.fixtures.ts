@@ -1,4 +1,4 @@
-import { IAccess } from '../../common/contract.types'
+import { IAccess } from './access.types'
 
 export const AccessFixture: IAccess = {
   id: 1,
