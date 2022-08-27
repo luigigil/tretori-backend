@@ -2,32 +2,32 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, UpdateResult } from 'typeorm'
 import { IAccess } from './access.types'
-import { AccessRepository } from './access.entity'
+import { Access } from './access.entity'
 
 @Injectable()
 export class AccessService {
   constructor(
-    @InjectRepository(AccessRepository)
-    private readonly accessRepository: Repository<AccessRepository>
+    @InjectRepository(Access)
+    private readonly Access: Repository<Access>
   ) {}
 
-  async findOne(id: number): Promise<AccessRepository> {
-    const access = this.accessRepository.findOne({ where: { id } })
+  async findOne(id: number): Promise<Access> {
+    const access = this.Access.findOne({ where: { id } })
     if (!access) throw new NotFoundException('Access not found')
     return access
   }
 
-  async create(access: IAccess): Promise<AccessRepository> {
-    return this.accessRepository.save(access)
+  async create(access: IAccess): Promise<Access> {
+    return this.Access.save(access)
   }
 
   async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {
     const access = await this.findOne(id)
-    return this.accessRepository.update(access, updateAccess)
+    return this.Access.update(access, updateAccess)
   }
 
-  async remove(id: number): Promise<AccessRepository> {
+  async remove(id: number): Promise<Access> {
     const access = await this.findOne(id)
-    return this.accessRepository.remove(access)
+    return this.Access.remove(access)
   }
 }

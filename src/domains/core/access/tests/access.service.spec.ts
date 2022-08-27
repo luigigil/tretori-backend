@@ -3,19 +3,19 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
 import { AccessFixture, UpdateAccessFixture } from '../access.fixtures'
 import { AccessService } from '../access.service'
-import { AccessRepository } from '../access.entity'
+import { Access } from '../access.entity'
 import { NotFoundException } from '@nestjs/common'
 
 describe('AccessService', () => {
   let service: AccessService
-  let repository: Repository<AccessRepository>
+  let repository: Repository<Access>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AccessService,
         {
-          provide: getRepositoryToken(AccessRepository),
+          provide: getRepositoryToken(Access),
           useValue: {
             findOne: jest
               .fn()
@@ -30,7 +30,7 @@ describe('AccessService', () => {
     }).compile()
 
     service = module.get<AccessService>(AccessService)
-    repository = module.get<Repository<AccessRepository>>(getRepositoryToken(AccessRepository))
+    repository = module.get<Repository<Access>>(getRepositoryToken(Access))
   })
 
   it('should be defined', () => {
