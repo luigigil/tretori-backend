@@ -1,15 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { IContract } from '../contract.types'
-import { oneContractFixture, contractArrayFixture } from './fixtures'
+import { getRepositoryToken } from '@nestjs/typeorm'
+import { LegalPerson } from '../../../customer/legal-person/legal-person.entity'
+import { LegalPersonService } from '../../../customer/legal-person/legal-person.service'
+import {
+  legalPersonArrayFixture,
+  oneLegalPersonFixture,
+} from '../../../customer/legal-person/test/fixtures'
+import { PhysicalPerson } from '../../../customer/physical-person/physical-person.entity'
+import { PhysicalPersonService } from '../../../customer/physical-person/physical-person.service'
+import {
+  onePhysicalPersonFixture,
+  physicalPersonArrayFixture,
+} from '../../../customer/physical-person/test/fixtures'
+import { Move } from '../../move/move.entity'
+import { MoveService } from '../../move/move.service'
+import { moveArrayFixture, oneMoveFixture } from '../../move/test/fixtures'
+import { Renew } from '../../renew/renew.entity'
+import { RenewService } from '../../renew/renew.service'
+import { oneRenewFixture, renewArrayFixture } from '../../renew/test/fixtures'
 import { ContractController } from '../contract.controller'
 import { ContractService } from '../contract.service'
-import { MoveService } from '../../move/move.service'
-import { getRepositoryToken } from '@nestjs/typeorm'
-import { Move } from '../../move/move.entity'
-import { moveArrayFixture, oneMoveFixture } from '../../move/test/fixtures'
-import { RenewService } from '../../renew/renew.service'
-import { Renew } from '../../renew/renew.entity'
-import { oneRenewFixture, renewArrayFixture } from '../../renew/test/fixtures'
+import { IContract } from '../contract.types'
+import { contractArrayFixture, oneContractFixture } from './fixtures'
 
 describe('ContractController', () => {
   let contractController: ContractController
@@ -22,6 +34,8 @@ describe('ContractController', () => {
         ContractService,
         MoveService,
         RenewService,
+        PhysicalPersonService,
+        LegalPersonService,
         {
           provide: ContractService,
           useValue: {
@@ -51,6 +65,26 @@ describe('ContractController', () => {
             find: jest.fn().mockResolvedValue(renewArrayFixture),
             findOneBy: jest.fn().mockResolvedValue(oneRenewFixture),
             save: jest.fn().mockResolvedValue(oneRenewFixture),
+            remove: jest.fn(),
+            delete: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(LegalPerson),
+          useValue: {
+            find: jest.fn().mockResolvedValue(legalPersonArrayFixture),
+            findOneBy: jest.fn().mockResolvedValue(oneLegalPersonFixture),
+            save: jest.fn().mockResolvedValue(oneLegalPersonFixture),
+            remove: jest.fn(),
+            delete: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(PhysicalPerson),
+          useValue: {
+            find: jest.fn().mockResolvedValue(physicalPersonArrayFixture),
+            findOneBy: jest.fn().mockResolvedValue(onePhysicalPersonFixture),
+            save: jest.fn().mockResolvedValue(onePhysicalPersonFixture),
             remove: jest.fn(),
             delete: jest.fn(),
           },

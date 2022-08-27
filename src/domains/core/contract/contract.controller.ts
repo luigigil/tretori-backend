@@ -6,9 +6,9 @@ import { IMove } from '../move/move.types'
 import { IRenew } from '../renew/renew.types'
 import { MoveService } from '../move/move.service'
 import { RenewService } from '../renew/renew.service'
-import { PhysicalPersonService } from 'src/domains/customer/physical-person/physical-person.service'
-import { LegalPersonService } from 'src/domains/customer/legal-person/legal-person.service'
-import { ILegalPerson, IPhysicalPerson } from 'src/domains/customer/common/customer.types'
+import { PhysicalPersonService } from '../../customer/physical-person/physical-person.service'
+import { LegalPersonService } from '../../customer/legal-person/legal-person.service'
+import { ILegalPerson, IPhysicalPerson } from '../../customer/common/customer.types'
 
 class IMoveResponse {
   @ApiProperty()
