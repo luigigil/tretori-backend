@@ -30,7 +30,4 @@ export class Customer {
 
   @Column()
   email: string
-
-  @Column()
-  contract: string
 }

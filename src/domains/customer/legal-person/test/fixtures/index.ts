@@ -1,4 +1,4 @@
-import { ILegalPerson } from 'src/domains/customer/common/customer.types'
+import { ILegalPerson } from '../../../../customer/common/customer.types'
 
 export const legalPersonArrayFixture: ILegalPerson[] = [
   {
@@ -7,7 +7,6 @@ export const legalPersonArrayFixture: ILegalPerson[] = [
     city: 'Haagfield',
     cnpj: '8',
     code: 'm',
-    contract: 'h',
     email: 'Delbert96@yahoo.com',
     fantasy_name: 'Marks - Dach',
     id: 1,
@@ -19,6 +18,7 @@ export const legalPersonArrayFixture: ILegalPerson[] = [
     social_reason: 'Zemlak and Sons',
     type: 'l',
     uf: 'New York',
+    contracts: [],
   },
   {
     address: '3893 Heather Fork',
@@ -26,7 +26,6 @@ export const legalPersonArrayFixture: ILegalPerson[] = [
     city: 'Larkinberg',
     cnpj: '1',
     code: 'x',
-    contract: 's',
     email: 'Albert.Ullrich8@gmail.com',
     fantasy_name: 'Bernhard Group',
     id: 2,
@@ -38,6 +37,7 @@ export const legalPersonArrayFixture: ILegalPerson[] = [
     social_reason: "O'Kon, Gutmann and Reynolds",
     type: 'b',
     uf: 'North Carolina',
+    contracts: [],
   },
 ]
 
@@ -47,7 +47,6 @@ export const oneLegalPersonFixture: ILegalPerson = {
   city: 'Weimannchester',
   cnpj: '2',
   code: 'n',
-  contract: 'b',
   email: 'Jakayla_Waters@gmail.com',
   fantasy_name: 'Orn Inc',
   neighborhood: 'Suite 544',
@@ -58,4 +57,5 @@ export const oneLegalPersonFixture: ILegalPerson = {
   social_reason: 'Hauck, Wunsch and Halvorson',
   type: 'h',
   uf: 'Missouri',
+  contracts: [],
 }

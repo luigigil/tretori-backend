@@ -1,4 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { ILegalPerson, IPhysicalPerson } from '../../customer/common/customer.types'
+import { IMove } from '../move/move.types'
+import { IRenew } from '../renew/renew.types'
 
 export class IContract {
   @ApiProperty()
@@ -66,4 +69,16 @@ export class IContract {
 
   @ApiProperty()
   first_invoice_date: string
+
+  @ApiProperty()
+  renew?: IRenew
+
+  @ApiProperty()
+  move?: IMove
+
+  @ApiProperty()
+  legal_person?: ILegalPerson
+
+  @ApiProperty()
+  physical_person?: IPhysicalPerson
 }

@@ -1,10 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
-import * as request from 'supertest'
+import { Test, TestingModule } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { Contract } from 'src/domains/core/contract/contract.entity'
+import { ContractModule } from 'src/domains/core/contract/contract.module'
 import { IContract } from 'src/domains/core/contract/contract.types'
 import { oneContractFixture } from 'src/domains/core/contract/test/fixtures'
-import { ConctractModule } from 'src/domains/core/contract/contract.module'
+import { Move } from 'src/domains/core/move/move.entity'
+import { MoveModule } from 'src/domains/core/move/move.module'
+import { Renew } from 'src/domains/core/renew/renew.entity'
+import { RenewModule } from 'src/domains/core/renew/renew.module'
+import * as request from 'supertest'
 
 describe('Contract - /contract (e2e)', () => {
   const contract: IContract = oneContractFixture
@@ -21,10 +26,12 @@ describe('Contract - /contract (e2e)', () => {
           username: 'tretori-user',
           password: 'tr3t0r!',
           database: 'tretori-test',
-          autoLoadEntities: true,
+          entities: ['src/**/*.entity.ts'],
           synchronize: true,
         }),
-        ConctractModule,
+        ContractModule,
+        MoveModule,
+        RenewModule,
       ],
     }).compile()
 
@@ -38,6 +45,7 @@ describe('Contract - /contract (e2e)', () => {
       .send(contract as IContract)
       .expect(201)
       .then(({ body }) => {
+        console.log(body)
         expect(body).toEqual({ ...contract, id: body.id })
       })
   })

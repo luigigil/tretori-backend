@@ -1,7 +1,9 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { Contract } from 'src/domains/core/contract/contract.entity'
 import { ILegalPerson } from 'src/domains/customer/common/customer.types'
+import { LegalPerson } from 'src/domains/customer/legal-person/legal-person.entity'
 import { LegalPersonModule } from 'src/domains/customer/legal-person/legal-person.module'
 import { oneLegalPersonFixture } from 'src/domains/customer/legal-person/test/fixtures'
 import * as request from 'supertest'
@@ -21,7 +23,7 @@ describe('Legal Person - /legal-person (e2e)', () => {
           username: 'tretori-user',
           password: 'tr3t0r!',
           database: 'tretori-test',
-          autoLoadEntities: true,
+          entities: ['src/**/*.entity.ts'],
           synchronize: true,
         }),
         LegalPersonModule,
