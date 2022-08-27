@@ -12,11 +12,26 @@ export class ContractService {
   ) {}
 
   findAll(): Promise<Contract[]> {
-    return this.contractRepository.find()
+    return this.contractRepository.find({
+      relations: {
+        physical_person: true,
+        legal_person: true,
+        renew: true,
+        move: true,
+      },
+    })
   }
 
   findOne(id: number): Promise<Contract> {
-    return this.contractRepository.findOneBy({ id })
+    return this.contractRepository.findOne({
+      where: { id },
+      relations: {
+        physical_person: true,
+        legal_person: true,
+        renew: true,
+        move: true,
+      },
+    })
   }
 
   create(contract: IContract): Promise<Contract> {

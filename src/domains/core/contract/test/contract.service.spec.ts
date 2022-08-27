@@ -1,9 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { contractArrayFixture, oneContractFixture } from './fixtures'
-import { ContractService } from '../contract.service'
+import { Move } from '../../move/move.entity'
+import { MoveService } from '../../move/move.service'
+import { moveArrayFixture, oneMoveFixture } from '../../move/test/fixtures'
+import { Renew } from '../../renew/renew.entity'
+import { RenewService } from '../../renew/renew.service'
+import { oneRenewFixture, renewArrayFixture } from '../../renew/test/fixtures'
 import { Contract } from '../contract.entity'
+import { ContractService } from '../contract.service'
+import { contractArrayFixture, oneContractFixture } from './fixtures'
 
 describe('ContractService', () => {
   let service: ContractService
@@ -13,12 +19,34 @@ describe('ContractService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ContractService,
+        MoveService,
+        RenewService,
         {
           provide: getRepositoryToken(Contract),
           useValue: {
             find: jest.fn().mockResolvedValue(contractArrayFixture),
-            findOneBy: jest.fn().mockResolvedValue(oneContractFixture),
+            findOne: jest.fn().mockResolvedValue(oneContractFixture),
             save: jest.fn().mockResolvedValue(oneContractFixture),
+            remove: jest.fn(),
+            delete: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(Move),
+          useValue: {
+            find: jest.fn().mockResolvedValue(moveArrayFixture),
+            findOne: jest.fn().mockResolvedValue(oneMoveFixture),
+            save: jest.fn().mockResolvedValue(oneMoveFixture),
+            remove: jest.fn(),
+            delete: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(Renew),
+          useValue: {
+            find: jest.fn().mockResolvedValue(renewArrayFixture),
+            findOne: jest.fn().mockResolvedValue(oneRenewFixture),
+            save: jest.fn().mockResolvedValue(oneRenewFixture),
             remove: jest.fn(),
             delete: jest.fn(),
           },
@@ -49,9 +77,19 @@ describe('ContractService', () => {
 
   describe('findOne()', () => {
     it('should get a single contract', () => {
-      const repoSpy = jest.spyOn(repository, 'findOneBy')
+      const repoSpy = jest.spyOn(repository, 'findOne')
       expect(service.findOne(1)).resolves.toEqual(oneContractFixture)
-      expect(repoSpy).toBeCalledWith({ id: 1 })
+      expect(repoSpy).toBeCalledWith({
+        relations: {
+          legal_person: true,
+          move: true,
+          physical_person: true,
+          renew: true,
+        },
+        where: {
+          id: 1,
+        },
+      })
     })
   })
 

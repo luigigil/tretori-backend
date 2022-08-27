@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IContract } from '../../core/contract/contract.types'
 
 export class ICustomer {
   @ApiProperty()
@@ -30,9 +31,6 @@ export class ICustomer {
 
   @ApiProperty()
   email: string
-
-  @ApiProperty()
-  contract: string
 }
 
 export class IPhysicalPerson extends ICustomer {
@@ -53,6 +51,9 @@ export class IPhysicalPerson extends ICustomer {
 
   @ApiProperty()
   rg_emissor_uf: string
+
+  @ApiProperty()
+  contracts?: IContract[]
 }
 
 export class ILegalPerson extends ICustomer {
@@ -73,6 +74,9 @@ export class ILegalPerson extends ICustomer {
 
   @ApiProperty()
   representatives: string
+
+  @ApiProperty()
+  contracts?: IContract[]
 }
 
 export type Customer = IPhysicalPerson | ILegalPerson

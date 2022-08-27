@@ -6,7 +6,6 @@ export const physicalPersonArrayFixture: IPhysicalPerson[] = [
     cep: '55039',
     city: 'Haagfield',
     code: 'm',
-    contract: 'h',
     email: 'Delbert96@yahoo.com',
     id: 1,
     neighborhood: 'Apt. 763',
@@ -19,13 +18,13 @@ export const physicalPersonArrayFixture: IPhysicalPerson[] = [
     rg: '12345678901',
     rg_emissor: 'SSP',
     rg_emissor_uf: 'New York',
+    contracts: [],
   },
   {
     address: '3893 Heather Fork',
     cep: '54663',
     city: 'Larkinberg',
     code: 'x',
-    contract: 's',
     email: 'Albert.Ullrich8@gmail.com',
     id: 2,
     neighborhood: 'Apt. 871',
@@ -38,6 +37,7 @@ export const physicalPersonArrayFixture: IPhysicalPerson[] = [
     rg: '8',
     rg_emissor: '8',
     rg_emissor_uf: '8',
+    contracts: [],
   },
 ]
 
@@ -46,7 +46,6 @@ export const onePhysicalPersonFixture: IPhysicalPerson = {
   cep: '74475-4112',
   city: 'Weimannchester',
   code: 'n',
-  contract: 'b',
   email: 'Jakayla_Waters@gmail.com',
   neighborhood: 'Suite 544',
   phone: '1-704-744-9892',
@@ -58,4 +57,5 @@ export const onePhysicalPersonFixture: IPhysicalPerson = {
   rg: '12345678901',
   rg_emissor: 'SSP',
   rg_emissor_uf: 'SP',
+  contracts: [],
 }

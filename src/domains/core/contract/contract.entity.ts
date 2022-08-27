@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { LegalPerson } from '../../customer/legal-person/legal-person.entity'
+import { PhysicalPerson } from '../../customer/physical-person/physical-person.entity'
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Move } from '../move/move.entity'
+import { Renew } from '../renew/renew.entity'
 
 @Entity()
 export class Contract {
@@ -68,8 +72,11 @@ export class Contract {
   @Column()
   first_invoice_date: string
 
-  // @Column()
-  // Pessoa Física (Vinculação)
+  @ManyToOne(() => PhysicalPerson, (physical_person) => physical_person.contracts)
+  physical_person?: PhysicalPerson
+
+  @ManyToOne(() => LegalPerson, (legal_person) => legal_person.contracts)
+  legal_person?: LegalPerson
 
   // @Column()
   // Produto (Vinculação)
@@ -77,9 +84,11 @@ export class Contract {
   // @Column()
   // Acesso (Vinculação)
 
-  // @Column()
-  // Movimentação (Vinculação)
+  @OneToOne(() => Move)
+  @JoinColumn()
+  move?: Move
 
-  // @Column()
-  // Renovação (Vinculação)
+  @OneToOne(() => Renew)
+  @JoinColumn()
+  renew?: Renew
 }
