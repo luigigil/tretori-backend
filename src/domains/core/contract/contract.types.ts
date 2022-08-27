@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { ILegalPerson, IPhysicalPerson } from '../../customer/common/customer.types'
 import { IMove } from '../move/move.types'
 import { IRenew } from '../renew/renew.types'
+import { IAccess } from '../access/access.types'
 
 export class IContract {
   @ApiProperty()
@@ -81,4 +82,7 @@ export class IContract {
 
   @ApiProperty()
   physical_person?: IPhysicalPerson
+
+  @ApiProperty()
+  acess?: IAccess
 }

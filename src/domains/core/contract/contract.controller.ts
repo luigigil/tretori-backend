@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
 import { IContract } from './contract.types'
 import { ContractService } from './contract.service'
-import { ApiBody, ApiParam, ApiProperty, ApiResponse } from '@nestjs/swagger'
+import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { IMove } from '../move/move.types'
 import { IRenew } from '../renew/renew.types'
 import { MoveService } from '../move/move.service'
@@ -9,37 +9,15 @@ import { RenewService } from '../renew/renew.service'
 import { PhysicalPersonService } from '../../customer/physical-person/physical-person.service'
 import { LegalPersonService } from '../../customer/legal-person/legal-person.service'
 import { ILegalPerson, IPhysicalPerson } from '../../customer/common/customer.types'
-
-class IMoveResponse {
-  @ApiProperty()
-  move: IMove
-
-  @ApiProperty()
-  contract: IContract
-}
-class IRenewResponse {
-  @ApiProperty()
-  renew: IRenew
-
-  @ApiProperty()
-  contract: IContract
-}
-
-class IPhysicalPersonToContractResponse {
-  @ApiProperty()
-  physicalPerson: IPhysicalPerson
-
-  @ApiProperty()
-  contract: IContract
-}
-
-class ILegalPersonToContractResponse {
-  @ApiProperty()
-  legalPerson: ILegalPerson
-
-  @ApiProperty()
-  contract: IContract
-}
+import { IAccess } from '../access/access.types'
+import { AccessService } from '../access/access.service'
+import {
+  IMoveResponse,
+  IRenewResponse,
+  IPhysicalPersonToContractResponse,
+  ILegalPersonToContractResponse,
+  IAccessToContractResponse,
+} from './contract.relations'
 
 @Controller('contract')
 export class ContractController {
@@ -48,7 +26,8 @@ export class ContractController {
     private readonly moveService: MoveService,
     private readonly renewService: RenewService,
     private readonly physicalPersonService: PhysicalPersonService,
-    private readonly legalPersonService: LegalPersonService
+    private readonly legalPersonService: LegalPersonService,
+    private readonly accessService: AccessService
   ) {}
 
   @ApiBody({ type: IContract })
@@ -145,6 +124,24 @@ export class ContractController {
     await this.contractService.update(contract.id, contract)
     return {
       legalPerson,
+      contract,
+    }
+  }
+
+  @ApiParam({ name: 'id', type: Number })
+  @ApiParam({ name: 'accessId', type: Number })
+  @ApiResponse({ status: 200, type: IAccessToContractResponse })
+  @Post(':id/access/:accessId')
+  async addAccess(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('accessId', ParseIntPipe) accessId: number
+  ): Promise<{ access: IAccess; contract: IContract }> {
+    const contract = await this.contractService.findOne(id)
+    const access = await this.accessService.findOne(accessId)
+    contract.access = access
+    await this.contractService.update(contract.id, contract)
+    return {
+      access,
       contract,
     }
   }

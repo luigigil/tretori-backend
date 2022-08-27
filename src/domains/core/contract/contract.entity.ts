@@ -3,6 +3,7 @@ import { PhysicalPerson } from '../../customer/physical-person/physical-person.e
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Move } from '../move/move.entity'
 import { Renew } from '../renew/renew.entity'
+import { Access } from '../access/access.entity'
 
 @Entity()
 export class Contract {
@@ -81,8 +82,9 @@ export class Contract {
   // @Column()
   // Produto (Vinculação)
 
-  // @Column()
-  // Acesso (Vinculação)
+  @OneToOne(() => Access)
+  @JoinColumn()
+  access?: Access
 
   @OneToOne(() => Move)
   @JoinColumn()
