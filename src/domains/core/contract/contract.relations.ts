@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IPhysicalPerson, ILegalPerson } from 'src/domains/customer/common/customer.types'
+import { IPhysicalPerson, ILegalPerson } from '../../customer/common/customer.types'
 import { IAccess } from '../access/access.types'
 import { IMove } from '../move/move.types'
 import { IRenew } from '../renew/renew.types'

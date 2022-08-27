@@ -12,6 +12,9 @@ import {
   onePhysicalPersonFixture,
   physicalPersonArrayFixture,
 } from '../../../customer/physical-person/test/fixtures'
+import { Access } from '../../access/access.entity'
+import { AccessFixture } from '../../access/access.fixtures'
+import { AccessService } from '../../access/access.service'
 import { Move } from '../../move/move.entity'
 import { MoveService } from '../../move/move.service'
 import { moveArrayFixture, oneMoveFixture } from '../../move/test/fixtures'
@@ -19,6 +22,13 @@ import { Renew } from '../../renew/renew.entity'
 import { RenewService } from '../../renew/renew.service'
 import { oneRenewFixture, renewArrayFixture } from '../../renew/test/fixtures'
 import { ContractController } from '../contract.controller'
+import {
+  IAccessToContractResponse,
+  ILegalPersonToContractResponse,
+  IMoveResponse,
+  IPhysicalPersonToContractResponse,
+  IRenewResponse,
+} from '../contract.relations'
 import { ContractService } from '../contract.service'
 import { IContract } from '../contract.types'
 import { contractArrayFixture, oneContractFixture } from './fixtures'
@@ -31,6 +41,7 @@ describe('ContractController', () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ContractController],
       providers: [
+        AccessService,
         ContractService,
         MoveService,
         RenewService,
@@ -47,6 +58,7 @@ describe('ContractController', () => {
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...oneContractFixture })),
             remove: jest.fn(),
+            update: jest.fn(),
           },
         },
         {
@@ -87,6 +99,19 @@ describe('ContractController', () => {
             save: jest.fn().mockResolvedValue(onePhysicalPersonFixture),
             remove: jest.fn(),
             delete: jest.fn(),
+          },
+        },
+        {
+          provide: getRepositoryToken(Access),
+          useValue: {
+            create: jest
+              .fn()
+              .mockImplementation(() => Promise.resolve({ id: 1, ...AccessFixture })),
+            findOne: jest
+              .fn()
+              .mockImplementation((id: number) => Promise.resolve({ id, ...AccessFixture })),
+            remove: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -133,5 +158,47 @@ describe('ContractController', () => {
       contractController.remove(2)
       expect(contractService.remove).toHaveBeenCalled()
     })
+  })
+
+  describe('Contract relations', () => {
+    it('should add an access to contract', async () => {
+      expect(await contractController.addAccess(1, 1)).toEqual({
+        access: { id: 1, ...AccessFixture },
+        contract: { id: 1, access: { id: 1, ...AccessFixture }, ...oneContractFixture },
+      })
+    })
+
+    it('should add a legalPerson to contract', async () => {
+      const legalPersonContract = await contractController.addLegalPerson(1, 1)
+      const response = {
+        legalPerson: { ...oneLegalPersonFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          legal_person: { ...oneLegalPersonFixture },
+        },
+      }
+      console.log(legalPersonContract)
+      console.log(response)
+      expect(legalPersonContract).toEqual(response)
+    })
+
+    // it('should add a move to contract', () => {
+    //   expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
+    //     ...IMoveResponse,
+    //   })
+    // })
+
+    // it('should add a physicalPerson to contract', () => {
+    //   expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
+    //     ...IPhysicalPersonToContractResponse,
+    //   })
+    // })
+
+    // it('should add a renew to contract', () => {
+    //   expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
+    //     ...IRenewResponse,
+    //   })
+    // })
   })
 })
