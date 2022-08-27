@@ -1,4 +1,4 @@
-export interface IAccess {
+export class IAccess {
   id?: number
   system: string
   login_tret?: string
