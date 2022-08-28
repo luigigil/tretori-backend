@@ -72,7 +72,7 @@ export class IContract {
   first_invoice_date: string
 
   @ApiProperty()
-  renew?: IRenew
+  renew?: IRenew[]
 
   @ApiProperty()
   move?: IMove[]

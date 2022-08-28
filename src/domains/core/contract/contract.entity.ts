@@ -99,7 +99,7 @@ export class Contract {
   @JoinColumn()
   move?: Move[]
 
-  @OneToOne(() => Renew)
+  @OneToMany(() => Renew, (renew) => renew.contract)
   @JoinColumn()
-  renew?: Renew
+  renew?: Renew[]
 }

@@ -19,4 +19,7 @@ export class Renew {
 
   @Column()
   details: string
+
+  @Column()
+  contract?: string
 }

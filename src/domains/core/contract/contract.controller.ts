@@ -139,7 +139,7 @@ export class ContractController {
   ): Promise<{ renew: IRenew; contract: IContract }> {
     const contract = await this.contractService.findOne(id)
     const renew = await this.renewService.create(newRenew)
-    contract.renew = renew
+    contract.renew.push(renew)
     await this.contractService.update(contract.id, contract)
     return {
       renew,
