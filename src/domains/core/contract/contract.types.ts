@@ -75,7 +75,7 @@ export class IContract {
   renew?: IRenew
 
   @ApiProperty()
-  move?: IMove
+  move?: IMove[]
 
   @ApiProperty()
   legal_person?: ILegalPerson

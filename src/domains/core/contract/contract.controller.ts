@@ -103,7 +103,7 @@ export class ContractController {
   ): Promise<{ move: IMove; contract: IContract }> {
     const contract = await this.contractService.findOne(id)
     const move = await this.moveService.create(newMove)
-    contract.move = move
+    contract.move.push(move)
     await this.contractService.update(contract.id, contract)
     return {
       move,

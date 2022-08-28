@@ -31,7 +31,7 @@ import {
 } from '../contract.relations'
 import { ContractService } from '../contract.service'
 import { IContract } from '../contract.types'
-import { contractArrayFixture, oneContractFixture } from './fixtures'
+import { contractArrayFixture, oneContractFixture, oneMoveContract } from './fixtures'
 
 describe('ContractController', () => {
   let contractController: ContractController
@@ -56,9 +56,12 @@ describe('ContractController', () => {
             findAll: jest.fn().mockResolvedValue(contractArrayFixture),
             findOne: jest
               .fn()
-              .mockImplementation((id: number) => Promise.resolve({ id, ...oneContractFixture })),
+              .mockImplementation((id: number) =>
+                Promise.resolve({ id, ...oneContractFixture, move: [] })
+              ),
             remove: jest.fn(),
             update: jest.fn(),
+            moveContract: jest.fn().mockResolvedValue(oneContractFixture),
           },
         },
         {
@@ -148,6 +151,7 @@ describe('ContractController', () => {
       expect(contractController.findOne(3)).resolves.toEqual({
         id: 3,
         ...oneContractFixture,
+        move: [],
       })
       expect(contractService.findOne).toHaveBeenCalled()
     })
@@ -164,30 +168,34 @@ describe('ContractController', () => {
     it('should add an access to contract', async () => {
       expect(await contractController.addAccess(1, 1)).toEqual({
         access: { id: 1, ...AccessFixture },
-        contract: { id: 1, access: { id: 1, ...AccessFixture }, ...oneContractFixture },
+        contract: { id: 1, access: { id: 1, ...AccessFixture }, ...oneContractFixture, move: [] },
       })
     })
 
     it('should add a legalPerson to contract', async () => {
-      const legalPersonContract = await contractController.addLegalPerson(1, 1)
-      const response = {
+      expect(await contractController.addLegalPerson(1, 1)).toEqual({
         legalPerson: { ...oneLegalPersonFixture },
         contract: {
           id: 1,
           ...oneContractFixture,
           legal_person: { ...oneLegalPersonFixture },
+          move: [],
         },
-      }
-      console.log(legalPersonContract)
-      console.log(response)
-      expect(legalPersonContract).toEqual(response)
+      })
     })
 
-    // it('should add a move to contract', () => {
-    //   expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
-    //     ...IMoveResponse,
-    //   })
-    // })
+    it('should add a move to contract', async () => {
+      const moveContractResp = await contractController.moveContract({ ...oneMoveFixture }, 1)
+      const expected = {
+        move: { ...oneMoveFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          move: [{ ...oneMoveFixture }],
+        },
+      }
+      expect(moveContractResp).toEqual({ ...expected })
+    })
 
     // it('should add a physicalPerson to contract', () => {
     //   expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
