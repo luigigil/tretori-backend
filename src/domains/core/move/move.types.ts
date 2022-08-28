@@ -18,4 +18,7 @@ export class IMove {
 
   @ApiProperty()
   details: string
+
+  @ApiProperty()
+  contract?: string
 }

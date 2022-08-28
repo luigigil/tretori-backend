@@ -35,7 +35,7 @@ describe('Move - /move (e2e)', () => {
   it('Create [POST /move]', () => {
     return request(app.getHttpServer())
       .post('/move')
-      .send(move as IMove)
+      .send(move)
       .expect(201)
       .then(({ body }) => {
         expect(body).toEqual({ ...move, id: body.id })

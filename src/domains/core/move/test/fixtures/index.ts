@@ -23,4 +23,5 @@ export const oneMoveFixture: IMove = {
   details: '',
   move_date: '2020-01-01',
   number_of_lives: 0,
+  contract: '',
 }
