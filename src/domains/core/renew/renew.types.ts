@@ -18,4 +18,7 @@ export class IRenew {
 
   @ApiProperty()
   details: string
+
+  @ApiProperty()
+  contract?: string
 }

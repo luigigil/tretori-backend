@@ -35,7 +35,7 @@ describe('Renew - /renew (e2e)', () => {
   it('Create [POST /renew]', () => {
     return request(app.getHttpServer())
       .post('/renew')
-      .send(renew as IRenew)
+      .send(renew)
       .expect(201)
       .then(({ body }) => {
         expect(body).toEqual({ ...renew, id: body.id })

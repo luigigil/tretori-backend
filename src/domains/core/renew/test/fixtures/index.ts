@@ -23,4 +23,5 @@ export const oneRenewFixture: IRenew = {
   closed_date: '2020-01-01',
   closed_value: '0',
   details: '',
+  contract: '',
 }
