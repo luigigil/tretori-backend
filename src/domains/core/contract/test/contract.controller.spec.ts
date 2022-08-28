@@ -185,23 +185,27 @@ describe('ContractController', () => {
     })
 
     it('should add a move to contract', async () => {
-      const moveContractResp = await contractController.moveContract({ ...oneMoveFixture }, 1)
-      const expected = {
+      expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
         move: { ...oneMoveFixture },
         contract: {
           id: 1,
           ...oneContractFixture,
           move: [{ ...oneMoveFixture }],
         },
-      }
-      expect(moveContractResp).toEqual({ ...expected })
+      })
     })
 
-    // it('should add a physicalPerson to contract', () => {
-    //   expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
-    //     ...IPhysicalPersonToContractResponse,
-    //   })
-    // })
+    it('should add a physicalPerson to contract', () => {
+      expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
+        physicalPerson: { ...onePhysicalPersonFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          physical_person: { ...onePhysicalPersonFixture },
+          move: [],
+        },
+      })
+    })
 
     // it('should add a renew to contract', () => {
     //   expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
