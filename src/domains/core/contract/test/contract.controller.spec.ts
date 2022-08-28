@@ -22,16 +22,9 @@ import { Renew } from '../../renew/renew.entity'
 import { RenewService } from '../../renew/renew.service'
 import { oneRenewFixture, renewArrayFixture } from '../../renew/test/fixtures'
 import { ContractController } from '../contract.controller'
-import {
-  IAccessToContractResponse,
-  ILegalPersonToContractResponse,
-  IMoveResponse,
-  IPhysicalPersonToContractResponse,
-  IRenewResponse,
-} from '../contract.relations'
 import { ContractService } from '../contract.service'
 import { IContract } from '../contract.types'
-import { contractArrayFixture, oneContractFixture, oneMoveContract } from './fixtures'
+import { contractArrayFixture, oneContractFixture } from './fixtures'
 
 describe('ContractController', () => {
   let contractController: ContractController
@@ -57,7 +50,7 @@ describe('ContractController', () => {
             findOne: jest
               .fn()
               .mockImplementation((id: number) =>
-                Promise.resolve({ id, ...oneContractFixture, move: [] })
+                Promise.resolve({ id, ...oneContractFixture, move: [], renew: [] })
               ),
             remove: jest.fn(),
             update: jest.fn(),
@@ -152,6 +145,7 @@ describe('ContractController', () => {
         id: 3,
         ...oneContractFixture,
         move: [],
+        renew: [],
       })
       expect(contractService.findOne).toHaveBeenCalled()
     })
@@ -168,7 +162,13 @@ describe('ContractController', () => {
     it('should add an access to contract', async () => {
       expect(await contractController.addAccess(1, 1)).toEqual({
         access: { id: 1, ...AccessFixture },
-        contract: { id: 1, access: { id: 1, ...AccessFixture }, ...oneContractFixture, move: [] },
+        contract: {
+          id: 1,
+          access: { id: 1, ...AccessFixture },
+          ...oneContractFixture,
+          move: [],
+          renew: [],
+        },
       })
     })
 
@@ -180,6 +180,7 @@ describe('ContractController', () => {
           ...oneContractFixture,
           legal_person: { ...oneLegalPersonFixture },
           move: [],
+          renew: [],
         },
       })
     })
@@ -191,6 +192,7 @@ describe('ContractController', () => {
           id: 1,
           ...oneContractFixture,
           move: [{ ...oneMoveFixture }],
+          renew: [],
         },
       })
     })
@@ -203,14 +205,21 @@ describe('ContractController', () => {
           ...oneContractFixture,
           physical_person: { ...onePhysicalPersonFixture },
           move: [],
+          renew: [],
         },
       })
     })
 
-    // it('should add a renew to contract', () => {
-    //   expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
-    //     ...IRenewResponse,
-    //   })
-    // })
+    it('should add a renew to contract', () => {
+      expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
+        renew: { ...oneRenewFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          move: [],
+          renew: [{ ...oneRenewFixture }],
+        },
+      })
+    })
   })
 })
