@@ -1,9 +1,18 @@
 import { LegalPerson } from '../../customer/legal-person/legal-person.entity'
 import { PhysicalPerson } from '../../customer/physical-person/physical-person.entity'
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { Move } from '../move/move.entity'
 import { Renew } from '../renew/renew.entity'
 import { Access } from '../access/access.entity'
+import { contractArrayFixture } from './test/fixtures'
 
 @Entity()
 export class Contract {
@@ -86,9 +95,9 @@ export class Contract {
   @JoinColumn()
   access?: Access
 
-  @OneToOne(() => Move)
+  @OneToMany(() => Move, (move) => move.contract)
   @JoinColumn()
-  move?: Move
+  move?: Move[]
 
   @OneToOne(() => Renew)
   @JoinColumn()
