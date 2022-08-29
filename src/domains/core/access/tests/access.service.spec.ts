@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { DeleteResult, Repository } from 'typeorm'
-import { AccessFixture, UpdateAccessFixture } from '../access.fixtures'
+import { oneAccessFixture, updateAccessFixture } from '../access.fixtures'
 import { AccessService } from '../access.service'
 import { Access } from '../access.entity'
 import { NotFoundException } from '@nestjs/common'
@@ -19,11 +19,11 @@ describe('AccessService', () => {
           useValue: {
             findOne: jest
               .fn()
-              .mockResolvedValueOnce(AccessFixture)
+              .mockResolvedValueOnce(oneAccessFixture)
               .mockRejectedValueOnce(new NotFoundException('Access not found')),
-            save: jest.fn().mockResolvedValue(AccessFixture),
+            save: jest.fn().mockResolvedValue(oneAccessFixture),
             remove: jest.fn().mockResolvedValue(DeleteResult),
-            update: jest.fn().mockResolvedValue(UpdateAccessFixture),
+            update: jest.fn().mockResolvedValue(updateAccessFixture),
           },
         },
       ],
@@ -39,13 +39,13 @@ describe('AccessService', () => {
 
   describe('create()', () => {
     it('should successfully insert a access', async () => {
-      await expect(service.create(AccessFixture)).resolves.toEqual(AccessFixture)
+      await expect(service.create(oneAccessFixture)).resolves.toEqual(oneAccessFixture)
     })
   })
 
   describe('findOne()', () => {
     it('should return access', async () => {
-      await expect(service.findOne(1)).resolves.toBe(AccessFixture)
+      await expect(service.findOne(1)).resolves.toBe(oneAccessFixture)
     })
     it('should throw NotFoundException', async () => {
       service.findOne(1)
@@ -61,7 +61,7 @@ describe('AccessService', () => {
 
   describe('update()', () => {
     it('should call update with the passed value', async () => {
-      await expect(service.update(1, UpdateAccessFixture)).resolves.toBe(UpdateAccessFixture)
+      await expect(service.update(1, updateAccessFixture)).resolves.toBe(updateAccessFixture)
     })
   })
 })

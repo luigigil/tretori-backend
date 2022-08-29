@@ -13,7 +13,7 @@ import {
   physicalPersonArrayFixture,
 } from '../../../customer/physical-person/test/fixtures'
 import { Access } from '../../access/access.entity'
-import { AccessFixture } from '../../access/access.fixtures'
+import { oneAccessFixture } from '../../access/access.fixtures'
 import { AccessService } from '../../access/access.service'
 import { Move } from '../../move/move.entity'
 import { MoveService } from '../../move/move.service'
@@ -102,10 +102,10 @@ describe('ContractController', () => {
           useValue: {
             create: jest
               .fn()
-              .mockImplementation(() => Promise.resolve({ id: 1, ...AccessFixture })),
+              .mockImplementation(() => Promise.resolve({ id: 1, ...oneAccessFixture })),
             findOne: jest
               .fn()
-              .mockImplementation((id: number) => Promise.resolve({ id, ...AccessFixture })),
+              .mockImplementation((id: number) => Promise.resolve({ id, ...oneAccessFixture })),
             remove: jest.fn(),
             update: jest.fn(),
           },
@@ -161,10 +161,10 @@ describe('ContractController', () => {
   describe('Contract relations', () => {
     it('should add an access to contract', async () => {
       expect(await contractController.addAccess(1, 1)).toEqual({
-        access: { id: 1, ...AccessFixture },
+        access: { id: 1, ...oneAccessFixture },
         contract: {
           id: 1,
-          access: { id: 1, ...AccessFixture },
+          access: { id: 1, ...oneAccessFixture },
           ...oneContractFixture,
           move: [],
           renew: [],

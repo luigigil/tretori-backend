@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { AccessService } from '../access.service'
 import { AccessController } from '../access.controller'
-import { AccessFixture, CreateAccessFixture, UpdateAccessFixture } from '../access.fixtures'
+import { oneAccessFixture, createAccessFixture, updateAccessFixture } from '../access.fixtures'
 import { DeleteResult } from 'typeorm'
 
 describe('AccessController', () => {
@@ -18,12 +18,12 @@ describe('AccessController', () => {
           useValue: {
             create: jest
               .fn()
-              .mockImplementation(() => Promise.resolve({ id: 1, ...AccessFixture })),
+              .mockImplementation(() => Promise.resolve({ id: 1, ...oneAccessFixture })),
             findOne: jest
               .fn()
-              .mockImplementation((id: number) => Promise.resolve({ id, ...AccessFixture })),
+              .mockImplementation((id: number) => Promise.resolve({ id, ...oneAccessFixture })),
             remove: jest.fn().mockImplementation(() => Promise.resolve(DeleteResult)),
-            update: jest.fn().mockImplementation(() => Promise.resolve({ ...UpdateAccessFixture })),
+            update: jest.fn().mockImplementation(() => Promise.resolve({ ...updateAccessFixture })),
           },
         },
       ],
@@ -44,23 +44,23 @@ describe('AccessController', () => {
 
   describe('Create access', () => {
     it('Should create an access', () => {
-      expect(accessController.create(CreateAccessFixture)).resolves.toEqual({
+      expect(accessController.create(createAccessFixture)).resolves.toEqual({
         id: 1,
-        ...AccessFixture,
+        ...oneAccessFixture,
       })
     })
   })
 
   describe('FindOne access', () => {
     it('Should find one access', () => {
-      expect(accessController.findOne(1)).resolves.toEqual(AccessFixture)
+      expect(accessController.findOne(1)).resolves.toEqual(oneAccessFixture)
     })
   })
 
   describe('Update access', () => {
     it('Should update an access', () => {
-      expect(accessController.update(1, AccessFixture)).resolves.toEqual({
-        ...UpdateAccessFixture,
+      expect(accessController.update(1, oneAccessFixture)).resolves.toEqual({
+        ...updateAccessFixture,
       })
     })
   })
