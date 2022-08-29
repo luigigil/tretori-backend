@@ -1,5 +1,3 @@
-import { Contract } from 'src/domains/core/contract/contract.entity'
-import { oneContractFixture } from '../../../contract/test/fixtures'
 import { IMove } from '../../move.types'
 
 export const moveArrayFixture: IMove[] = [
@@ -25,5 +23,4 @@ export const oneMoveFixture: IMove = {
   details: '',
   move_date: '2020-01-01',
   number_of_lives: 0,
-  contract: { ...oneContractFixture } as Contract,
 }

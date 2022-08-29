@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { IRenew } from 'src/domains/core/renew/renew.types'
 import { oneRenewFixture } from 'src/domains/core/renew/test/fixtures'
 import { RenewModule } from 'src/domains/core/renew/renew.module'
+import { ContractModule } from 'src/domains/core/contract/contract.module'
 
 describe('Renew - /renew (e2e)', () => {
   const renew: IRenew = oneRenewFixture
@@ -25,6 +26,7 @@ describe('Renew - /renew (e2e)', () => {
           synchronize: true,
         }),
         RenewModule,
+        ContractModule,
       ],
     }).compile()
 

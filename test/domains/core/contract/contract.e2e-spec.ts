@@ -42,7 +42,6 @@ describe('Contract - /contract (e2e)', () => {
       .send(contract as IContract)
       .expect(201)
       .then(({ body }) => {
-        console.log(body)
         expect(body).toEqual({ ...contract, id: body.id })
       })
   })

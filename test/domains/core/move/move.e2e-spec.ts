@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { IMove } from 'src/domains/core/move/move.types'
 import { oneMoveFixture } from 'src/domains/core/move/test/fixtures'
 import { MoveModule } from 'src/domains/core/move/move.module'
+import { ContractModule } from 'src/domains/core/contract/contract.module'
 
 describe('Move - /move (e2e)', () => {
   const move: IMove = oneMoveFixture
@@ -25,6 +26,7 @@ describe('Move - /move (e2e)', () => {
           synchronize: true,
         }),
         MoveModule,
+        ContractModule,
       ],
     }).compile()
 
