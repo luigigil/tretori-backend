@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AccessModule } from './domains/contract/access/access.module'
+import { AccessModule } from './domains/core/access/access.module'
+import { ContractModule } from './domains/core/contract/contract.module'
+import { MoveModule } from './domains/core/move/move.module'
+import { RenewModule } from './domains/core/renew/renew.module'
 import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
 import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
 import { RepresentativeModule } from './domains/representative/representative.module'
+import { ProductModule } from './domains/product/product.module'
 
 @Module({
   imports: [
@@ -21,9 +25,13 @@ import { RepresentativeModule } from './domains/representative/representative.mo
       database: process.env.DB_NAME,
     }),
     AccessModule,
+    ContractModule,
+    MoveModule,
     LegalPersonModule,
     PhysicalPersonModule,
     RepresentativeModule,
+    ProductModule,
+    RenewModule,
   ],
 })
 export class AppModule {}
