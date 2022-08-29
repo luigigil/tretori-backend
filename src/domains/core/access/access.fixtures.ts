@@ -1,5 +1,3 @@
-import { Contract } from '../contract/contract.entity'
-import { oneContractFixture } from '../contract/test/fixtures'
 import { IAccess } from './access.types'
 
 export const oneAccessFixture: IAccess = {

@@ -1,13 +1,10 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Contract } from 'src/domains/core/contract/contract.entity'
 import { ContractModule } from 'src/domains/core/contract/contract.module'
 import { IContract } from '../../../../src/domains/core/contract/contract.types'
 import { oneContractFixture } from 'src/domains/core/contract/test/fixtures'
-import { Move } from 'src/domains/core/move/move.entity'
 import { MoveModule } from 'src/domains/core/move/move.module'
-import { Renew } from 'src/domains/core/renew/renew.entity'
 import { RenewModule } from 'src/domains/core/renew/renew.module'
 import * as request from 'supertest'
 

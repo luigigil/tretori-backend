@@ -35,6 +35,7 @@ describe('AccessService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined()
+    expect(repository).toBeDefined()
   })
 
   describe('create()', () => {

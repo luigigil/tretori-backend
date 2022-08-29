@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Contract } from '../contract/contract.entity'
 
 export class IAccess {
   @ApiProperty()

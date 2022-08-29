@@ -12,7 +12,6 @@ import {
 import { Move } from '../move/move.entity'
 import { Renew } from '../renew/renew.entity'
 import { Access } from '../access/access.entity'
-import { contractArrayFixture } from './test/fixtures'
 
 @Entity()
 export class Contract {
