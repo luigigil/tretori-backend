@@ -16,6 +16,7 @@ describe('Representative - /representative (e2e)', () => {
   const updateRepresentative = UpdateRepresentativeFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -44,8 +45,14 @@ describe('Representative - /representative (e2e)', () => {
       .send(createRepresentative)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...representative, id: body.id, company: null })
       })
+  })
+
+  it('should be defined', () => {
+    expect(app).toBeDefined()
+    expect(id).toBeDefined()
   })
 
   it('Get all representative [GET /representative]', () => {
@@ -59,7 +66,7 @@ describe('Representative - /representative (e2e)', () => {
 
   it('Get representative [GET /representative/id]', () => {
     return request(app.getHttpServer())
-      .get('/representative/1')
+      .get(`/representative/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -68,13 +75,13 @@ describe('Representative - /representative (e2e)', () => {
 
   it('Updates representative [PATCH /representative/:id]', () => {
     return request(app.getHttpServer())
-      .patch('/representative/1')
+      .patch(`/representative/${id}`)
       .send({ ...updateRepresentative })
       .expect(200)
   })
 
   it('Deletes representative [DELETE /representative/:id]', () => {
-    return request(app.getHttpServer()).delete('/representative/1').expect(200)
+    return request(app.getHttpServer()).delete(`/representative/${id}`).expect(200)
   })
 
   afterAll(async () => {
