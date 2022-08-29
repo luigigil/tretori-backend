@@ -21,6 +21,7 @@ export class Move {
   @Column()
   details: string
 
-  @Column()
-  contract?: string
+  @ManyToOne(() => Contract, (contract) => contract.move)
+  @JoinColumn()
+  contract?: Contract
 }

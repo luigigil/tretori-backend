@@ -19,7 +19,4 @@ export class Access {
 
   @Column()
   pass_client: string
-
-  @Column()
-  contract: string
 }

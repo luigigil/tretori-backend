@@ -4,16 +4,16 @@ import * as request from 'supertest'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { IAccess } from 'src/domains/core/access/access.types'
 import {
-  CreateAccessFixture,
-  UpdateAccessFixture,
-  AccessFixture,
+  createAccessFixture,
+  updateAccessFixture,
+  oneAccessFixture,
 } from 'src/domains/core/access/access.fixtures'
 import { AccessModule } from 'src/domains/core/access/access.module'
 
 describe('Access - /access (e2e)', () => {
-  const access: IAccess = AccessFixture
-  const createAccess = CreateAccessFixture
-  const updateAccess = UpdateAccessFixture
+  const access: IAccess = oneAccessFixture
+  const createAccess = createAccessFixture
+  const updateAccess = updateAccessFixture
 
   let app: INestApplication
 
