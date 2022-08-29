@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Contract } from '../contract/contract.entity'
 
 @Entity()
 export class Move {
@@ -19,4 +20,8 @@ export class Move {
 
   @Column()
   details: string
+
+  @ManyToOne(() => Contract, (contract) => contract.move)
+  @JoinColumn()
+  contract?: Contract
 }

@@ -1,13 +1,10 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Contract } from 'src/domains/core/contract/contract.entity'
 import { ContractModule } from 'src/domains/core/contract/contract.module'
-import { IContract } from 'src/domains/core/contract/contract.types'
+import { IContract } from '../../../../src/domains/core/contract/contract.types'
 import { oneContractFixture } from 'src/domains/core/contract/test/fixtures'
-import { Move } from 'src/domains/core/move/move.entity'
 import { MoveModule } from 'src/domains/core/move/move.module'
-import { Renew } from 'src/domains/core/renew/renew.entity'
 import { RenewModule } from 'src/domains/core/renew/renew.module'
 import * as request from 'supertest'
 
@@ -15,6 +12,7 @@ describe('Contract - /contract (e2e)', () => {
   const contract: IContract = oneContractFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -45,7 +43,7 @@ describe('Contract - /contract (e2e)', () => {
       .send(contract as IContract)
       .expect(201)
       .then(({ body }) => {
-        console.log(body)
+        id = body.id
         expect(body).toEqual({ ...contract, id: body.id })
       })
   })
@@ -61,15 +59,17 @@ describe('Contract - /contract (e2e)', () => {
 
   it('Get one contract [GET /contract/:id]', () => {
     return request(app.getHttpServer())
-      .get('/contract/2')
+      .get(`/contract/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
+  // TODO add update test
+
   it('Delete one contract [DELETE /contract/:id]', () => {
-    return request(app.getHttpServer()).delete('/contract/1').expect(200)
+    return request(app.getHttpServer()).delete(`/contract/${id}`).expect(200)
   })
 
   afterAll(async () => {

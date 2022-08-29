@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { IRenew } from 'src/domains/core/renew/renew.types'
 import { oneRenewFixture } from 'src/domains/core/renew/test/fixtures'
 import { RenewModule } from 'src/domains/core/renew/renew.module'
+import { ContractModule } from 'src/domains/core/contract/contract.module'
 
 describe('Renew - /renew (e2e)', () => {
   const renew: IRenew = oneRenewFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -25,6 +27,7 @@ describe('Renew - /renew (e2e)', () => {
           synchronize: true,
         }),
         RenewModule,
+        ContractModule,
       ],
     }).compile()
 
@@ -35,9 +38,10 @@ describe('Renew - /renew (e2e)', () => {
   it('Create [POST /renew]', () => {
     return request(app.getHttpServer())
       .post('/renew')
-      .send(renew as IRenew)
+      .send(renew)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...renew, id: body.id })
       })
   })
@@ -53,15 +57,17 @@ describe('Renew - /renew (e2e)', () => {
 
   it('Get one renew [GET /renew/:id]', () => {
     return request(app.getHttpServer())
-      .get('/renew/2')
+      .get(`/renew/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
+  // TODO - test update
+
   it('Delete one renew [DELETE /renew/:id]', () => {
-    return request(app.getHttpServer()).delete('/renew/1').expect(200)
+    return request(app.getHttpServer()).delete(`/renew/${id}`).expect(200)
   })
 
   afterAll(async () => {

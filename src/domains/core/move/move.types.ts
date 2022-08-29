@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Contract } from '../contract/contract.entity'
 
 export class IMove {
   @ApiProperty()
@@ -18,4 +19,7 @@ export class IMove {
 
   @ApiProperty()
   details: string
+
+  @ApiProperty()
+  contract?: Contract
 }

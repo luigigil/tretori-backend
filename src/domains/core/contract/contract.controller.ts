@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
 import { IContract } from './contract.types'
 import { ContractService } from './contract.service'
-import { ApiBody, ApiParam, ApiProperty, ApiResponse } from '@nestjs/swagger'
+import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { IMove } from '../move/move.types'
 import { IRenew } from '../renew/renew.types'
 import { MoveService } from '../move/move.service'
@@ -9,46 +9,25 @@ import { RenewService } from '../renew/renew.service'
 import { PhysicalPersonService } from '../../customer/physical-person/physical-person.service'
 import { LegalPersonService } from '../../customer/legal-person/legal-person.service'
 import { ILegalPerson, IPhysicalPerson } from '../../customer/common/customer.types'
-
-class IMoveResponse {
-  @ApiProperty()
-  move: IMove
-
-  @ApiProperty()
-  contract: IContract
-}
-class IRenewResponse {
-  @ApiProperty()
-  renew: IRenew
-
-  @ApiProperty()
-  contract: IContract
-}
-
-class IPhysicalPersonToContractResponse {
-  @ApiProperty()
-  physicalPerson: IPhysicalPerson
-
-  @ApiProperty()
-  contract: IContract
-}
-
-class ILegalPersonToContractResponse {
-  @ApiProperty()
-  legalPerson: ILegalPerson
-
-  @ApiProperty()
-  contract: IContract
-}
+import { IAccess } from '../access/access.types'
+import { AccessService } from '../access/access.service'
+import {
+  IMoveResponse,
+  IRenewResponse,
+  IPhysicalPersonToContractResponse,
+  ILegalPersonToContractResponse,
+  IAccessToContractResponse,
+} from './contract.relations'
 
 @Controller('contract')
 export class ContractController {
   constructor(
+    private readonly accessService: AccessService,
     private readonly contractService: ContractService,
+    private readonly legalPersonService: LegalPersonService,
     private readonly moveService: MoveService,
-    private readonly renewService: RenewService,
     private readonly physicalPersonService: PhysicalPersonService,
-    private readonly legalPersonService: LegalPersonService
+    private readonly renewService: RenewService
   ) {}
 
   @ApiBody({ type: IContract })
@@ -71,6 +50,8 @@ export class ContractController {
     return this.contractService.findOne(id)
   }
 
+  // TODO update route
+
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')
@@ -79,58 +60,23 @@ export class ContractController {
   }
 
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, type: IMoveResponse })
-  @ApiBody({ type: IMove })
-  @Post(':id/move')
-  async moveContract(
-    @Body() newMove: IMove,
-    @Param('id', ParseIntPipe) id: number
-  ): Promise<{ move: IMove; contract: IContract }> {
-    const contract = await this.contractService.findOne(id)
-    const move = await this.moveService.create(newMove)
-    contract.move = move
-    await this.contractService.update(contract.id, contract)
-    return {
-      move,
-      contract,
-    }
-  }
-
-  @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, type: IRenewResponse })
-  @ApiBody({ type: IRenew })
-  @Post(':id/renew')
-  async renewContract(
-    @Body() newRenew: IRenew,
-    @Param('id', ParseIntPipe) id: number
-  ): Promise<{ renew: IRenew; contract: IContract }> {
-    const contract = await this.contractService.findOne(id)
-    const renew = await this.renewService.create(newRenew)
-    contract.renew = renew
-    await this.contractService.update(contract.id, contract)
-    return {
-      renew,
-      contract,
-    }
-  }
-
-  @ApiParam({ name: 'id', type: Number })
-  @ApiParam({ name: 'personId', type: Number })
-  @ApiResponse({ status: 200, type: IPhysicalPerson })
-  @Post(':id/physical-person/:personId')
-  async addPhysicalPerson(
+  @ApiParam({ name: 'accessId', type: Number })
+  @ApiResponse({ status: 200, type: IAccessToContractResponse })
+  @Post(':id/access/:accessId')
+  async addAccess(
     @Param('id', ParseIntPipe) id: number,
-    @Param('personId', ParseIntPipe) personId: number
-  ): Promise<{ physicalPerson: IPhysicalPerson; contract: IContract }> {
+    @Param('accessId', ParseIntPipe) accessId: number
+  ): Promise<{ access: IAccess; contract: IContract }> {
     const contract = await this.contractService.findOne(id)
-    const physicalPerson = await this.physicalPersonService.findOne(personId)
-    contract.physical_person = physicalPerson
+    const access = await this.accessService.findOne(accessId)
+    contract.access = access
     await this.contractService.update(contract.id, contract)
     return {
-      physicalPerson,
+      access,
       contract,
     }
   }
+
   @ApiParam({ name: 'id', type: Number })
   @ApiParam({ name: 'personId', type: Number })
   @ApiResponse({ status: 200, type: ILegalPersonToContractResponse })
@@ -145,6 +91,60 @@ export class ContractController {
     await this.contractService.update(contract.id, contract)
     return {
       legalPerson,
+      contract,
+    }
+  }
+
+  @ApiParam({ name: 'id', type: Number })
+  @ApiResponse({ status: 200, type: IMoveResponse })
+  @ApiBody({ type: IMove })
+  @Post(':id/move')
+  async moveContract(
+    @Body() newMove: IMove,
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<{ move: IMove; contract: IContract }> {
+    const contract = await this.contractService.findOne(id)
+    const move = await this.moveService.create(newMove)
+    contract.move.push(move)
+    await this.contractService.update(contract.id, contract)
+    return {
+      move,
+      contract,
+    }
+  }
+
+  @ApiParam({ name: 'id', type: Number })
+  @ApiParam({ name: 'personId', type: Number })
+  @ApiResponse({ status: 200, type: IPhysicalPersonToContractResponse })
+  @Post(':id/physical-person/:personId')
+  async addPhysicalPerson(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('personId', ParseIntPipe) personId: number
+  ): Promise<{ physicalPerson: IPhysicalPerson; contract: IContract }> {
+    const contract = await this.contractService.findOne(id)
+    const physicalPerson = await this.physicalPersonService.findOne(personId)
+    contract.physical_person = physicalPerson
+    await this.contractService.update(contract.id, contract)
+    return {
+      physicalPerson,
+      contract,
+    }
+  }
+
+  @ApiParam({ name: 'id', type: Number })
+  @ApiResponse({ status: 200, type: IRenewResponse })
+  @ApiBody({ type: IRenew })
+  @Post(':id/renew')
+  async renewContract(
+    @Body() newRenew: IRenew,
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<{ renew: IRenew; contract: IContract }> {
+    const contract = await this.contractService.findOne(id)
+    const renew = await this.renewService.create(newRenew)
+    contract.renew.push(renew)
+    await this.contractService.update(contract.id, contract)
+    return {
+      renew,
       contract,
     }
   }

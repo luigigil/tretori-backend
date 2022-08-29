@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Contract } from '../contract/contract.entity'
 
 @Entity()
 export class Renew {
@@ -19,4 +20,7 @@ export class Renew {
 
   @Column()
   details: string
+
+  @ManyToOne(() => Contract, (contract) => contract.renew)
+  contract?: Contract
 }

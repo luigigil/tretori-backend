@@ -2,13 +2,18 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { IMove } from 'src/domains/core/move/move.types'
-import { oneMoveFixture } from 'src/domains/core/move/test/fixtures'
-import { MoveModule } from 'src/domains/core/move/move.module'
-import { ContractModule } from 'src/domains/core/contract/contract.module'
+import { IAccess } from 'src/domains/core/access/access.types'
+import {
+  createAccessFixture,
+  updateAccessFixture,
+  oneAccessFixture,
+} from 'src/domains/core/access/access.fixtures'
+import { AccessModule } from 'src/domains/core/access/access.module'
 
-describe('Move - /move (e2e)', () => {
-  const move: IMove = oneMoveFixture
+describe('Access - /access (e2e)', () => {
+  const access: IAccess = oneAccessFixture
+  const createAccess = createAccessFixture
+  const updateAccess = updateAccessFixture
 
   let app: INestApplication
   let id: number
@@ -26,8 +31,7 @@ describe('Move - /move (e2e)', () => {
           autoLoadEntities: true,
           synchronize: true,
         }),
-        MoveModule,
-        ContractModule,
+        AccessModule,
       ],
     }).compile()
 
@@ -35,37 +39,35 @@ describe('Move - /move (e2e)', () => {
     await app.init()
   })
 
-  it('Create [POST /move]', () => {
+  it('Create [POST /access]', () => {
     return request(app.getHttpServer())
-      .post('/move')
-      .send(move)
+      .post('/access')
+      .send(createAccess)
       .expect(201)
       .then(({ body }) => {
         id = body.id
-        expect(body).toEqual({ ...move, id: body.id })
+        expect(body).toEqual({ ...access, id: body.id })
       })
   })
 
-  it('Get all move [GET /move]', () => {
+  it('Get access [GET /access]', () => {
     return request(app.getHttpServer())
-      .get('/move')
+      .get(`/access/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one move [GET /move/:id]', () => {
+  it('Updates access [PATCH /access/:id]', () => {
     return request(app.getHttpServer())
-      .get(`/move/${id}`)
+      .patch(`/access/${id}`)
+      .send({ ...updateAccess })
       .expect(200)
-      .then(({ body }) => {
-        expect(body).toBeDefined()
-      })
   })
 
-  it('Delete one move [DELETE /move/:id]', () => {
-    return request(app.getHttpServer()).delete(`/move/${id}`).expect(200)
+  it('Deletes access [DELETE /access/:id]', () => {
+    return request(app.getHttpServer()).delete(`/access/${id}`).expect(200)
   })
 
   afterAll(async () => {

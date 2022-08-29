@@ -10,6 +10,7 @@ describe('Product - /product (e2e)', () => {
   const product: IProduct = oneProductFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -38,6 +39,7 @@ describe('Product - /product (e2e)', () => {
       .send(product as IProduct)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...product, id: body.id })
       })
   })
@@ -53,15 +55,17 @@ describe('Product - /product (e2e)', () => {
 
   it('Get one product [GET /product/:id]', () => {
     return request(app.getHttpServer())
-      .get('/product/2')
+      .get(`/product/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
+  // TODO: test update
+
   it('Delete one product [DELETE /product/:id]', () => {
-    return request(app.getHttpServer()).delete('/product/1').expect(200)
+    return request(app.getHttpServer()).delete(`/product/${id}`).expect(200)
   })
 
   afterAll(async () => {

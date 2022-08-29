@@ -121,40 +121,68 @@ describe('ContractController', () => {
     expect(contractController).toBeDefined()
   })
 
-  describe('create()', () => {
-    it('should create a contract', () => {
-      contractController.create(oneContractFixture)
-      expect(contractController.create(oneContractFixture)).resolves.toEqual({
-        id: 1,
-        ...oneContractFixture,
+  describe('Contract relations', () => {
+    it('should add an access to contract', async () => {
+      expect(await contractController.addAccess(1, 1)).toEqual({
+        access: { id: 1, ...oneAccessFixture },
+        contract: {
+          id: 1,
+          access: { id: 1, ...oneAccessFixture },
+          ...oneContractFixture,
+          move: [],
+          renew: [],
+        },
       })
-      expect(contractService.create).toHaveBeenCalledWith(oneContractFixture)
     })
-  })
 
-  describe('findAll()', () => {
-    it('should find all contract ', () => {
-      contractController.findAll()
-      expect(contractService.findAll).toHaveBeenCalled()
-    })
-  })
-
-  describe('findOne()', () => {
-    it('should find a contract', () => {
-      expect(contractController.findOne(3)).resolves.toEqual({
-        id: 3,
-        ...oneContractFixture,
-        move: [],
-        renew: [],
+    it('should add a legalPerson to contract', async () => {
+      expect(await contractController.addLegalPerson(1, 1)).toEqual({
+        legalPerson: { ...oneLegalPersonFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          legal_person: { ...oneLegalPersonFixture },
+          move: [],
+          renew: [],
+        },
       })
-      expect(contractService.findOne).toHaveBeenCalled()
     })
-  })
 
-  describe('remove()', () => {
-    it('should remove the contract', () => {
-      contractController.remove(2)
-      expect(contractService.remove).toHaveBeenCalled()
+    it('should add a move to contract', async () => {
+      expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
+        move: { ...oneMoveFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          move: [{ ...oneMoveFixture }],
+          renew: [],
+        },
+      })
+    })
+
+    it('should add a physicalPerson to contract', () => {
+      expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
+        physicalPerson: { ...onePhysicalPersonFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          physical_person: { ...onePhysicalPersonFixture },
+          move: [],
+          renew: [],
+        },
+      })
+    })
+
+    it('should add a renew to contract', () => {
+      expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
+        renew: { ...oneRenewFixture },
+        contract: {
+          id: 1,
+          ...oneContractFixture,
+          move: [],
+          renew: [{ ...oneRenewFixture }],
+        },
+      })
     })
   })
 })

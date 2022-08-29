@@ -5,13 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { IPhysicalPerson } from 'src/domains/customer/common/customer.types'
 import { onePhysicalPersonFixture } from 'src/domains/customer/physical-person/test/fixtures'
 import { PhysicalPersonModule } from 'src/domains/customer/physical-person/physical-person.module'
-import { Contract } from 'src/domains/core/contract/contract.entity'
-import { PhysicalPerson } from 'src/domains/customer/physical-person/physical-person.entity'
 
 describe('Physical Person - /physical-person (e2e)', () => {
   const physicalPerson: IPhysicalPerson = onePhysicalPersonFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -40,6 +39,7 @@ describe('Physical Person - /physical-person (e2e)', () => {
       .send(physicalPerson as IPhysicalPerson)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...physicalPerson, id: body.id })
       })
   })
@@ -55,15 +55,17 @@ describe('Physical Person - /physical-person (e2e)', () => {
 
   it('Get one physical person [GET /physical-person/:id]', () => {
     return request(app.getHttpServer())
-      .get('/physical-person/2')
+      .get(`/physical-person/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
+  // TODO - test update
+
   it('Delete one physical person [DELETE /physical-person/:id]', () => {
-    return request(app.getHttpServer()).delete('/physical-person/1').expect(200)
+    return request(app.getHttpServer()).delete(`/physical-person/${id}`).expect(200)
   })
 
   afterAll(async () => {

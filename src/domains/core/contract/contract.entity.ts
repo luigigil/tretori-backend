@@ -1,8 +1,17 @@
 import { LegalPerson } from '../../customer/legal-person/legal-person.entity'
 import { PhysicalPerson } from '../../customer/physical-person/physical-person.entity'
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { Move } from '../move/move.entity'
 import { Renew } from '../renew/renew.entity'
+import { Access } from '../access/access.entity'
 
 @Entity()
 export class Contract {
@@ -81,14 +90,15 @@ export class Contract {
   // @Column()
   // Produto (Vinculação)
 
-  // @Column()
-  // Acesso (Vinculação)
-
-  @OneToOne(() => Move)
+  @OneToOne(() => Access)
   @JoinColumn()
-  move?: Move
+  access?: Access
 
-  @OneToOne(() => Renew)
+  @OneToMany(() => Move, (move) => move.contract)
   @JoinColumn()
-  renew?: Renew
+  move?: Move[]
+
+  @OneToMany(() => Renew, (renew) => renew.contract)
+  @JoinColumn()
+  renew?: Renew[]
 }
