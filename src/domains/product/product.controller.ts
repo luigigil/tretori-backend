@@ -27,6 +27,8 @@ export class ProductController {
     return this.productService.findOne(id)
   }
 
+  // TODO update route
+
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')

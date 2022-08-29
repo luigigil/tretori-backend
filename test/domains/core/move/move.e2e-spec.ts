@@ -11,6 +11,7 @@ describe('Move - /move (e2e)', () => {
   const move: IMove = oneMoveFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -40,6 +41,7 @@ describe('Move - /move (e2e)', () => {
       .send(move)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...move, id: body.id })
       })
   })
@@ -55,7 +57,7 @@ describe('Move - /move (e2e)', () => {
 
   it('Get one move [GET /move/:id]', () => {
     return request(app.getHttpServer())
-      .get('/move/2')
+      .get(`/move/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -63,7 +65,7 @@ describe('Move - /move (e2e)', () => {
   })
 
   it('Delete one move [DELETE /move/:id]', () => {
-    return request(app.getHttpServer()).delete('/move/1').expect(200)
+    return request(app.getHttpServer()).delete(`/move/${id}`).expect(200)
   })
 
   afterAll(async () => {

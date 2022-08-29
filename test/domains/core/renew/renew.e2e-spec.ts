@@ -11,6 +11,7 @@ describe('Renew - /renew (e2e)', () => {
   const renew: IRenew = oneRenewFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -40,6 +41,7 @@ describe('Renew - /renew (e2e)', () => {
       .send(renew)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...renew, id: body.id })
       })
   })
@@ -55,15 +57,17 @@ describe('Renew - /renew (e2e)', () => {
 
   it('Get one renew [GET /renew/:id]', () => {
     return request(app.getHttpServer())
-      .get('/renew/2')
+      .get(`/renew/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
+  // TODO - test update
+
   it('Delete one renew [DELETE /renew/:id]', () => {
-    return request(app.getHttpServer()).delete('/renew/1').expect(200)
+    return request(app.getHttpServer()).delete(`/renew/${id}`).expect(200)
   })
 
   afterAll(async () => {

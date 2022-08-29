@@ -10,7 +10,6 @@ export const oneAccessFixture: IAccess = {
 }
 
 export const updateAccessFixture: IAccess = {
-  id: 1,
   system: 'system2',
   login_tret: 'login_tret2',
   pass_tret: 'pass_tret2',

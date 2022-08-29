@@ -12,6 +12,7 @@ describe('Contract - /contract (e2e)', () => {
   const contract: IContract = oneContractFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -42,6 +43,7 @@ describe('Contract - /contract (e2e)', () => {
       .send(contract as IContract)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...contract, id: body.id })
       })
   })
@@ -57,15 +59,17 @@ describe('Contract - /contract (e2e)', () => {
 
   it('Get one contract [GET /contract/:id]', () => {
     return request(app.getHttpServer())
-      .get('/contract/2')
+      .get(`/contract/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
+  // TODO add update test
+
   it('Delete one contract [DELETE /contract/:id]', () => {
-    return request(app.getHttpServer()).delete('/contract/1').expect(200)
+    return request(app.getHttpServer()).delete(`/contract/${id}`).expect(200)
   })
 
   afterAll(async () => {

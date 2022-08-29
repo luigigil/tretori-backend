@@ -16,6 +16,7 @@ describe('Access - /access (e2e)', () => {
   const updateAccess = updateAccessFixture
 
   let app: INestApplication
+  let id: number
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -44,13 +45,14 @@ describe('Access - /access (e2e)', () => {
       .send(createAccess)
       .expect(201)
       .then(({ body }) => {
+        id = body.id
         expect(body).toEqual({ ...access, id: body.id })
       })
   })
 
   it('Get access [GET /access]', () => {
     return request(app.getHttpServer())
-      .get('/access/1')
+      .get(`/access/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -59,13 +61,13 @@ describe('Access - /access (e2e)', () => {
 
   it('Updates access [PATCH /access/:id]', () => {
     return request(app.getHttpServer())
-      .patch('/access/1')
+      .patch(`/access/${id}`)
       .send({ ...updateAccess })
       .expect(200)
   })
 
   it('Deletes access [DELETE /access/:id]', () => {
-    return request(app.getHttpServer()).delete('/access/1').expect(200)
+    return request(app.getHttpServer()).delete(`/access/${id}`).expect(200)
   })
 
   afterAll(async () => {
