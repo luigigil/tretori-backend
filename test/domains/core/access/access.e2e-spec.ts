@@ -40,7 +40,7 @@ describe('Access - /access (e2e)', () => {
 
   it('Create [POST /access]', () => {
     return request(app.getHttpServer())
-      .post('/contract/access')
+      .post('/access')
       .send(createAccess)
       .expect(201)
       .then(({ body }) => {
@@ -50,7 +50,7 @@ describe('Access - /access (e2e)', () => {
 
   it('Get access [GET /access]', () => {
     return request(app.getHttpServer())
-      .get('/contract/access/1')
+      .get('/access/1')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -59,13 +59,13 @@ describe('Access - /access (e2e)', () => {
 
   it('Updates access [PATCH /access/:id]', () => {
     return request(app.getHttpServer())
-      .patch('/contract/access/1')
+      .patch('/access/1')
       .send({ ...updateAccess })
       .expect(200)
   })
 
   it('Deletes access [DELETE /access/:id]', () => {
-    return request(app.getHttpServer()).delete('/contract/access/1').expect(200)
+    return request(app.getHttpServer()).delete('/access/1').expect(200)
   })
 
   afterAll(async () => {

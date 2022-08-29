@@ -5,7 +5,7 @@ import { Access } from './access.entity'
 import { UpdateResult } from 'typeorm'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 
-@Controller('contract/access')
+@Controller('access')
 export class AccessController {
   constructor(private readonly accessService: AccessService) {}
 

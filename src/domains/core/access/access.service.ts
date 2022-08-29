@@ -8,26 +8,28 @@ import { Access } from './access.entity'
 export class AccessService {
   constructor(
     @InjectRepository(Access)
-    private readonly Access: Repository<Access>
+    private readonly accessRepository: Repository<Access>
   ) {}
 
   async findOne(id: number): Promise<Access> {
-    const access = this.Access.findOne({ where: { id } })
+    const access = this.accessRepository.findOne({ where: { id } })
     if (!access) throw new NotFoundException('Access not found')
     return access
   }
 
   async create(access: IAccess): Promise<Access> {
-    return this.Access.save(access)
+    return this.accessRepository.save(access)
   }
 
   async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {
     const access = await this.findOne(id)
-    return this.Access.update(access, updateAccess)
+    if (!access) throw new NotFoundException('Access not found')
+    return this.accessRepository.update(access, updateAccess)
   }
 
   async remove(id: number): Promise<Access> {
     const access = await this.findOne(id)
-    return this.Access.remove(access)
+    if (!access) throw new NotFoundException('Access not found')
+    return this.accessRepository.remove(access)
   }
 }
