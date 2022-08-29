@@ -5,9 +5,9 @@ import {
   RepresentativeFixture,
   RepresentativeFixtureArray,
   UpdateRepresentativeFixture,
-} from './fixtures/representative.fixtures'
-import { RepresentativeService } from './representative.service'
-import { RepresentativeRepository } from './representative.entity'
+} from '../fixtures/representative.fixtures'
+import { RepresentativeService } from '../representative.service'
+import { RepresentativeRepository } from '../representative.entity'
 import { NotFoundException } from '@nestjs/common'
 
 describe('RepresentativeService', () => {
