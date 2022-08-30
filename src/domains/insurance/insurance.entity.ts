@@ -49,9 +49,9 @@ export class Insurance {
   size: string
 
   @Column()
-  representatives: string
+  representatives?: string
 
-  @OneToMany((type) => Contract, (contract) => contract.insurance)
+  @OneToMany(() => Contract, (contract) => contract.insurance)
   @JoinColumn()
-  contracts: Contract[]
+  contracts?: Contract[]
 }

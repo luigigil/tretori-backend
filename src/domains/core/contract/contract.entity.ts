@@ -90,7 +90,7 @@ export class Contract {
 
   @OneToMany(() => Insurance, (insurance) => insurance.contracts)
   @JoinColumn()
-  insurance: Insurance
+  insurance?: Insurance
 
   // @Column()
   // Produto (Vinculação)
