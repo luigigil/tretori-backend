@@ -12,6 +12,7 @@ import {
 import { Move } from '../move/move.entity'
 import { Renew } from '../renew/renew.entity'
 import { Access } from '../access/access.entity'
+import { Insurance } from 'src/domains/insurance/insurance.entity'
 
 @Entity()
 export class Contract {
@@ -87,9 +88,12 @@ export class Contract {
   @ManyToOne(() => LegalPerson, (legal_person) => legal_person.contracts)
   legal_person?: LegalPerson
 
+  @OneToMany(() => Insurance, (insurance) => insurance.contracts)
+  @JoinColumn()
+  insurance: Insurance
+
   // @Column()
   // Produto (Vinculação)
-
   @OneToOne(() => Access)
   @JoinColumn()
   access?: Access
