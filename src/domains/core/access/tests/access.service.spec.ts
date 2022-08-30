@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { DeleteResult, Repository } from 'typeorm'
+import { DeleteResult, Repository, UpdateResult } from 'typeorm'
 import { oneAccessFixture, updateAccessFixture } from '../access.fixtures'
 import { AccessService } from '../access.service'
 import { Access } from '../access.entity'
@@ -9,7 +9,6 @@ import { NotFoundException } from '@nestjs/common'
 describe('AccessService', () => {
   let service: AccessService
   let repository: Repository<Access>
-  let deleted: DeleteResult = new DeleteResult()
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,19 +17,9 @@ describe('AccessService', () => {
         {
           provide: getRepositoryToken(Access),
           useValue: {
-            findOne: jest
-              .fn()
-              .mockResolvedValueOnce(oneAccessFixture)
-              .mockRejectedValueOnce(new NotFoundException('Access not found'))
-              .mockResolvedValueOnce(oneAccessFixture)
-              .mockRejectedValueOnce(new NotFoundException('Access not found'))
-              .mockResolvedValueOnce(oneAccessFixture)
-              .mockRejectedValueOnce(new NotFoundException('Access not found')),
+            findOne: jest.fn().mockResolvedValue(oneAccessFixture),
             save: jest.fn().mockResolvedValue(oneAccessFixture),
-            remove: jest
-              .fn()
-              .mockResolvedValueOnce(deleted)
-              .mockRejectedValueOnce(new NotFoundException('Access not found')),
+            remove: jest.fn(),
             update: jest
               .fn()
               .mockResolvedValueOnce(updateAccessFixture)
@@ -58,33 +47,38 @@ describe('AccessService', () => {
   describe('findOne()', () => {
     it('should return access', () => {
       const repoSpy = jest.spyOn(repository, 'findOne')
-      expect(service.findOne(1))
-        .resolves.toBe(oneAccessFixture)
-        .catch((e) => expect(e).toBeInstanceOf(NotFoundException))
+      //jest.spyOn(service, 'findOne').mockResolvedValueOnce(oneAccessFixture as Access)
+      expect(service.findOne(1)).resolves.toBe(oneAccessFixture)
       expect(repoSpy).toBeCalledWith({ where: { id: 1 } })
     })
     it('should throw NotFoundException', () => {
-      service.findOne(1)
+      jest.spyOn(repository, 'findOne').mockReturnValueOnce(null)
       expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Access not found'))
     })
   })
 
   describe('remove()', () => {
     it('should call remove with the passed value', () => {
-      expect(service.remove(1)).resolves.toBe(deleted)
+      jest.spyOn(service, 'remove').mockResolvedValueOnce(oneAccessFixture as Access)
+      expect(service.remove(1)).resolves.toBe(oneAccessFixture)
     })
     it('Should throw a not found exception', () => {
-      service.remove(1)
+      jest
+        .spyOn(service, 'findOne')
+        .mockRejectedValueOnce(new NotFoundException('Access not found'))
       expect(service.remove(1)).rejects.toThrow(new NotFoundException('Access not found'))
     })
   })
 
   describe('update()', () => {
     it('should call update with the passed value', () => {
-      expect(service.update(1, updateAccessFixture)).resolves.toBe(updateAccessFixture)
+      jest.spyOn(service, 'update').mockResolvedValueOnce(new UpdateResult())
+      expect(service.update(1, updateAccessFixture)).resolves.toBeInstanceOf(UpdateResult)
     })
     it('Should throw a not found exception', () => {
-      service.update(1, updateAccessFixture)
+      jest
+        .spyOn(service, 'findOne')
+        .mockRejectedValueOnce(new NotFoundException('Access not found'))
       expect(service.update(1, updateAccessFixture)).rejects.toThrow(
         new NotFoundException('Access not found')
       )
