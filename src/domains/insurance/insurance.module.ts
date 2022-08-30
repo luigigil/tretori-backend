@@ -10,4 +10,4 @@ import { InsuranceService } from './insurance.service'
   controllers: [InsuranceController],
   providers: [InsuranceService],
 })
-export class LegalPersonModule {}
+export class InsuranceModule {}
