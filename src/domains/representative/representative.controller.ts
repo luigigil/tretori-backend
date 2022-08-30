@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
 import { IRepresentative } from './representative.types'
 import { RepresentativeService } from './representative.service'
-import { RepresentativeRepository } from './representative.entity'
+import { Representative } from './representative.entity'
 import { UpdateResult } from 'typeorm'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 
@@ -12,20 +12,20 @@ export class RepresentativeController {
   @ApiBody({ type: IRepresentative })
   @ApiResponse({ status: 200, type: IRepresentative })
   @Post()
-  create(@Body() representative: IRepresentative): Promise<RepresentativeRepository> {
+  create(@Body() representative: IRepresentative): Promise<Representative> {
     return this.representativeService.create(representative)
   }
 
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IRepresentative })
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<RepresentativeRepository> {
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Representative> {
     return this.representativeService.findOne(id)
   }
 
   @ApiResponse({ status: 200, type: [IRepresentative] })
   @Get()
-  findAll(): Promise<RepresentativeRepository[]> {
+  findAll(): Promise<Representative[]> {
     return this.representativeService.findAll()
   }
 
@@ -43,7 +43,7 @@ export class RepresentativeController {
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<RepresentativeRepository> {
+  remove(@Param('id') id: number): Promise<Representative> {
     return this.representativeService.remove(id)
   }
 }

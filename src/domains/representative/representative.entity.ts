@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class RepresentativeRepository {
+export class Representative {
   @PrimaryGeneratedColumn()
   id: number
 

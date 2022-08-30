@@ -7,7 +7,7 @@ import {
   RepresentativeFixtureArray,
   UpdateRepresentativeFixture,
 } from '../fixtures/representative.fixtures'
-import { RepresentativeRepository } from '../representative.entity'
+import { Representative } from '../representative.entity'
 import { RepresentativeService } from '../representative.service'
 
 describe('RepresentativeService', () => {
@@ -18,7 +18,7 @@ describe('RepresentativeService', () => {
       providers: [
         RepresentativeService,
         {
-          provide: getRepositoryToken(RepresentativeRepository),
+          provide: getRepositoryToken(Representative),
           useValue: {
             find: jest.fn().mockImplementation(() => Promise.resolve(RepresentativeFixtureArray)),
             findOne: jest
