@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, UpdateResult } from 'typeorm'
 import { Insurance } from './insurance.entity'
 import { IInsurance } from './insurance.types'
 
@@ -25,9 +25,9 @@ export class InsuranceService {
     return this.InsuranceRepository.save(Insurance)
   }
 
-  async update(id: number, Insurance: IInsurance): Promise<void> {
+  async update(id: number, Insurance: IInsurance): Promise<UpdateResult> {
     const insurance = await this.findOne(id)
-    await this.InsuranceRepository.update(id, Insurance)
+    return this.InsuranceRepository.update(insurance, Insurance)
   }
 
   async remove(id: number): Promise<void> {

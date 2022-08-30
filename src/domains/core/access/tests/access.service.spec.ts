@@ -1,10 +1,10 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { DeleteResult, Repository, UpdateResult } from 'typeorm'
+import { Repository, UpdateResult } from 'typeorm'
+import { Access } from '../access.entity'
 import { oneAccessFixture, updateAccessFixture } from '../access.fixtures'
 import { AccessService } from '../access.service'
-import { Access } from '../access.entity'
-import { NotFoundException } from '@nestjs/common'
 
 describe('AccessService', () => {
   let service: AccessService
@@ -22,8 +22,8 @@ describe('AccessService', () => {
             remove: jest.fn(),
             update: jest
               .fn()
-              .mockResolvedValueOnce(updateAccessFixture)
-              .mockRejectedValueOnce(new NotFoundException('Access not found')),
+              .mockResolvedValue(updateAccessFixture)
+              .mockRejectedValue(new NotFoundException('Access not found')),
           },
         },
       ],
@@ -47,7 +47,6 @@ describe('AccessService', () => {
   describe('findOne()', () => {
     it('should return access', () => {
       const repoSpy = jest.spyOn(repository, 'findOne')
-      //jest.spyOn(service, 'findOne').mockResolvedValueOnce(oneAccessFixture as Access)
       expect(service.findOne(1)).resolves.toBe(oneAccessFixture)
       expect(repoSpy).toBeCalledWith({ where: { id: 1 } })
     })
@@ -76,9 +75,7 @@ describe('AccessService', () => {
       expect(service.update(1, updateAccessFixture)).resolves.toBeInstanceOf(UpdateResult)
     })
     it('Should throw a not found exception', () => {
-      jest
-        .spyOn(service, 'findOne')
-        .mockRejectedValueOnce(new NotFoundException('Access not found'))
+      jest.spyOn(repository, 'findOne').mockReturnValueOnce(null)
       expect(service.update(1, updateAccessFixture)).rejects.toThrow(
         new NotFoundException('Access not found')
       )

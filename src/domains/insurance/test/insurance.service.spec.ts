@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -52,6 +53,11 @@ describe('InsuranceService', () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
       expect(service.findOne(1)).resolves.toEqual(oneInsuranceFixture)
       expect(repoSpy).toBeCalledWith({ id: 1 })
+    })
+    it('should throw NotFoundException if no insurance is found', () => {
+      const repoSpy = jest.spyOn(repository, 'findOneBy')
+      repoSpy.mockResolvedValue(null)
+      expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Insurance not found'))
     })
   })
 
