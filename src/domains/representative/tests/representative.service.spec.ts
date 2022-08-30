@@ -1,18 +1,17 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { DeleteResult, Repository } from 'typeorm'
+import { DeleteResult } from 'typeorm'
 import {
   RepresentativeFixture,
   RepresentativeFixtureArray,
   UpdateRepresentativeFixture,
 } from '../fixtures/representative.fixtures'
-import { RepresentativeService } from '../representative.service'
 import { RepresentativeRepository } from '../representative.entity'
-import { NotFoundException } from '@nestjs/common'
+import { RepresentativeService } from '../representative.service'
 
 describe('RepresentativeService', () => {
   let service: RepresentativeService
-  let repository: Repository<RepresentativeRepository>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -36,9 +35,6 @@ describe('RepresentativeService', () => {
     }).compile()
 
     service = module.get<RepresentativeService>(RepresentativeService)
-    repository = module.get<Repository<RepresentativeRepository>>(
-      getRepositoryToken(RepresentativeRepository)
-    )
   })
 
   it('should be defined', () => {
