@@ -28,7 +28,6 @@ import { contractArrayFixture, oneContractFixture } from './fixtures'
 
 describe('ContractController', () => {
   let contractController: ContractController
-  let contractService: ContractService
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -114,7 +113,6 @@ describe('ContractController', () => {
     }).compile()
 
     contractController = app.get<ContractController>(ContractController)
-    contractService = app.get<ContractService>(ContractService)
   })
 
   it('should be defined', () => {

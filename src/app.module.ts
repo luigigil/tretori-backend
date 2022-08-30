@@ -8,6 +8,7 @@ import { RenewModule } from './domains/core/renew/renew.module'
 import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
 import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
 import { InsuranceModule } from './domains/insurance/insurance.module'
+import { RepresentativeModule } from './domains/representative/representative.module'
 import { ProductModule } from './domains/product/product.module'
 
 @Module({
@@ -30,6 +31,7 @@ import { ProductModule } from './domains/product/product.module'
     MoveModule,
     LegalPersonModule,
     PhysicalPersonModule,
+    RepresentativeModule,
     ProductModule,
     RenewModule,
   ],
