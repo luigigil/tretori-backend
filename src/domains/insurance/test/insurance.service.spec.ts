@@ -43,8 +43,8 @@ describe('InsuranceService', () => {
 
   describe('findAll()', () => {
     it('should return an array of insurance', async () => {
-      const InsuranceArray = await service.findAll()
-      expect(InsuranceArray).toEqual(insuranceArrayFixture)
+      const insuranceArray = await service.findAll()
+      expect(insuranceArray).toEqual(insuranceArrayFixture)
     })
   })
 

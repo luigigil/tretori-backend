@@ -31,6 +31,7 @@ export class InsuranceService {
   }
 
   async remove(id: number): Promise<void> {
+    const insurance = await this.findOne(id)
     await this.insuranceRepository.delete(id)
   }
 }

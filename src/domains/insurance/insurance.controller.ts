@@ -10,8 +10,8 @@ export class InsuranceController {
   @ApiBody({ type: IInsurance })
   @ApiResponse({ status: 200, type: IInsurance })
   @Post()
-  create(@Body() legalPerson: IInsurance): Promise<IInsurance> {
-    return this.insuranceService.create(legalPerson)
+  create(@Body() insurance: IInsurance): Promise<IInsurance> {
+    return this.insuranceService.create(insurance)
   }
 
   @ApiResponse({ status: 200, type: [IInsurance] })

@@ -18,8 +18,8 @@ describe('InsuranceController', () => {
           useValue: {
             create: jest
               .fn()
-              .mockImplementation((Insurance: IInsurance) =>
-                Promise.resolve({ id: 1, ...Insurance })
+              .mockImplementation((insurance: IInsurance) =>
+                Promise.resolve({ id: 1, ...insurance })
               ),
             findAll: jest.fn().mockResolvedValue(insuranceArrayFixture),
             findOne: jest
@@ -36,7 +36,7 @@ describe('InsuranceController', () => {
   })
 
   it('should be defined', () => {
-    expect(InsuranceController).toBeDefined()
+    expect(insuranceController).toBeDefined()
   })
 
   describe('create()', () => {
