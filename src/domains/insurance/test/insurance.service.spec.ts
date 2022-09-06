@@ -36,20 +36,20 @@ describe('InsuranceService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a legal person', () => {
+    it('should successfully insert a insurance', () => {
       expect(service.create(oneInsuranceFixture)).resolves.toEqual(oneInsuranceFixture)
     })
   })
 
   describe('findAll()', () => {
-    it('should return an array of legal person', async () => {
+    it('should return an array of insurance', async () => {
       const InsuranceArray = await service.findAll()
       expect(InsuranceArray).toEqual(insuranceArrayFixture)
     })
   })
 
   describe('findOne()', () => {
-    it('should get a single legal person', () => {
+    it('should get a single insurance', () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
       expect(service.findOne(1)).resolves.toEqual(oneInsuranceFixture)
       expect(repoSpy).toBeCalledWith({ id: 1 })

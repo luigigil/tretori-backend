@@ -40,7 +40,7 @@ describe('InsuranceController', () => {
   })
 
   describe('create()', () => {
-    it('should create a legal person', () => {
+    it('should create a insurance', () => {
       insuranceController.create(oneInsuranceFixture)
       expect(insuranceController.create(oneInsuranceFixture)).resolves.toEqual({
         id: 1,
@@ -51,21 +51,21 @@ describe('InsuranceController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all legal person ', () => {
+    it('should find all insurances ', () => {
       insuranceController.findAll()
       expect(insuranceService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a legal person', () => {
+    it('should find one insurance', () => {
       expect(insuranceController.findOne(3)).resolves.toEqual({ id: 3, ...oneInsuranceFixture })
       expect(insuranceService.findOne).toHaveBeenCalled()
     })
   })
 
   describe('remove()', () => {
-    it('should remove the legal person', () => {
+    it('should remove the insurance', () => {
       insuranceController.remove(2)
       expect(insuranceService.remove).toHaveBeenCalled()
     })

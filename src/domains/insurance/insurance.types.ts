@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IContract } from '../core/contract/contract.types'
+import { Representative } from '../representative/representative.entity'
 
 export class IInsurance {
   @ApiProperty()
@@ -48,7 +49,7 @@ export class IInsurance {
   size: string
 
   @ApiProperty()
-  representatives?: string
+  representatives?: Representative[]
 
   @ApiProperty()
   contracts?: IContract[]

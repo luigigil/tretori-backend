@@ -92,8 +92,6 @@ export class Contract {
   @JoinColumn()
   insurance?: Insurance
 
-  // @Column()
-  // Produto (Vinculação)
   @OneToOne(() => Access)
   @JoinColumn()
   access?: Access
