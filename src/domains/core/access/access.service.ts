@@ -23,13 +23,11 @@ export class AccessService {
 
   async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {
     const access = await this.findOne(id)
-    if (!access) throw new NotFoundException('Access not found')
     return this.accessRepository.update(access, updateAccess)
   }
 
   async remove(id: number): Promise<Access> {
     const access = await this.findOne(id)
-    if (!access) throw new NotFoundException('Access not found')
     return this.accessRepository.remove(access)
   }
 }

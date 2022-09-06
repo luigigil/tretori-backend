@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common'
 import { RepresentativeService } from './representative.service'
 import { RepresentativeController } from './representative.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { RepresentativeRepository } from './representative.entity'
+import { Representative } from './representative.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RepresentativeRepository])],
+  imports: [TypeOrmModule.forFeature([Representative])],
   controllers: [RepresentativeController],
   providers: [RepresentativeService],
 })

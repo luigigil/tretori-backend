@@ -29,6 +29,6 @@ export class LegalPerson extends Customer {
   @Column()
   representatives: string
 
-  @OneToMany(() => Contract, (contract) => contract.physical_person)
+  @OneToMany(() => Contract, (contract) => contract.legal_person)
   contracts?: Contract[]
 }

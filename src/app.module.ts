@@ -7,6 +7,7 @@ import { MoveModule } from './domains/core/move/move.module'
 import { RenewModule } from './domains/core/renew/renew.module'
 import { LegalPersonModule } from './domains/customer/legal-person/legal-person.module'
 import { PhysicalPersonModule } from './domains/customer/physical-person/physical-person.module'
+import { InsuranceModule } from './domains/insurance/insurance.module'
 import { RepresentativeModule } from './domains/representative/representative.module'
 import { ProductModule } from './domains/product/product.module'
 
@@ -26,6 +27,7 @@ import { ProductModule } from './domains/product/product.module'
     }),
     AccessModule,
     ContractModule,
+    InsuranceModule,
     MoveModule,
     LegalPersonModule,
     PhysicalPersonModule,
