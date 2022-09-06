@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Contract } from '../core/contract/contract.entity'
-import { Representative } from '../representative/representative.entity'
 
 @Entity()
 export class Insurance {
@@ -49,8 +48,8 @@ export class Insurance {
   @Column()
   size: string
 
-  @OneToMany(() => Representative, (representative) => representative.insurance)
-  representatives?: Representative[]
+  @Column()
+  representatives?: string
 
   @OneToMany(() => Contract, (contract) => contract.insurance)
   @JoinColumn()

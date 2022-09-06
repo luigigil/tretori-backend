@@ -49,7 +49,7 @@ export class IInsurance {
   size: string
 
   @ApiProperty()
-  representatives?: Representative[]
+  representatives?: string
 
   @ApiProperty()
   contracts?: IContract[]
