@@ -1,0 +1,5 @@
+CODEOWNERS @luigifsl
+.github @luigifsl
+.git-hooks @luigifsl
+package.json @luigifsl
+yarn.lock @luigifsl

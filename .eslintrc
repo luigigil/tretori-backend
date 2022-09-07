@@ -1,0 +1,88 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["import"],
+  "rules": {
+    // Base
+    "no-undef": ["off"],
+    "curly": ["error", "all"],
+    "no-console": ["error"],
+    "eqeqeq": ["error", "allow-null"],
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "markers": ["/"]
+      }
+    ], // Require space after comment; markers allows triple slash
+    "no-nested-ternary": ["error"],
+    "prefer-template": ["error"],
+    // Import
+    "import/namespace": "off", // Redundant with TypeScript
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", ["unknown"]],
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/test/**", "dangerfile.ts", "scripts/**", "testEnvironment.js"]
+      }
+    ],
+    "import/no-cycle": ["error"],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": [".*"],
+            "message": "Relative imports are forbidden. Use absolute imports instead."
+          }
+        ]
+      }
+    ],
+    // TypeScript
+    "@typescript-eslint/no-explicit-any": ["error"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-floating-promises": ["error"],
+    "@typescript-eslint/no-non-null-assertion": ["error"],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true,
+        "allowTypedFunctionExpressions": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/test/**"],
+      "extends": ["plugin:jest/recommended"],
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "jest/no-conditional-expect": "off",
+        "jest/no-commented-out-tests": "off",
+        "jest/expect-expect": "off"
+      }
+    }
+  ]
+}
