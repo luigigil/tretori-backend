@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Contract } from 'src/domains/core/contract/contract.entity'
+import { Contract } from '../../core/contract/contract.entity'
 import { LegalPersonController } from './legal-person.controller'
 import { LegalPerson } from './legal-person.entity'
 import { LegalPersonService } from './legal-person.service'
