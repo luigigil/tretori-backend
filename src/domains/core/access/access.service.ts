@@ -13,7 +13,9 @@ export class AccessService {
 
   async findOne(id: number): Promise<Access> {
     const access = this.accessRepository.findOne({ where: { id } })
-    if (!access) throw new NotFoundException('Access not found')
+    if (!access) {
+      throw new NotFoundException('Access not found')
+    }
     return access
   }
 

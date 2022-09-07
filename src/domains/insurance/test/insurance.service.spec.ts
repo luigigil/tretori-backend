@@ -36,8 +36,8 @@ describe('InsuranceService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a insurance', () => {
-      expect(service.create(oneInsuranceFixture)).resolves.toEqual(oneInsuranceFixture)
+    it('should successfully insert a insurance', async () => {
+      await expect(service.create(oneInsuranceFixture)).resolves.toEqual(oneInsuranceFixture)
     })
   })
 
@@ -49,15 +49,15 @@ describe('InsuranceService', () => {
   })
 
   describe('findOne()', () => {
-    it('should get a single insurance', () => {
+    it('should get a single insurance', async () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
-      expect(service.findOne(1)).resolves.toEqual(oneInsuranceFixture)
-      expect(repoSpy).toBeCalledWith({ id: 1 })
+      await expect(service.findOne(1)).resolves.toEqual(oneInsuranceFixture)
+      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
     })
-    it('should throw NotFoundException if no insurance is found', () => {
+    it('should throw NotFoundException if no insurance is found', async () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
       repoSpy.mockResolvedValue(null)
-      expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Insurance not found'))
+      await expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Insurance not found'))
     })
   })
 
@@ -65,7 +65,7 @@ describe('InsuranceService', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete')
       const retVal = await service.remove(2)
-      expect(removeSpy).toBeCalledWith(2)
+      expect(removeSpy).toHaveBeenCalledWith(2)
       expect(retVal).toBeUndefined()
     })
   })

@@ -63,8 +63,8 @@ describe('ContractService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a contract', () => {
-      expect(service.create(oneContractFixture)).resolves.toEqual(oneContractFixture)
+    it('should successfully insert a contract', async () => {
+      await expect(service.create(oneContractFixture)).resolves.toEqual(oneContractFixture)
     })
   })
 
@@ -76,10 +76,10 @@ describe('ContractService', () => {
   })
 
   describe('findOne()', () => {
-    it('should get a single contract', () => {
+    it('should get a single contract', async () => {
       const repoSpy = jest.spyOn(repository, 'findOne')
-      expect(service.findOne(1)).resolves.toEqual(oneContractFixture)
-      expect(repoSpy).toBeCalledWith({
+      await expect(service.findOne(1)).resolves.toEqual(oneContractFixture)
+      expect(repoSpy).toHaveBeenCalledWith({
         relations: {
           legal_person: true,
           move: true,
@@ -97,7 +97,7 @@ describe('ContractService', () => {
     it('should call remove with the passed value', async () => {
       const recontractSpy = jest.spyOn(repository, 'delete')
       const retVal = await service.remove(2)
-      expect(recontractSpy).toBeCalledWith(2)
+      expect(recontractSpy).toHaveBeenCalledWith(2)
       expect(retVal).toBeUndefined()
     })
   })

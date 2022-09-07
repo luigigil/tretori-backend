@@ -13,13 +13,17 @@ export class RepresentativeService {
 
   async findOne(id: number): Promise<Representative> {
     const representative = await this.representativeRepository.findOne({ where: { id } })
-    if (!representative) throw new NotFoundException('Representative not found')
+    if (!representative) {
+      throw new NotFoundException('Representative not found')
+    }
     return representative
   }
 
   async findAll(): Promise<Representative[]> {
     const representative = await this.representativeRepository.find({ take: 10 })
-    if (representative.length === 0) throw new NotFoundException('Representatives not found')
+    if (representative.length === 0) {
+      throw new NotFoundException('Representatives not found')
+    }
     return representative
   }
 

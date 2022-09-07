@@ -38,9 +38,9 @@ describe('RenewController', () => {
   })
 
   describe('create()', () => {
-    it('should create a renew', () => {
+    it('should create a renew', async () => {
       renewController.create(oneRenewFixture)
-      expect(renewController.create(oneRenewFixture)).resolves.toEqual({
+      await expect(renewController.create(oneRenewFixture)).resolves.toEqual({
         id: 1,
         ...oneRenewFixture,
       })
@@ -49,15 +49,15 @@ describe('RenewController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all renew ', () => {
+    it('should find all renew', () => {
       renewController.findAll()
       expect(renewService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a renew', () => {
-      expect(renewController.findOne(3)).resolves.toEqual({
+    it('should find a renew', async () => {
+      await expect(renewController.findOne(3)).resolves.toEqual({
         id: 3,
         ...oneRenewFixture,
       })

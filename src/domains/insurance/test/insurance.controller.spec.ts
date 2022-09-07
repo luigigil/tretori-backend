@@ -40,9 +40,9 @@ describe('InsuranceController', () => {
   })
 
   describe('create()', () => {
-    it('should create a insurance', () => {
+    it('should create a insurance', async () => {
       insuranceController.create(oneInsuranceFixture)
-      expect(insuranceController.create(oneInsuranceFixture)).resolves.toEqual({
+      await expect(insuranceController.create(oneInsuranceFixture)).resolves.toEqual({
         id: 1,
         ...oneInsuranceFixture,
       })
@@ -51,15 +51,18 @@ describe('InsuranceController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all insurances ', () => {
+    it('should find all insurances', () => {
       insuranceController.findAll()
       expect(insuranceService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find one insurance', () => {
-      expect(insuranceController.findOne(3)).resolves.toEqual({ id: 3, ...oneInsuranceFixture })
+    it('should find one insurance', async () => {
+      await expect(insuranceController.findOne(3)).resolves.toEqual({
+        id: 3,
+        ...oneInsuranceFixture,
+      })
       expect(insuranceService.findOne).toHaveBeenCalled()
     })
   })

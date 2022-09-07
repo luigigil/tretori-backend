@@ -42,9 +42,9 @@ describe('PhysicalPersonController', () => {
   })
 
   describe('create()', () => {
-    it('should create a physical person', () => {
+    it('should create a physical person', async () => {
       physicalPersonController.create(onePhysicalPersonFixture)
-      expect(physicalPersonController.create(onePhysicalPersonFixture)).resolves.toEqual({
+      await expect(physicalPersonController.create(onePhysicalPersonFixture)).resolves.toEqual({
         id: 1,
         ...onePhysicalPersonFixture,
       })
@@ -53,15 +53,15 @@ describe('PhysicalPersonController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all physical person ', () => {
+    it('should find all physical person', () => {
       physicalPersonController.findAll()
       expect(physicalPersonService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a physical person', () => {
-      expect(physicalPersonController.findOne(3)).resolves.toEqual({
+    it('should find a physical person', async () => {
+      await expect(physicalPersonController.findOne(3)).resolves.toEqual({
         id: 3,
         ...onePhysicalPersonFixture,
       })

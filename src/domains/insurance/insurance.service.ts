@@ -17,7 +17,9 @@ export class InsuranceService {
 
   async findOne(id: number): Promise<Insurance> {
     const insurance = await this.insuranceRepository.findOneBy({ id })
-    if (!insurance) throw new NotFoundException('Insurance not found')
+    if (!insurance) {
+      throw new NotFoundException('Insurance not found')
+    }
     return insurance
   }
 
@@ -31,7 +33,7 @@ export class InsuranceService {
   }
 
   async remove(id: number): Promise<void> {
-    const insurance = await this.findOne(id)
+    await this.findOne(id)
     await this.insuranceRepository.delete(id)
   }
 }

@@ -35,8 +35,8 @@ describe('LegalPersonService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a legal person', () => {
-      expect(service.create(oneLegalPersonFixture)).resolves.toEqual(oneLegalPersonFixture)
+    it('should successfully insert a legal person', async () => {
+      await expect(service.create(oneLegalPersonFixture)).resolves.toEqual(oneLegalPersonFixture)
     })
   })
 
@@ -48,10 +48,10 @@ describe('LegalPersonService', () => {
   })
 
   describe('findOne()', () => {
-    it('should get a single legal person', () => {
+    it('should get a single legal person', async () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
-      expect(service.findOne(1)).resolves.toEqual(oneLegalPersonFixture)
-      expect(repoSpy).toBeCalledWith({ id: 1 })
+      await expect(service.findOne(1)).resolves.toEqual(oneLegalPersonFixture)
+      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
     })
   })
 
@@ -59,7 +59,7 @@ describe('LegalPersonService', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete')
       const retVal = await service.remove(2)
-      expect(removeSpy).toBeCalledWith(2)
+      expect(removeSpy).toHaveBeenCalledWith(2)
       expect(retVal).toBeUndefined()
     })
   })

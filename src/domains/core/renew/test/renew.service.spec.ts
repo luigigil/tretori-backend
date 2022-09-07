@@ -35,8 +35,8 @@ describe('RenewService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a renew', () => {
-      expect(service.create(oneRenewFixture)).resolves.toEqual(oneRenewFixture)
+    it('should successfully insert a renew', async () => {
+      await expect(service.create(oneRenewFixture)).resolves.toEqual(oneRenewFixture)
     })
   })
 
@@ -48,10 +48,10 @@ describe('RenewService', () => {
   })
 
   describe('findOne()', () => {
-    it('should get a single renew', () => {
+    it('should get a single renew', async () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
-      expect(service.findOne(1)).resolves.toEqual(oneRenewFixture)
-      expect(repoSpy).toBeCalledWith({ id: 1 })
+      await expect(service.findOne(1)).resolves.toEqual(oneRenewFixture)
+      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
     })
   })
 
@@ -59,7 +59,7 @@ describe('RenewService', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete')
       const retVal = await service.remove(2)
-      expect(removeSpy).toBeCalledWith(2)
+      expect(removeSpy).toHaveBeenCalledWith(2)
       expect(retVal).toBeUndefined()
     })
   })

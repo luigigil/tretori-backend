@@ -21,22 +21,6 @@
     "prefer-template": ["error"],
     // Import
     "import/namespace": "off", // Redundant with TypeScript
-    "import/order": [
-      "error",
-      {
-        "pathGroups": [
-          {
-            "group": "external",
-            "position": "after"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["builtin"],
-        "groups": ["builtin", "external", "internal", "parent", "sibling", ["unknown"]],
-        "alphabetize": {
-          "order": "asc"
-        }
-      }
-    ],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -44,17 +28,6 @@
       }
     ],
     "import/no-cycle": ["error"],
-    "no-restricted-imports": [
-      "error",
-      {
-        "patterns": [
-          {
-            "group": [".*"],
-            "message": "Relative imports are forbidden. Use absolute imports instead."
-          }
-        ]
-      }
-    ],
     // TypeScript
     "@typescript-eslint/no-explicit-any": ["error"],
     "@typescript-eslint/no-unused-vars": [
@@ -63,7 +36,7 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/no-floating-promises": ["error"],
+    // "@typescript-eslint/no-floating-promises": ["error"], // ! Enable in future
     "@typescript-eslint/no-non-null-assertion": ["error"],
     "@typescript-eslint/explicit-function-return-type": [
       "error",

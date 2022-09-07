@@ -35,8 +35,8 @@ describe('MoveService', () => {
   })
 
   describe('create()', () => {
-    it('should successfully insert a move', () => {
-      expect(service.create(oneMoveFixture)).resolves.toEqual(oneMoveFixture)
+    it('should successfully insert a move', async () => {
+      await expect(service.create(oneMoveFixture)).resolves.toEqual(oneMoveFixture)
     })
   })
 
@@ -48,10 +48,10 @@ describe('MoveService', () => {
   })
 
   describe('findOne()', () => {
-    it('should get a single move', () => {
+    it('should get a single move', async () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
-      expect(service.findOne(1)).resolves.toEqual(oneMoveFixture)
-      expect(repoSpy).toBeCalledWith({ id: 1 })
+      await expect(service.findOne(1)).resolves.toEqual(oneMoveFixture)
+      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
     })
   })
 
@@ -59,7 +59,7 @@ describe('MoveService', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete')
       const retVal = await service.remove(2)
-      expect(removeSpy).toBeCalledWith(2)
+      expect(removeSpy).toHaveBeenCalledWith(2)
       expect(retVal).toBeUndefined()
     })
   })

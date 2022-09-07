@@ -38,9 +38,9 @@ describe('MoveController', () => {
   })
 
   describe('create()', () => {
-    it('should create a move', () => {
+    it('should create a move', async () => {
       moveController.create(oneMoveFixture)
-      expect(moveController.create(oneMoveFixture)).resolves.toEqual({
+      await expect(moveController.create(oneMoveFixture)).resolves.toEqual({
         id: 1,
         ...oneMoveFixture,
       })
@@ -49,15 +49,15 @@ describe('MoveController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all move ', () => {
+    it('should find all move', () => {
       moveController.findAll()
       expect(moveService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a move', () => {
-      expect(moveController.findOne(3)).resolves.toEqual({
+    it('should find a move', async () => {
+      await expect(moveController.findOne(3)).resolves.toEqual({
         id: 3,
         ...oneMoveFixture,
       })

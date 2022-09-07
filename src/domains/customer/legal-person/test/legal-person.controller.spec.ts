@@ -42,9 +42,9 @@ describe('LegalPersonController', () => {
   })
 
   describe('create()', () => {
-    it('should create a legal person', () => {
+    it('should create a legal person', async () => {
       legalPersonController.create(oneLegalPersonFixture)
-      expect(legalPersonController.create(oneLegalPersonFixture)).resolves.toEqual({
+      await expect(legalPersonController.create(oneLegalPersonFixture)).resolves.toEqual({
         id: 1,
         ...oneLegalPersonFixture,
       })
@@ -53,15 +53,18 @@ describe('LegalPersonController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all legal person ', () => {
+    it('should find all legal person', () => {
       legalPersonController.findAll()
       expect(legalPersonService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a legal person', () => {
-      expect(legalPersonController.findOne(3)).resolves.toEqual({ id: 3, ...oneLegalPersonFixture })
+    it('should find a legal person', async () => {
+      await expect(legalPersonController.findOne(3)).resolves.toEqual({
+        id: 3,
+        ...oneLegalPersonFixture,
+      })
       expect(legalPersonService.findOne).toHaveBeenCalled()
     })
   })

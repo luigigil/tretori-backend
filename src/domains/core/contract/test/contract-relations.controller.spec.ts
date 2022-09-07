@@ -147,7 +147,7 @@ describe('ContractController', () => {
     })
 
     it('should add a move to contract', async () => {
-      expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
+      await expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
         move: { ...oneMoveFixture },
         contract: {
           id: 1,
@@ -158,8 +158,8 @@ describe('ContractController', () => {
       })
     })
 
-    it('should add a physicalPerson to contract', () => {
-      expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
+    it('should add a physicalPerson to contract', async () => {
+      await expect(contractController.addPhysicalPerson(1, 1)).resolves.toEqual({
         physicalPerson: { ...onePhysicalPersonFixture },
         contract: {
           id: 1,
@@ -171,8 +171,8 @@ describe('ContractController', () => {
       })
     })
 
-    it('should add a renew to contract', () => {
-      expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
+    it('should add a renew to contract', async () => {
+      await expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
         renew: { ...oneRenewFixture },
         contract: {
           id: 1,

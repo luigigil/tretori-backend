@@ -38,9 +38,9 @@ describe('ProductController', () => {
   })
 
   describe('create()', () => {
-    it('should create a physical person', () => {
+    it('should create a physical person', async () => {
       productController.create(oneProductFixture)
-      expect(productController.create(oneProductFixture)).resolves.toEqual({
+      await expect(productController.create(oneProductFixture)).resolves.toEqual({
         id: 1,
         ...oneProductFixture,
       })
@@ -49,15 +49,15 @@ describe('ProductController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all physical person ', () => {
+    it('should find all physical person', () => {
       productController.findAll()
       expect(productService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a physical person', () => {
-      expect(productController.findOne(3)).resolves.toEqual({
+    it('should find a physical person', async () => {
+      await expect(productController.findOne(3)).resolves.toEqual({
         id: 3,
         ...oneProductFixture,
       })

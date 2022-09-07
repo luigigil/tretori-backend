@@ -122,9 +122,9 @@ describe('ContractController', () => {
   })
 
   describe('create()', () => {
-    it('should create a contract', () => {
+    it('should create a contract', async () => {
       contractController.create(oneContractFixture)
-      expect(contractController.create(oneContractFixture)).resolves.toEqual({
+      await expect(contractController.create(oneContractFixture)).resolves.toEqual({
         id: 1,
         ...oneContractFixture,
       })
@@ -133,15 +133,15 @@ describe('ContractController', () => {
   })
 
   describe('findAll()', () => {
-    it('should find all contract ', () => {
+    it('should find all contract', () => {
       contractController.findAll()
       expect(contractService.findAll).toHaveBeenCalled()
     })
   })
 
   describe('findOne()', () => {
-    it('should find a contract', () => {
-      expect(contractController.findOne(3)).resolves.toEqual({
+    it('should find a contract', async () => {
+      await expect(contractController.findOne(3)).resolves.toEqual({
         id: 3,
         ...oneContractFixture,
         move: [],
