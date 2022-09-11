@@ -61,6 +61,7 @@ describe('InsuranceService', () => {
     })
   })
 
+  // TODO atualizar esse teste
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete')

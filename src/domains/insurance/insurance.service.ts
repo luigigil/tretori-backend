@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, UpdateResult } from 'typeorm'
 import { Insurance } from './insurance.entity'
@@ -32,8 +32,12 @@ export class InsuranceService {
     return this.insuranceRepository.update(oldInsurance, newInsurance)
   }
 
-  async remove(id: number): Promise<void> {
-    await this.findOne(id)
-    await this.insuranceRepository.delete(id)
+  async remove(id: number): Promise<Insurance> {
+    const insurance = await this.findOne(id)
+    try {
+      return this.insuranceRepository.softRemove(insurance)
+    } catch (e) {
+      throw new InternalServerErrorException(`Error removing insurance: ${e.message}`)
+    }
   }
 }

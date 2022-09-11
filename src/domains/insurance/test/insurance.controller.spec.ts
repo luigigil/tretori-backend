@@ -67,6 +67,7 @@ describe('InsuranceController', () => {
     })
   })
 
+  // TODO atualizar esse teste
   describe('remove()', () => {
     it('should remove the insurance', () => {
       insuranceController.remove(2)
