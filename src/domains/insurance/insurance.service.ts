@@ -35,7 +35,7 @@ export class InsuranceService {
   async remove(id: number): Promise<Insurance> {
     const insurance = await this.findOne(id)
     try {
-      return this.insuranceRepository.softRemove(insurance)
+      return this.insuranceRepository.remove(insurance)
     } catch (e) {
       throw new InternalServerErrorException(`Error removing insurance: ${e.message}`)
     }
