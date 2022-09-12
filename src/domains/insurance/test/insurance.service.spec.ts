@@ -61,13 +61,14 @@ describe('InsuranceService', () => {
     })
   })
 
-  // TODO atualizar esse teste
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
-      const removeSpy = jest.spyOn(repository, 'delete')
-      const retVal = await service.remove(2)
-      expect(removeSpy).toHaveBeenCalledWith(2)
-      expect(retVal).toBeUndefined()
+      const removeSpy = jest.spyOn(repository, 'remove')
+      await expect(service.remove(2)).resolves.toBeDefined()
+      expect(removeSpy).toBeDefined()
+    })
+    it('should throw NotFoundException if no insurance is found', async () => {
+      await expect(service.remove(99)).rejects.toThrow(new NotFoundException('Insurance not found'))
     })
   })
 })
