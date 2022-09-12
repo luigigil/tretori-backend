@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { IContract } from './contract.types'
@@ -35,7 +35,12 @@ export class ContractService {
     await this.contractRepository.update(id, contract)
   }
 
-  async remove(id: number): Promise<void> {
-    await this.contractRepository.delete(id)
+  async remove(id: number): Promise<Contract> {
+    const contract = await this.findOne(id)
+    try {
+      return this.contractRepository.remove(contract)
+    } catch (e) {
+      throw new NotFoundException(`Error removing contract: ${e.message}`)
+    }
   }
 }

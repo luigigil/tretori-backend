@@ -18,6 +18,7 @@ import {
   ILegalPersonToContractResponse,
   IAccessToContractResponse,
 } from './contract.relations'
+import { Contract } from './contract.entity'
 
 @Controller('contract')
 export class ContractController {
@@ -55,7 +56,7 @@ export class ContractController {
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<void> {
+  remove(@Param('id') id: number): Promise<Contract> {
     return this.contractService.remove(id)
   }
 
