@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -27,7 +28,12 @@ describe('ContractService', () => {
             find: jest.fn().mockResolvedValue(contractArrayFixture),
             findOne: jest.fn().mockResolvedValue(oneContractFixture),
             save: jest.fn().mockResolvedValue(oneContractFixture),
-            remove: jest.fn(),
+            remove: jest
+              .fn()
+              .mockResolvedValueOnce({ id: 1, ...oneContractFixture })
+              .mockRejectedValueOnce(() => {
+                throw new NotFoundException('Contract not found')
+              }),
             delete: jest.fn(),
           },
         },
@@ -96,9 +102,12 @@ describe('ContractService', () => {
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const recontractSpy = jest.spyOn(repository, 'delete')
-      const retVal = await service.remove(2)
-      expect(recontractSpy).toHaveBeenCalledWith(2)
-      expect(retVal).toBeUndefined()
+      await expect(service.remove(1)).resolves.toBeDefined()
+      expect(recontractSpy).toBeDefined()
+    })
+    it('should throw NotFoundException if no contract is found', async () => {
+      await service.remove(1)
+      await expect(service.remove(123)).rejects.toThrow(new NotFoundException('Contract not found'))
     })
   })
 })
