@@ -398,5 +398,3 @@ Temporary Items
 dist
 ormconfig.*
 .vscode
-
-.tool-versions
