@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { AccessService } from '../access.service'
 import { AccessController } from '../access.controller'
 import { oneAccessFixture, createAccessFixture, updateAccessFixture } from '../access.fixtures'
-import { DeleteResult } from 'typeorm'
+import { NotFoundException } from '@nestjs/common'
 
 describe('AccessController', () => {
   let accessController: AccessController
@@ -22,7 +22,12 @@ describe('AccessController', () => {
             findOne: jest
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...oneAccessFixture })),
-            remove: jest.fn().mockImplementation(() => Promise.resolve(DeleteResult)),
+            remove: jest
+              .fn()
+              .mockResolvedValueOnce({ id: 1, ...oneAccessFixture })
+              .mockRejectedValueOnce(() => {
+                throw new NotFoundException('Access not found')
+              }),
             update: jest.fn().mockImplementation(() => Promise.resolve({ ...updateAccessFixture })),
           },
         },
@@ -67,7 +72,7 @@ describe('AccessController', () => {
 
   describe('Delete access', () => {
     it('Should delete an access', () => {
-      expect(accessController.remove(1)).resolves.toEqual(DeleteResult)
+      expect(accessController.remove(1)).resolves.toBeDefined()
     })
   })
 })
