@@ -62,10 +62,30 @@ describe('Insurance - /insurance (e2e)', () => {
       })
   })
 
-  // TODO - test update
+  // Teste para criação da rota de update
+  // it('Update one Insurance [PATCH /insurance/:id]', () => {
+  //   return request(app.getHttpServer())
+  //     .patch(`/insurance/${id}`)
+  //     .send({ cnpj: '23789' })
+  //     .expect(200)
+  //     .then(({ body }) => {
+  //       expect(body).toBeDefined()
+  //     })
+  // })
 
   it('Delete one Insurance [DELETE /insurance/:id]', () => {
-    return request(app.getHttpServer()).delete(`/insurance/${id}`).expect(200)
+    return request(app.getHttpServer())
+      .delete(`/insurance/${id}`)
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toBeDefined()
+      })
+  })
+
+  it('Should throw a NotFound Exception [DELETE /insurance/:id]', () => {
+    return request(app.getHttpServer())
+      .delete(`/insurance/${id * 2}`)
+      .expect(404)
   })
 
   afterAll(async () => {

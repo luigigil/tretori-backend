@@ -29,7 +29,11 @@ export class InsuranceService {
 
   async update(id: number, newInsurance: IInsurance): Promise<UpdateResult> {
     const oldInsurance = await this.findOne(id)
-    return this.insuranceRepository.update(oldInsurance, newInsurance)
+    try {
+      return this.insuranceRepository.update(oldInsurance, newInsurance)
+    } catch (e) {
+      throw new InternalServerErrorException(`Error updating insurance: ${e.message}`)
+    }
   }
 
   async remove(id: number): Promise<Insurance> {
