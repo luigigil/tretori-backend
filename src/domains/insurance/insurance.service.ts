@@ -36,10 +36,10 @@ export class InsuranceService {
     }
   }
 
-  async remove(id: number): Promise<Insurance> {
+  async remove(id: number): Promise<void> {
     const insurance = await this.findOne(id)
     try {
-      return this.insuranceRepository.remove(insurance)
+      await this.insuranceRepository.remove(insurance)
     } catch (e) {
       throw new InternalServerErrorException(`Error removing insurance: ${e.message}`)
     }

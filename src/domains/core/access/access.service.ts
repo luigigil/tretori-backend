@@ -28,10 +28,10 @@ export class AccessService {
     return this.accessRepository.update(access, updateAccess)
   }
 
-  async remove(id: number): Promise<Access> {
+  async remove(id: number): Promise<void> {
     const access = await this.findOne(id)
     try {
-      return this.accessRepository.remove(access)
+      await this.accessRepository.remove(access)
     } catch (e) {
       throw new NotFoundException(`Error removing access: ${e.message}`)
     }

@@ -36,7 +36,7 @@ export class AccessController {
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<Access> {
+  remove(@Param('id') id: number): Promise<void> {
     return this.accessService.remove(id)
   }
 }
