@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common'
 import { IAccess } from './access.types'
 import { AccessService } from './access.service'
 import { Access } from './access.entity'
@@ -12,6 +22,7 @@ export class AccessController {
   @ApiBody({ type: IAccess })
   @ApiResponse({ status: 201, type: IAccess })
   @Post()
+  @HttpCode(201)
   create(@Body() access: IAccess): Promise<Access> {
     return this.accessService.create(access)
   }
@@ -34,8 +45,9 @@ export class AccessController {
   }
 
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 204 })
   @Delete(':id')
+  @HttpCode(204)
   remove(@Param('id') id: number): Promise<void> {
     return this.accessService.remove(id)
   }

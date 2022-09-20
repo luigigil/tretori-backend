@@ -72,7 +72,7 @@ describe('InsuranceService', () => {
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(insuranceRepository, 'remove')
-      await expect(insuranceService.remove(2)).resolves.toBeDefined()
+      await expect(insuranceService.remove(2)).resolves.toBeUndefined()
       expect(removeSpy).toBeDefined()
     })
     it('should throw NotFoundException if no insurance is found', async () => {

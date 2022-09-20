@@ -12,7 +12,7 @@ export class AccessService {
   ) {}
 
   async findOne(id: number): Promise<Access> {
-    const access = this.accessRepository.findOne({ where: { id } })
+    const access = await this.accessRepository.findOne({ where: { id } })
     if (!access) {
       throw new NotFoundException('Access not found')
     }
@@ -29,11 +29,9 @@ export class AccessService {
   }
 
   async remove(id: number): Promise<void> {
-    const access = await this.findOne(id)
-    try {
-      await this.accessRepository.remove(access)
-    } catch (e) {
-      throw new NotFoundException(`Error removing access: ${e.message}`)
-    }
+    const access = await this.findOne(id).catch(() => {
+      throw new NotFoundException('Access not found')
+    })
+    await this.accessRepository.remove(access)
   }
 }

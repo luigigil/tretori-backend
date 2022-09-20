@@ -37,11 +37,9 @@ export class InsuranceService {
   }
 
   async remove(id: number): Promise<void> {
-    const insurance = await this.findOne(id)
-    try {
-      await this.insuranceRepository.remove(insurance)
-    } catch (e) {
-      throw new InternalServerErrorException(`Error removing insurance: ${e.message}`)
-    }
+    const insurance = await this.findOne(id).catch(() => {
+      throw new NotFoundException('Insurance not found')
+    })
+    await this.insuranceRepository.remove(insurance)
   }
 }

@@ -36,11 +36,9 @@ export class ContractService {
   }
 
   async remove(id: number): Promise<void> {
-    const contract = await this.findOne(id)
-    try {
-      await this.contractRepository.remove(contract)
-    } catch (e) {
-      throw new NotFoundException(`Error removing contract: ${e.message}`)
-    }
+    const contract = await this.findOne(id).catch(() => {
+      throw new NotFoundException(`Contract not found`)
+    })
+    await this.contractRepository.remove(contract)
   }
 }
