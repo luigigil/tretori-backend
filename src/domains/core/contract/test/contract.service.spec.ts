@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -97,13 +96,8 @@ describe('ContractService', () => {
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const recontractSpy = jest.spyOn(repository, 'delete')
-      await expect(service.remove(1)).resolves.toBeDefined()
+      await expect(service.remove(1)).resolves.toBeUndefined()
       expect(recontractSpy).toBeDefined()
-    })
-    it('should throw NotFoundException if no contract is found', async () => {
-      await expect(service.remove(null)).rejects.toThrow(
-        new NotFoundException('Contract not found')
-      )
     })
   })
 })

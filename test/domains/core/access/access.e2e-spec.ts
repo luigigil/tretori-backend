@@ -67,7 +67,7 @@ describe('Access - /access (e2e)', () => {
   })
 
   it('Deletes access [DELETE /access/:id]', () => {
-    return request(app.getHttpServer()).delete(`/access/${id}`).expect(200)
+    return request(app.getHttpServer()).delete(`/access/${id}`).expect(204)
   })
 
   afterAll(async () => {

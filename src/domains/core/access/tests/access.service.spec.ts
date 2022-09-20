@@ -59,7 +59,7 @@ describe('AccessService', () => {
   describe('remove()', () => {
     it('should call remove with the passed value', () => {
       const removeSpy = jest.spyOn(service, 'remove')
-      expect(service.remove(1)).resolves.toBeTruthy()
+      expect(service.remove(1)).resolves.toBeUndefined()
       expect(removeSpy).toBeDefined()
     })
     it('Should throw a not found exception', () => {
