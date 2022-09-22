@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { LegalPerson } from '../../../customer/legal-person/legal-person.entity'
@@ -53,12 +52,7 @@ describe('ContractController', () => {
               .mockImplementation((id: number) =>
                 Promise.resolve({ id, ...oneContractFixture, move: [], renew: [] })
               ),
-            remove: jest
-              .fn()
-              .mockResolvedValueOnce({ id: 1, ...oneContractFixture })
-              .mockRejectedValueOnce(() => {
-                throw new NotFoundException('Contract not found')
-              }),
+            remove: jest.fn(),
             update: jest.fn(),
             moveContract: jest.fn().mockResolvedValue(oneContractFixture),
           },
@@ -161,13 +155,6 @@ describe('ContractController', () => {
     it('should remove the contract', () => {
       contractController.remove(2)
       expect(contractService.remove).toHaveBeenCalled()
-    })
-
-    it('should throw a NotFoundException', async () => {
-      contractController.remove(2)
-      await expect(contractController.remove(232)).rejects.toThrow(
-        new NotFoundException('Contract not found')
-      )
     })
   })
 })

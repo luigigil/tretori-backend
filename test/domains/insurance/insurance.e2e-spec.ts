@@ -76,7 +76,7 @@ describe('Insurance - /insurance (e2e)', () => {
   it('Delete one Insurance [DELETE /insurance/:id]', () => {
     return request(app.getHttpServer())
       .delete(`/insurance/${id}`)
-      .expect(200)
+      .expect(204)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })

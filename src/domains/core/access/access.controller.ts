@@ -23,6 +23,7 @@ export class AccessController {
   @ApiBody({ type: IAccess })
   @ApiResponse({ status: 201, type: IAccess })
   @Post()
+  @HttpCode(201)
   create(@Body() access: IAccess): Promise<Access> {
     return this.accessService.create(access)
   }
