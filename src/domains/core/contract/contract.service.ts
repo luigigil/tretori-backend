@@ -15,8 +15,8 @@ export class ContractService {
     return this.contractRepository.find({})
   }
 
-  findOne(id: number): Promise<Contract> {
-    return this.contractRepository.findOne({
+  async findOne(id: number): Promise<Contract> {
+    const contract = await this.contractRepository.findOne({
       where: { id },
       relations: {
         physical_person: true,
@@ -25,6 +25,10 @@ export class ContractService {
         move: true,
       },
     })
+    if (!contract) {
+      throw new NotFoundException(`Contract not found`)
+    }
+    return contract
   }
 
   create(contract: IContract): Promise<Contract> {
@@ -40,7 +44,7 @@ export class ContractService {
     try {
       await this.contractRepository.remove(contract)
     } catch (e) {
-      throw new NotFoundException(`Error removing contract: ${e.message}`)
+      throw new NotFoundException(`Error removing contract`)
     }
   }
 }

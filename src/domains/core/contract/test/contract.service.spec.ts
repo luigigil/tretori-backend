@@ -28,12 +28,7 @@ describe('ContractService', () => {
             find: jest.fn().mockResolvedValue(contractArrayFixture),
             findOne: jest.fn().mockResolvedValue(oneContractFixture),
             save: jest.fn().mockResolvedValue(oneContractFixture),
-            remove: jest
-              .fn()
-              .mockResolvedValueOnce({ id: 1, ...oneContractFixture })
-              .mockRejectedValueOnce(() => {
-                throw new NotFoundException('Contract not found')
-              }),
+            remove: jest.fn(),
             delete: jest.fn(),
           },
         },
@@ -102,7 +97,7 @@ describe('ContractService', () => {
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const recontractSpy = jest.spyOn(repository, 'delete')
-      await expect(service.remove(1)).resolves.toBeDefined()
+      await expect(service.remove(1)).resolves.not.toThrow()
       expect(recontractSpy).toBeDefined()
     })
     it('should throw NotFoundException if no contract is found', async () => {

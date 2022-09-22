@@ -76,7 +76,7 @@ describe('InsuranceController', () => {
   describe('remove()', () => {
     it('should remove the insurance', async () => {
       const insurance = await insuranceController.create(oneInsuranceFixture)
-      expect(insuranceController.remove(insurance.id)).toBeDefined()
+      await expect(insuranceController.remove(insurance.id)).resolves.not.toThrow()
     })
     it('should throw NotFoundException if no insurance is found', async () => {
       insuranceController.remove(1)

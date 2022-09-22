@@ -41,7 +41,7 @@ export class InsuranceService {
     try {
       await this.insuranceRepository.remove(insurance)
     } catch (e) {
-      throw new InternalServerErrorException(`Error removing insurance: ${e.message}`)
+      throw new InternalServerErrorException(`Error removing insurance`)
     }
   }
 }
