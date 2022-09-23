@@ -72,7 +72,7 @@ describe('AccessController', () => {
 
   describe('Delete access', () => {
     it('Should delete an access', () => {
-      expect(accessController.remove(1)).resolves.toBeDefined()
+      expect(accessController.remove(1)).resolves.not.toThrow()
     })
   })
 })
