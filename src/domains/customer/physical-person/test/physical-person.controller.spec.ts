@@ -71,8 +71,8 @@ describe('PhysicalPersonController', () => {
   })
 
   describe('remove()', () => {
-    it('should remove the physical person', async () => {
-      await expect(physicalPersonController.remove(1)).resolves.not.toThrow()
+    it('should remove the physical person', () => {
+      expect(physicalPersonController.remove(1)).not.toThrow()
       expect(physicalPersonService.remove).toHaveBeenCalled()
     })
     it('should throw new not found exception', async () => {
