@@ -28,7 +28,12 @@ describe('PhysicalPersonController', () => {
               .mockImplementation((id: number) =>
                 Promise.resolve({ id, ...onePhysicalPersonFixture })
               ),
-            remove: jest.fn(),
+            remove: jest.fn().mockImplementation(() => {
+              return new Promise((resolve, reject) => {
+                Promise.resolve(resolve)
+                Promise.reject(reject)
+              })
+            }),
           },
         },
       ],
@@ -71,15 +76,10 @@ describe('PhysicalPersonController', () => {
   })
 
   describe('remove()', () => {
-    it('should remove the physical person', () => {
-      expect(physicalPersonController.remove(1)).not.toThrow()
-      expect(physicalPersonService.remove).toHaveBeenCalled()
+    it('should remove the physical person', async () => {
+      await expect(physicalPersonController.remove(1)).resolves.not.toThrow()
     })
     it('should throw new not found exception', async () => {
-      jest
-        .spyOn(physicalPersonService, 'findOne')
-        .mockRejectedValueOnce(new NotFoundException('Legal Person not found'))
-      physicalPersonController.remove(10)
       await expect(physicalPersonController.remove(10)).rejects.toThrow(
         new NotFoundException('Legal person not found')
       )
