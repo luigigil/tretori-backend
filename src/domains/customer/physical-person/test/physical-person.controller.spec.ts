@@ -3,6 +3,7 @@ import { IPhysicalPerson } from '../../common/customer.types'
 import { onePhysicalPersonFixture, physicalPersonArrayFixture } from './fixtures'
 import { PhysicalPersonController } from '../physical-person.controller'
 import { PhysicalPersonService } from '../physical-person.service'
+import { NotFoundException } from '@nestjs/common'
 
 describe('PhysicalPersonController', () => {
   let physicalPersonController: PhysicalPersonController
@@ -70,9 +71,18 @@ describe('PhysicalPersonController', () => {
   })
 
   describe('remove()', () => {
-    it('should remove the physical person', () => {
-      physicalPersonController.remove(2)
+    it('should remove the physical person', async () => {
+      await expect(physicalPersonController.remove(1)).resolves.not.toThrow()
       expect(physicalPersonService.remove).toHaveBeenCalled()
+    })
+    it('should throw new not found exception', async () => {
+      jest
+        .spyOn(physicalPersonService, 'findOne')
+        .mockRejectedValueOnce(new NotFoundException('Legal Person not found'))
+      physicalPersonController.remove(10)
+      await expect(physicalPersonController.remove(10)).rejects.toThrow(
+        new NotFoundException('Legal person not found')
+      )
     })
   })
 })
