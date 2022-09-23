@@ -65,7 +65,7 @@ describe('Physical Person - /physical-person (e2e)', () => {
   // TODO - test update
 
   it('Delete one physical person [DELETE /physical-person/:id]', () => {
-    return request(app.getHttpServer()).delete(`/physical-person/${id}`).expect(200)
+    return request(app.getHttpServer()).delete(`/physical-person/${id}`).expect(204)
   })
 
   afterAll(async () => {
