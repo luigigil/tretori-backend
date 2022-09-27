@@ -4,10 +4,11 @@ import { Repository } from 'typeorm'
 import { physicalPersonArrayFixture, onePhysicalPersonFixture } from './fixtures'
 import { PhysicalPersonService } from '../physical-person.service'
 import { PhysicalPerson } from '../physical-person.entity'
+import { NotFoundException } from '@nestjs/common'
 
 describe('PhysicalPersonService', () => {
-  let service: PhysicalPersonService
-  let repository: Repository<PhysicalPerson>
+  let physicalPersonService: PhysicalPersonService
+  let physicalPersonRepository: Repository<PhysicalPerson>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,17 +27,19 @@ describe('PhysicalPersonService', () => {
       ],
     }).compile()
 
-    service = module.get<PhysicalPersonService>(PhysicalPersonService)
-    repository = module.get<Repository<PhysicalPerson>>(getRepositoryToken(PhysicalPerson))
+    physicalPersonService = module.get<PhysicalPersonService>(PhysicalPersonService)
+    physicalPersonRepository = module.get<Repository<PhysicalPerson>>(
+      getRepositoryToken(PhysicalPerson)
+    )
   })
 
   it('should be defined', () => {
-    expect(service).toBeDefined()
+    expect(physicalPersonService).toBeDefined()
   })
 
   describe('create()', () => {
     it('should successfully insert a physical person', async () => {
-      await expect(service.create(onePhysicalPersonFixture)).resolves.toEqual(
+      await expect(physicalPersonService.create(onePhysicalPersonFixture)).resolves.toEqual(
         onePhysicalPersonFixture
       )
     })
@@ -44,25 +47,33 @@ describe('PhysicalPersonService', () => {
 
   describe('findAll()', () => {
     it('should return an array of physical person', async () => {
-      const physicalPersonArray = await service.findAll()
+      const physicalPersonArray = await physicalPersonService.findAll()
       expect(physicalPersonArray).toEqual(physicalPersonArrayFixture)
     })
   })
 
   describe('findOne()', () => {
     it('should get a single physical person', async () => {
-      const repoSpy = jest.spyOn(repository, 'findOneBy')
-      await expect(service.findOne(1)).resolves.toEqual(onePhysicalPersonFixture)
+      const repoSpy = jest.spyOn(physicalPersonRepository, 'findOneBy')
+      await expect(physicalPersonService.findOne(1)).resolves.toEqual(onePhysicalPersonFixture)
       expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
     })
   })
 
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
-      const removeSpy = jest.spyOn(repository, 'delete')
-      const retVal = await service.remove(2)
-      expect(removeSpy).toHaveBeenCalledWith(2)
-      expect(retVal).toBeUndefined()
+      await expect(physicalPersonService.remove(2)).resolves.not.toThrow()
+      const removeSpy = jest.spyOn(physicalPersonRepository, 'remove')
+      await physicalPersonService.remove(3)
+      expect(removeSpy).toHaveBeenCalled()
+    })
+    it('Should throw a new not found exception', async () => {
+      jest
+        .spyOn(physicalPersonService, 'findOne')
+        .mockRejectedValueOnce(new NotFoundException('Legal Person not found'))
+      await expect(physicalPersonService.remove(123)).rejects.toThrow(
+        new NotFoundException('Legal Person not found')
+      )
     })
   })
 })

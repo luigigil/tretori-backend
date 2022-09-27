@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { IPhysicalPerson } from '../common/customer.types'
@@ -8,26 +8,36 @@ import { PhysicalPerson } from './physical-person.entity'
 export class PhysicalPersonService {
   constructor(
     @InjectRepository(PhysicalPerson)
-    private readonly legalPersonRepository: Repository<PhysicalPerson>
+    private readonly physicalPersonService: Repository<PhysicalPerson>
   ) {}
 
   findAll(): Promise<PhysicalPerson[]> {
-    return this.legalPersonRepository.find()
+    return this.physicalPersonService.find()
   }
 
   findOne(id: number): Promise<PhysicalPerson> {
-    return this.legalPersonRepository.findOneBy({ id })
+    const legalPerson = this.physicalPersonService.findOneBy({ id })
+    if (!legalPerson) {
+      throw new NotFoundException('Legal Person not found')
+    }
+    return legalPerson
   }
 
   create(legalPerson: IPhysicalPerson): Promise<PhysicalPerson> {
-    return this.legalPersonRepository.save(legalPerson)
+    return this.physicalPersonService.save(legalPerson)
   }
 
   async update(id: number, legalPerson: IPhysicalPerson): Promise<void> {
-    await this.legalPersonRepository.update(id, legalPerson)
+    const oldLegalPerson = await this.findOne(id)
+    await this.physicalPersonService.update(oldLegalPerson, legalPerson)
   }
 
   async remove(id: number): Promise<void> {
-    await this.legalPersonRepository.delete(id)
+    const legalPerson = await this.findOne(id)
+    try {
+      await this.physicalPersonService.remove(legalPerson)
+    } catch (e) {
+      throw new NotFoundException('Error removing Legal Person')
+    }
   }
 }
