@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common'
 import { IAccess } from './access.types'
 import { AccessService } from './access.service'
 import { Access } from './access.entity'
@@ -12,14 +23,20 @@ export class AccessController {
   @ApiBody({ type: IAccess })
   @ApiResponse({ status: 201, type: IAccess })
   @Post()
+  @HttpCode(201)
   create(@Body() access: IAccess): Promise<Access> {
     return this.accessService.create(access)
   }
 
   @ApiResponse({ status: 200, type: IAccess })
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<Access> {
-    return this.accessService.findOne(id)
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Access | NotFoundException> {
+    try {
+      const access = this.accessService.findOne(id)
+      return access
+    } catch (e) {
+      throw new NotFoundException('Access Not Found')
+    }
   }
 
   @ApiBody({ type: IAccess })
@@ -34,9 +51,10 @@ export class AccessController {
   }
 
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 204 })
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<Access> {
+  @HttpCode(204)
+  remove(@Param('id') id: number): Promise<void> {
     return this.accessService.remove(id)
   }
 }

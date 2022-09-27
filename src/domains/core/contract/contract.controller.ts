@@ -18,6 +18,7 @@ import {
   ILegalPersonToContractResponse,
   IAccessToContractResponse,
 } from './contract.relations'
+import { Access } from '../access/access.entity'
 
 @Controller('contract')
 export class ContractController {
@@ -68,8 +69,8 @@ export class ContractController {
     @Param('accessId', ParseIntPipe) accessId: number
   ): Promise<{ access: IAccess; contract: IContract }> {
     const contract = await this.contractService.findOne(id)
-    const access = await this.accessService.findOne(accessId)
-    contract.access = access
+    const access = (await this.accessService.findOne(accessId)) as Access
+    contract.access = access as Access
     await this.contractService.update(contract.id, contract)
     return {
       access,

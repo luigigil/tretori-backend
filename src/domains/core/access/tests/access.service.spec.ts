@@ -58,8 +58,8 @@ describe('AccessService', () => {
 
   describe('remove()', () => {
     it('should call remove with the passed value', () => {
-      jest.spyOn(service, 'remove').mockResolvedValueOnce(oneAccessFixture as Access)
-      expect(service.remove(1)).resolves.toBe(oneAccessFixture)
+      jest.spyOn(service, 'remove')
+      expect(service.remove(1)).resolves.not.toThrow()
     })
     it('Should throw a not found exception', () => {
       jest
