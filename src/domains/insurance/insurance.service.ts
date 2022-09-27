@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, UpdateResult } from 'typeorm'
 import { Insurance } from './insurance.entity'
@@ -29,11 +29,19 @@ export class InsuranceService {
 
   async update(id: number, newInsurance: IInsurance): Promise<UpdateResult> {
     const oldInsurance = await this.findOne(id)
-    return this.insuranceRepository.update(oldInsurance, newInsurance)
+    try {
+      return this.insuranceRepository.update(oldInsurance, newInsurance)
+    } catch (e) {
+      throw new InternalServerErrorException(`Error updating insurance: ${e.message}`)
+    }
   }
 
   async remove(id: number): Promise<void> {
-    await this.findOne(id)
-    await this.insuranceRepository.delete(id)
+    const insurance = await this.findOne(id)
+    try {
+      await this.insuranceRepository.remove(insurance)
+    } catch (e) {
+      throw new InternalServerErrorException(`Error removing insurance`)
+    }
   }
 }

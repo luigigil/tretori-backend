@@ -96,9 +96,8 @@ describe('ContractService', () => {
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const recontractSpy = jest.spyOn(repository, 'delete')
-      const retVal = await service.remove(2)
-      expect(recontractSpy).toHaveBeenCalledWith(2)
-      expect(retVal).toBeUndefined()
+      await expect(service.remove(1)).resolves.not.toThrow()
+      expect(recontractSpy).toBeDefined()
     })
   })
 })

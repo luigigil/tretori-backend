@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { InsuranceController } from '../insurance.controller'
 import { InsuranceService } from '../insurance.service'
@@ -25,7 +26,12 @@ describe('InsuranceController', () => {
             findOne: jest
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...oneInsuranceFixture })),
-            remove: jest.fn(),
+            remove: jest
+              .fn()
+              .mockResolvedValueOnce({ id: 1, ...oneInsuranceFixture })
+              .mockRejectedValueOnce(() => {
+                throw new NotFoundException('Insurance not found')
+              }),
           },
         },
       ],
@@ -68,9 +74,15 @@ describe('InsuranceController', () => {
   })
 
   describe('remove()', () => {
-    it('should remove the insurance', () => {
-      insuranceController.remove(2)
-      expect(insuranceService.remove).toHaveBeenCalled()
+    it('should remove the insurance', async () => {
+      const insurance = await insuranceController.create(oneInsuranceFixture)
+      await expect(insuranceController.remove(insurance.id)).resolves.not.toThrow()
+    })
+    it('should throw NotFoundException if no insurance is found', async () => {
+      insuranceController.remove(1)
+      await expect(insuranceController.remove(1000)).rejects.toThrow(
+        new NotFoundException('Insurance not found')
+      )
     })
   })
 })

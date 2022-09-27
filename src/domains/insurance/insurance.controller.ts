@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { InsuranceService } from './insurance.service'
 import { IInsurance } from './insurance.types'
@@ -8,8 +8,9 @@ export class InsuranceController {
   constructor(private readonly insuranceService: InsuranceService) {}
 
   @ApiBody({ type: IInsurance })
-  @ApiResponse({ status: 200, type: IInsurance })
+  @ApiResponse({ status: 201, type: IInsurance })
   @Post()
+  @HttpCode(201)
   create(@Body() insurance: IInsurance): Promise<IInsurance> {
     return this.insuranceService.create(insurance)
   }
@@ -28,8 +29,9 @@ export class InsuranceController {
   }
 
   @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 204 })
   @Delete(':id')
+  @HttpCode(204)
   remove(@Param('id') id: number): Promise<void> {
     return this.insuranceService.remove(id)
   }
