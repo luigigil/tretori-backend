@@ -6,7 +6,7 @@ export class ICustomer {
   id?: number
 
   @ApiProperty()
-  code: string
+  code?: string
 
   @ApiProperty()
   phone: string

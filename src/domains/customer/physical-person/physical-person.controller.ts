@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common'
 import { IPhysicalPerson } from '../common/customer.types'
 import { PhysicalPersonService } from './physical-person.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
@@ -28,7 +38,14 @@ export class PhysicalPersonController {
     return this.physicalPersonService.findOne(id)
   }
 
-  // TODO update route
+  @ApiParam({ name: 'id', type: Number })
+  @ApiBody({ type: IPhysicalPerson })
+  @ApiResponse({ status: 200 })
+  @Put(':id')
+  @HttpCode(200)
+  update(@Body() physicalPerson: IPhysicalPerson, @Param('id') id: number): Promise<void> {
+    return this.physicalPersonService.update(id, physicalPerson)
+  }
 
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 204 })

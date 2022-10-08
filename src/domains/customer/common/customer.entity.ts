@@ -1,10 +1,11 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Generated, PrimaryGeneratedColumn } from 'typeorm'
 
 export class Customer {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column()
+  @Generated('uuid')
   code: string
 
   @Column()
