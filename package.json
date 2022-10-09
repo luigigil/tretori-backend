@@ -38,6 +38,8 @@
     "@nestjs/swagger": "^6.0.5",
     "@nestjs/testing": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "csurf": "^1.11.0",
+    "helmet": "^6.0.0",
     "luxon": "^3.0.1",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
