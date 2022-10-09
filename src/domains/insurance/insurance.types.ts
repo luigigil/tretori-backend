@@ -6,7 +6,7 @@ export class IInsurance {
   id?: number
 
   @ApiProperty()
-  code: string
+  code?: string
 
   @ApiProperty()
   phone: string

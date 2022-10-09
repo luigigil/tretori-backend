@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, Generated, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Contract } from '../core/contract/contract.entity'
 
 @Entity()
@@ -7,6 +7,7 @@ export class Insurance {
   id: number
 
   @Column()
+  @Generated('uuid')
   code: string
 
   @Column()
