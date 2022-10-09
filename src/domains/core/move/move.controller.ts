@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common'
 import { IMove } from './move.types'
 import { MoveService } from './move.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
@@ -25,6 +35,15 @@ export class MoveController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Promise<IMove> {
     return this.moveService.findOne(id)
+  }
+
+  @ApiParam({ name: 'id', type: Number })
+  @ApiBody({ type: IMove })
+  @ApiResponse({ status: 200 })
+  @Put(':id')
+  @HttpCode(200)
+  update(@Body() move: IMove, @Param('id') id: number): Promise<void> {
+    return this.moveService.update(id, move)
   }
 
   @ApiParam({ name: 'id', type: Number })
