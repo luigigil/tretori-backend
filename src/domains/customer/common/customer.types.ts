@@ -12,7 +12,7 @@ export class ICustomer {
   phone: string
 
   @ApiProperty()
-  phone_secondary: string
+  phone_secondary?: string
 
   @ApiProperty()
   address: string
@@ -73,7 +73,7 @@ export class ILegalPerson extends ICustomer {
   size: string
 
   @ApiProperty()
-  representatives: string
+  representatives?: string
 
   @ApiProperty()
   contracts?: IContract[]

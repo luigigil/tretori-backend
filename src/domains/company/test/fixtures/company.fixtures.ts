@@ -1,0 +1,53 @@
+import { ICompany } from '../../company.types'
+
+export const oneCompanyFixture: ICompany = {
+  id: 1,
+  code: 'company',
+  phone: '61912345678',
+  address: 'casa da string',
+  cep: '71234567',
+  city: 'of angels',
+  neighborhood: 'cond john',
+  uf: 'DF',
+  email: 'john@joao.com.br',
+  fantasy_name: 'John John',
+  cnpj: '89765090000105',
+  social_reason: 'John Tecnologia da Info LTDA',
+  type: 'fornecedor',
+  size: 'micro',
+}
+
+export const oneCompanyArray: ICompany[] = [
+  {
+    id: 2,
+    code: 'company',
+    phone: '61912322678',
+    address: 'casa da joana',
+    cep: '71234555',
+    city: 'of angels',
+    neighborhood: 'cond john 2',
+    uf: 'DF',
+    email: 'john@jose.com.br',
+    fantasy_name: 'John Marie',
+    cnpj: '89765090000105',
+    social_reason: 'Maria Tecnologia da Info LTDA',
+    type: 'fornecedor',
+    size: 'micro',
+  },
+  {
+    id: 3,
+    code: 'company',
+    phone: '61933345678',
+    address: 'casa do dragao',
+    cep: '71234522',
+    city: 'of angels',
+    neighborhood: 'cond john 3',
+    uf: 'DF',
+    email: 'john@maria.com.br',
+    fantasy_name: 'John Dragao',
+    cnpj: '89765090000105',
+    social_reason: 'Dragao Tecnologia da Info LTDA',
+    type: 'fornecedor',
+    size: 'micro',
+  },
+]

@@ -27,7 +27,7 @@ export class LegalPerson extends Customer {
 
   @ApiProperty()
   @Column()
-  representatives: string
+  representatives?: string
 
   @OneToMany(() => Contract, (contract) => contract.legal_person)
   contracts?: Contract[]

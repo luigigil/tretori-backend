@@ -12,7 +12,7 @@ export class Customer {
   phone: string
 
   @Column()
-  phone_secondary: string
+  phone_secondary?: string
 
   @Column()
   address: string
