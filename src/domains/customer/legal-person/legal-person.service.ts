@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ILegalPerson } from '../common/customer.types'
@@ -16,12 +16,16 @@ export class LegalPersonService {
   }
 
   findOne(id: number): Promise<LegalPerson> {
-    return this.legalPersonRepository.findOne({
+    const legalPerson = this.legalPersonRepository.findOne({
       where: { id },
       relations: {
         contracts: true,
       },
     })
+    if (!legalPerson) {
+      throw new NotFoundException('Customer not found')
+    }
+    return legalPerson
   }
 
   create(legalPerson: ILegalPerson): Promise<LegalPerson> {
@@ -37,6 +41,11 @@ export class LegalPersonService {
   }
 
   async remove(id: number): Promise<void> {
-    await this.legalPersonRepository.delete(id)
+    const legalPerson = await this.findOne(id)
+    try {
+      await this.legalPersonRepository.delete(id)
+    } catch (e) {
+      throw new NotFoundException('Legal person not found')
+    }
   }
 }
