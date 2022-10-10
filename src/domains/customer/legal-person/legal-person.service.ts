@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ILegalPerson } from '../common/customer.types'
@@ -16,14 +16,23 @@ export class LegalPersonService {
   }
 
   findOne(id: number): Promise<LegalPerson> {
-    return this.legalPersonRepository.findOneBy({ id })
+    return this.legalPersonRepository.findOne({
+      where: { id },
+      relations: {
+        contracts: true,
+      },
+    })
   }
 
   create(legalPerson: ILegalPerson): Promise<LegalPerson> {
+    legalPerson.type = 'customer'
     return this.legalPersonRepository.save(legalPerson)
   }
 
   async update(id: number, legalPerson: ILegalPerson): Promise<void> {
+    if (legalPerson.type != 'customer') {
+      throw new BadRequestException('Entity is not a customer')
+    }
     await this.legalPersonRepository.update(id, legalPerson)
   }
 
