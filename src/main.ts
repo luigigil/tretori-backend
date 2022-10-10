@@ -3,6 +3,7 @@ import { AppModule } from './app.module'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import helmet from 'helmet'
 import * as csurf from 'csurf'
+import * as cookieParser from 'cookie-parser'
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { cors: true })
@@ -17,8 +18,7 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
 
-  app.use(csurf())
-  app.use(helmet())
+  app.use(cookieParser())
 
   await app.listen(process.env.PORT || 3000)
 }

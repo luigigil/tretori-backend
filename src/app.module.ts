@@ -10,8 +10,14 @@ import { PhysicalPersonModule } from './domains/customer/physical-person/physica
 import { InsuranceModule } from './domains/insurance/insurance.module'
 import { RepresentativeModule } from './domains/representative/representative.module'
 import { ProductModule } from './domains/product/product.module'
+import { AuthModule } from './shared/auth/auth.module'
+import { UsersModule } from './shared/users/users.module'
+import { AppController } from './app.controller'
+import { APP_GUARD } from '@nestjs/core'
+import { RolesGuard } from './shared/roles/roles.guard'
 
 @Module({
+  controllers: [AppController],
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
@@ -34,6 +40,14 @@ import { ProductModule } from './domains/product/product.module'
     RepresentativeModule,
     ProductModule,
     RenewModule,
+    AuthModule,
+    UsersModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}
