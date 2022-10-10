@@ -11,5 +11,5 @@ export class IUser {
   password: string
 
   @ApiProperty()
-  roles: string
+  roles?: string
 }

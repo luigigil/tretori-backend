@@ -11,6 +11,6 @@ export class User {
   @Column()
   password: string
 
-  @Column()
-  roles: string
+  @Column({ default: 'user' })
+  roles?: string
 }
