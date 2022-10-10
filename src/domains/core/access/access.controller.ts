@@ -9,17 +9,20 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common'
 import { IAccess } from './access.types'
 import { AccessService } from './access.service'
 import { Access } from './access.entity'
 import { UpdateResult } from 'typeorm'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
+import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
 
 @Controller('access')
 export class AccessController {
   constructor(private readonly accessService: AccessService) {}
 
+  @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IAccess })
   @ApiResponse({ status: 201, type: IAccess })
   @Post()
@@ -28,6 +31,7 @@ export class AccessController {
     return this.accessService.create(access)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, type: IAccess })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Promise<Access | NotFoundException> {
@@ -39,6 +43,7 @@ export class AccessController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IAccess })
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IAccess })
@@ -50,6 +55,7 @@ export class AccessController {
     return this.accessService.update(id, updateAccess)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 204 })
   @Delete(':id')

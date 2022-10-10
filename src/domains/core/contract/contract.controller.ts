@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common'
 import { IContract } from './contract.types'
 import { ContractService } from './contract.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
@@ -19,6 +19,7 @@ import {
   IAccessToContractResponse,
 } from './contract.relations'
 import { Access } from '../access/access.entity'
+import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
 
 @Controller('contract')
 export class ContractController {
@@ -31,6 +32,7 @@ export class ContractController {
     private readonly renewService: RenewService
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IContract })
   @ApiResponse({ status: 200, type: IContract })
   @Post()
@@ -38,12 +40,14 @@ export class ContractController {
     return this.contractService.create(contract)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, type: [IContract] })
   @Get()
   findAll(): Promise<IContract[]> {
     return this.contractService.findAll()
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IContract })
   @Get(':id')
@@ -53,6 +57,7 @@ export class ContractController {
 
   // TODO update route
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')
@@ -60,6 +65,7 @@ export class ContractController {
     return this.contractService.remove(id)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiParam({ name: 'accessId', type: Number })
   @ApiResponse({ status: 200, type: IAccessToContractResponse })
@@ -78,6 +84,7 @@ export class ContractController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiParam({ name: 'personId', type: Number })
   @ApiResponse({ status: 200, type: ILegalPersonToContractResponse })
@@ -96,6 +103,7 @@ export class ContractController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IMoveResponse })
   @ApiBody({ type: IMove })
@@ -114,6 +122,7 @@ export class ContractController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiParam({ name: 'personId', type: Number })
   @ApiResponse({ status: 200, type: IPhysicalPersonToContractResponse })
@@ -132,6 +141,7 @@ export class ContractController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IRenewResponse })
   @ApiBody({ type: IRenew })
