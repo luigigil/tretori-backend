@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from './user.entity'
 import { IUser } from './user.types'
+import { genSalt, hash } from 'bcrypt'
 
 @Injectable()
 export class UsersService {
@@ -16,8 +17,8 @@ export class UsersService {
     return this.userRepository.find()
   }
 
-  findOneByUsername(username: string): Promise<User> {
-    const user = this.userRepository.findOneBy({ username })
+  async findOneByUsername(username: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ username })
     if (!user) {
       throw new NotFoundException('User not found')
     }
@@ -32,13 +33,17 @@ export class UsersService {
     return user
   }
 
-  create(user: IUser): Promise<User> {
-    return this.userRepository.save(user)
+  async create(user: IUser): Promise<User> {
+    const salt = await genSalt(12)
+    const passHash = await hash(user.password, salt)
+    return this.userRepository.save({ ...user, password: passHash })
   }
 
   async update(id: number, user: IUser): Promise<void> {
     const oldUser = await this.findOne(id)
-    await this.userRepository.update(oldUser, user)
+    const salt = await genSalt(12)
+    const passHash = await hash(user.password, salt)
+    await this.userRepository.update(oldUser, { ...user, password: passHash })
   }
 
   async remove(id: number): Promise<void> {

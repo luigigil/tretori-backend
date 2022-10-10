@@ -8,15 +8,18 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common'
 import { IProduct } from './product.types'
 import { ProductService } from './product.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
+import { JwtAuthGuard } from '../../shared/guards/jwt-auth.guard'
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IProduct })
   @ApiResponse({ status: 200, type: IProduct })
   @Post()
@@ -24,12 +27,14 @@ export class ProductController {
     return this.productService.create(product)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, type: [IProduct] })
   @Get()
   findAll(): Promise<IProduct[]> {
     return this.productService.findAll()
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IProduct })
   @Get(':id')
@@ -37,6 +42,7 @@ export class ProductController {
     return this.productService.findOne(id)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiBody({ type: IProduct })
   @ApiResponse({ status: 200 })
@@ -46,6 +52,7 @@ export class ProductController {
     return this.productService.update(id, product)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200 })
   @Delete(':id')

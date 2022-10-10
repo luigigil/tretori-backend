@@ -8,15 +8,18 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { IUser } from './user.types'
+import { JwtAuthGuard } from '../../shared/guards/jwt-auth.guard'
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IUser })
   @ApiResponse({ status: 201, type: IUser })
   @Post()
@@ -25,12 +28,14 @@ export class UsersController {
     return this.usersService.create(user)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, type: [IUser] })
   @Get()
   findAll(): Promise<IUser[]> {
     return this.usersService.findAll()
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IUser })
   @Get(':id')
@@ -38,6 +43,7 @@ export class UsersController {
     return this.usersService.findOne(id)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiBody({ type: IUser })
   @ApiResponse({ status: 200 })
@@ -47,6 +53,7 @@ export class UsersController {
     return this.usersService.update(id, user)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 204 })
   @Delete(':id')

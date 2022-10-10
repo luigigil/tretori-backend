@@ -8,8 +8,10 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
+import { JwtAuthGuard } from '../../shared/guards/jwt-auth.guard'
 import { InsuranceService } from './insurance.service'
 import { IInsurance } from './insurance.types'
 
@@ -17,6 +19,7 @@ import { IInsurance } from './insurance.types'
 export class InsuranceController {
   constructor(private readonly insuranceService: InsuranceService) {}
 
+  @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IInsurance })
   @ApiResponse({ status: 201, type: IInsurance })
   @Post()
@@ -25,12 +28,14 @@ export class InsuranceController {
     return this.insuranceService.create(insurance)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, type: [IInsurance] })
   @Get()
   findAll(): Promise<IInsurance[]> {
     return this.insuranceService.findAll()
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IInsurance })
   @Get(':id')
@@ -38,6 +43,7 @@ export class InsuranceController {
     return this.insuranceService.findOne(id)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiBody({ type: IInsurance })
   @ApiResponse({ status: 200 })
@@ -47,6 +53,7 @@ export class InsuranceController {
     return this.insuranceService.update(id, insurance)
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 204 })
   @Delete(':id')
