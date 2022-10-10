@@ -11,12 +11,12 @@ export class LegalPersonService {
     private readonly legalPersonRepository: Repository<LegalPerson>
   ) {}
 
-  findAll(): Promise<LegalPerson[]> {
-    return this.legalPersonRepository.find()
+  async findAll(): Promise<LegalPerson[]> {
+    return await this.legalPersonRepository.find()
   }
 
-  findOne(id: number): Promise<LegalPerson> {
-    const legalPerson = this.legalPersonRepository.findOne({
+  async findOne(id: number): Promise<LegalPerson> {
+    const legalPerson = await this.legalPersonRepository.findOne({
       where: { id },
       relations: {
         contracts: true,
@@ -45,7 +45,7 @@ export class LegalPersonService {
     try {
       await this.legalPersonRepository.remove(legalPerson)
     } catch (e) {
-      throw new NotFoundException('Legal person not found')
+      throw new NotFoundException('Error removing entity: ', e)
     }
   }
 }
