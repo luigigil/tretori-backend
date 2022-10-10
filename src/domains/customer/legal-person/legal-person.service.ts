@@ -16,16 +16,16 @@ export class LegalPersonService {
   }
 
   async findOne(id: number): Promise<LegalPerson> {
-    const legalPerson = await this.legalPersonRepository.findOne({
+    const legalPerson = await this.legalPersonRepository.find({
       where: { id },
       relations: {
         contracts: true,
       },
     })
-    if (!legalPerson) {
+    if (legalPerson.length === 0) {
       throw new NotFoundException('Customer not found')
     }
-    return legalPerson
+    return legalPerson[0]
   }
 
   create(legalPerson: ILegalPerson): Promise<LegalPerson> {

@@ -17,7 +17,7 @@ describe('LegalPersonService', () => {
           provide: getRepositoryToken(LegalPerson),
           useValue: {
             find: jest.fn().mockResolvedValue(legalPersonArrayFixture),
-            findOneBy: jest.fn().mockResolvedValue(oneLegalPersonFixture),
+            findOne: jest.fn().mockResolvedValue(oneLegalPersonFixture),
             save: jest.fn().mockResolvedValue(oneLegalPersonFixture),
             remove: jest.fn(),
             delete: jest.fn(),
@@ -49,17 +49,17 @@ describe('LegalPersonService', () => {
 
   describe('findOne()', () => {
     it('should get a single legal person', async () => {
-      const repoSpy = jest.spyOn(repository, 'findOneBy')
-      await expect(service.findOne(1)).resolves.toEqual(oneLegalPersonFixture)
-      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
+      const repoSpy = jest.spyOn(repository, 'find')
+      await expect(service.findOne(1)).resolves.toEqual(legalPersonArrayFixture[0])
+      expect(repoSpy).toHaveBeenCalled()
     })
   })
 
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
-      const removeSpy = jest.spyOn(repository, 'delete')
+      const removeSpy = jest.spyOn(repository, 'remove')
       const retVal = await service.remove(2)
-      expect(removeSpy).toHaveBeenCalledWith(2)
+      expect(removeSpy).toHaveBeenCalled()
       expect(retVal).toBeUndefined()
     })
   })
