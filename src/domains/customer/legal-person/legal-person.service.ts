@@ -34,7 +34,7 @@ export class LegalPersonService {
   }
 
   async update(id: number, legalPerson: ILegalPerson): Promise<void> {
-    if (legalPerson.type != 'customer') {
+    if (legalPerson.type !== 'customer') {
       throw new BadRequestException('Entity is not a customer')
     }
     await this.legalPersonRepository.update(id, legalPerson)
@@ -43,7 +43,7 @@ export class LegalPersonService {
   async remove(id: number): Promise<void> {
     const legalPerson = await this.findOne(id)
     try {
-      await this.legalPersonRepository.delete(id)
+      await this.legalPersonRepository.remove(legalPerson)
     } catch (e) {
       throw new NotFoundException('Legal person not found')
     }
