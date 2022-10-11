@@ -84,5 +84,5 @@ export class IContract {
   physical_person?: IPhysicalPerson
 
   @ApiProperty()
-  acess?: IAccess
+  access?: IAccess
 }
