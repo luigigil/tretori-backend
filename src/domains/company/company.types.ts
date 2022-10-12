@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IContract } from 'domains/core/contract/contract.types'
 
-export class ICompany {
+export class ConsultCompany {
   @ApiProperty()
   id?: number
 
@@ -9,10 +9,18 @@ export class ICompany {
   code?: string
 
   @ApiProperty()
+  fantasy_name: string
+
+  @ApiProperty()
+  cnpj: string
+}
+
+export class ICompany extends ConsultCompany {
+  @ApiProperty()
   phone: string
 
   @ApiProperty()
-  phone_secondarya?: string
+  phone_secondary?: string
 
   @ApiProperty()
   address: string
@@ -33,12 +41,6 @@ export class ICompany {
   email: string
 
   @ApiProperty()
-  fantasy_name: string
-
-  @ApiProperty()
-  cnpj: string
-
-  @ApiProperty()
   social_reason: string
 
   @ApiProperty()
@@ -48,7 +50,7 @@ export class ICompany {
   size: string
 
   @ApiProperty()
-  representativesd?: string
+  representatives?: string
 
   @ApiProperty()
   contracts?: IContract[]

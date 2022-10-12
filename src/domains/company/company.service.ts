@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm'
 import { LegalPerson } from 'domains/customer/legal-person/legal-person.entity'
 import { Repository } from 'typeorm'
-import { ICompany } from './company.types'
+import { ConsultCompany, ICompany } from './company.types'
 
 @Injectable()
 export class CompanyService {
@@ -11,8 +11,8 @@ export class CompanyService {
     private readonly legalPersonRepository: Repository<LegalPerson>
   ) {}
 
-  async findAll(): Promise<LegalPerson[]> {
-    return await this.legalPersonRepository.find()
+  findAll(): Promise<ConsultCompany[]> {
+    return this.legalPersonRepository.find()
   }
 
   async findOne(id: number): Promise<LegalPerson> {
