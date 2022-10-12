@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IContract } from '../../core/contract/contract.types'
+import { ILegalPerson } from '../legal-person/legal-person.types'
+import { IPhysicalPerson } from '../physical-person/physical-person.types'
 import { CustomerType } from './customer.entity'
 
 export class ICustomer {
@@ -38,4 +40,10 @@ export class ICustomer {
 
   @ApiProperty()
   contracts?: IContract[]
+
+  @ApiProperty()
+  physical_person?: IPhysicalPerson
+
+  @ApiProperty()
+  legal_person?: ILegalPerson
 }

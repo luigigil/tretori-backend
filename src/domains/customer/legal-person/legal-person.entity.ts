@@ -27,7 +27,7 @@ export class LegalPerson {
   @Column()
   size: string
 
-  @OneToOne(() => Customer)
+  @OneToOne(() => Customer, (customer) => customer.id)
   @JoinColumn()
   customer: Customer
 

@@ -24,7 +24,7 @@ export class PhysicalPerson {
   @Column()
   rg_emissor_uf: string
 
-  @OneToOne(() => Customer)
+  @OneToOne(() => Customer, (customer) => customer.id)
   @JoinColumn()
   customer: Customer
 }

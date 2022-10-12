@@ -15,8 +15,15 @@ export class CustomerService {
     return this.customersRepository.find()
   }
 
-  findOne(id: number): Promise<Customer> {
-    return this.customersRepository.findOneBy({ id })
+  async findOne(id: number): Promise<Customer> {
+    const customer = await this.customersRepository.findOne({
+      where: { id },
+      relations: {
+        physical_person: true,
+        legal_person: true,
+      },
+    })
+    return customer
   }
 
   create(customer: ICustomer): Promise<Customer> {
