@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common'
 import { IContract } from './contract.types'
 import { ContractService } from './contract.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
@@ -55,7 +66,15 @@ export class ContractController {
     return this.contractService.findOne(id)
   }
 
-  // TODO update route
+  @UseGuards(JwtAuthGuard)
+  @ApiParam({ name: 'id', type: Number })
+  @ApiBody({ type: IContract })
+  @ApiResponse({ status: 200 })
+  @Put(':id')
+  @HttpCode(200)
+  update(@Body() contract: IContract, @Param('id') id: number): Promise<void> {
+    return this.contractService.update(id, contract)
+  }
 
   @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
