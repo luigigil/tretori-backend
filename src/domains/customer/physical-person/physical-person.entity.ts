@@ -1,9 +1,10 @@
-import { Contract } from '../../core/contract/contract.entity'
-import { Column, Entity, OneToMany } from 'typeorm'
-import { Customer } from '../common/customer.entity'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class PhysicalPerson extends Customer {
+export class PhysicalPerson {
+  @PrimaryGeneratedColumn()
+  id: number
+
   @Column()
   name: string
 
@@ -21,7 +22,4 @@ export class PhysicalPerson extends Customer {
 
   @Column()
   rg_emissor_uf: string
-
-  @OneToMany(() => Contract, (contract) => contract.physical_person)
-  contracts?: Contract[]
 }

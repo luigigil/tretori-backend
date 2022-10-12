@@ -1,8 +1,19 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common'
-import { ILegalPerson } from '../common/customer.types'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common'
 import { LegalPersonService } from './legal-person.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { ILegalPerson } from './legal-person.types'
 
 @Controller('legal-person')
 export class LegalPersonController {
@@ -31,7 +42,15 @@ export class LegalPersonController {
     return this.legalPersonService.findOne(id)
   }
 
-  // TODO update route
+  @UseGuards(JwtAuthGuard)
+  @ApiParam({ name: 'id', type: Number })
+  @ApiBody({ type: ILegalPerson })
+  @ApiResponse({ status: 200 })
+  @Put(':id')
+  @HttpCode(200)
+  update(@Body() legalPerson: ILegalPerson, @Param('id') id: number): Promise<void> {
+    return this.legalPersonService.update(id, legalPerson)
+  }
 
   @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })

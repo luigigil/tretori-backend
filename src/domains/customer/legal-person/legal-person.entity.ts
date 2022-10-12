@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Contract } from '../../core/contract/contract.entity'
-import { Column, Entity, OneToMany } from 'typeorm'
-import { Customer } from '../common/customer.entity'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class LegalPerson extends Customer {
+export class LegalPerson {
+  @PrimaryGeneratedColumn()
+  id: number
+
   @ApiProperty()
   @Column()
   fantasy_name: string
@@ -26,9 +27,6 @@ export class LegalPerson extends Customer {
   size: string
 
   @ApiProperty()
-  @Column()
-  representatives: string
-
-  @OneToMany(() => Contract, (contract) => contract.legal_person)
-  contracts?: Contract[]
+  @Column({ nullable: true, default: null })
+  representatives?: string
 }

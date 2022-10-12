@@ -10,10 +10,10 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { IPhysicalPerson } from '../common/customer.types'
 import { PhysicalPersonService } from './physical-person.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { IPhysicalPerson } from './physical-person.types'
 
 @Controller('physical-person')
 export class PhysicalPersonController {

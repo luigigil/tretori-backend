@@ -120,19 +120,6 @@ describe('ContractController', () => {
   })
 
   describe('Contract relations', () => {
-    it('should add an access to contract', async () => {
-      expect(await contractController.addAccess(1, 1)).toEqual({
-        access: { id: 1, ...oneAccessFixture },
-        contract: {
-          id: 1,
-          access: { id: 1, ...oneAccessFixture },
-          ...oneContractFixture,
-          move: [],
-          renew: [],
-        },
-      })
-    })
-
     it('should add a legalPerson to contract', async () => {
       expect(await contractController.addLegalPerson(1, 1)).toEqual({
         legalPerson: { ...oneLegalPersonFixture },
@@ -141,18 +128,6 @@ describe('ContractController', () => {
           ...oneContractFixture,
           legal_person: { ...oneLegalPersonFixture },
           move: [],
-          renew: [],
-        },
-      })
-    })
-
-    it('should add a move to contract', async () => {
-      await expect(contractController.moveContract({ ...oneMoveFixture }, 1)).resolves.toEqual({
-        move: { ...oneMoveFixture },
-        contract: {
-          id: 1,
-          ...oneContractFixture,
-          move: [{ ...oneMoveFixture }],
           renew: [],
         },
       })
@@ -167,18 +142,6 @@ describe('ContractController', () => {
           physical_person: { ...onePhysicalPersonFixture },
           move: [],
           renew: [],
-        },
-      })
-    })
-
-    it('should add a renew to contract', async () => {
-      await expect(contractController.renewContract({ ...oneRenewFixture }, 1)).resolves.toEqual({
-        renew: { ...oneRenewFixture },
-        contract: {
-          id: 1,
-          ...oneContractFixture,
-          move: [],
-          renew: [{ ...oneRenewFixture }],
         },
       })
     })

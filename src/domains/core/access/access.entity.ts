@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Contract } from '../contract/contract.entity'
 
 @Entity()
 export class Access {
@@ -19,4 +20,7 @@ export class Access {
 
   @Column()
   pass_client: string
+
+  @OneToOne(() => Contract, (contract) => contract.access)
+  contract: Contract
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Contract } from '../contract/contract.entity'
 
 @Entity()
@@ -21,7 +21,6 @@ export class Move {
   @Column()
   details: string
 
-  @ManyToOne(() => Contract, (contract) => contract.move)
-  @JoinColumn()
+  @ManyToOne(() => Contract, (contract) => contract.move, { onDelete: 'CASCADE' })
   contract?: Contract
 }

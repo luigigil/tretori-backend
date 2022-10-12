@@ -1,21 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-export class IMove {
+export class IPhysicalPerson {
   @ApiProperty()
   id?: number
 
   @ApiProperty()
-  move_date: string
+  name: string
 
   @ApiProperty()
-  action: string
+  birthdate: string
 
   @ApiProperty()
-  number_of_lives: number
+  cpf: string
 
   @ApiProperty()
-  description: string
+  rg: string
 
   @ApiProperty()
-  details: string
+  rg_emissor: string
+
+  @ApiProperty()
+  rg_emissor_uf: string
 }

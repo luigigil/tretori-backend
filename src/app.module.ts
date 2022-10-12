@@ -15,6 +15,7 @@ import { UsersModule } from './shared/users/users.module'
 import { AppController } from './app.controller'
 import { APP_GUARD } from '@nestjs/core'
 import { RolesGuard } from './shared/roles/roles.guard'
+import { CustomerModule } from './domains/customer/customer/customer.module'
 
 @Module({
   controllers: [AppController],
@@ -32,6 +33,7 @@ import { RolesGuard } from './shared/roles/roles.guard'
       database: process.env.DB_NAME,
     }),
     AccessModule,
+    CustomerModule,
     ContractModule,
     InsuranceModule,
     MoveModule,

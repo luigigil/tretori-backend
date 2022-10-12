@@ -1,4 +1,3 @@
-import { oneMoveFixture } from '../../../move/test/fixtures/index'
 import { IContract } from '../../contract.types'
 
 export const contractArrayFixture: IContract[] = [
@@ -96,5 +95,4 @@ export const oneMoveContract: IContract = {
   first_invoice_date: '2020-01-01',
   invoice_amount: 0,
   total_contract_value: 0,
-  move: [{ ...oneMoveFixture }],
 }

@@ -21,6 +21,6 @@ export class Renew {
   @Column()
   details: string
 
-  @ManyToOne(() => Contract, (contract) => contract.renew)
+  @ManyToOne(() => Contract, (contract) => contract.renew, { onDelete: 'CASCADE' })
   contract?: Contract
 }
