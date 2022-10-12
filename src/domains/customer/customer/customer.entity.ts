@@ -1,5 +1,5 @@
 import { Contract } from '../../core/contract/contract.entity'
-import { Column, Entity, Generated, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, Generated, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 export enum CustomerType {
   LEGAL_PERSON = 'LEGAL_PERSON',

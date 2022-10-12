@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Customer } from '../customer/customer.entity'
 
 export class IPhysicalPerson {
   @ApiProperty()
@@ -21,4 +22,7 @@ export class IPhysicalPerson {
 
   @ApiProperty()
   rg_emissor_uf: string
+
+  @ApiProperty()
+  customer?: Customer
 }

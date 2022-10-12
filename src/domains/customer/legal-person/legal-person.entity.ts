@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Customer } from '../customer/customer.entity'
 
 @Entity()
 export class LegalPerson {
@@ -25,6 +26,10 @@ export class LegalPerson {
   @ApiProperty()
   @Column()
   size: string
+
+  @OneToOne(() => Customer)
+  @JoinColumn()
+  customer: Customer
 
   @ApiProperty()
   @Column({ nullable: true, default: null })

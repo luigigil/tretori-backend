@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Customer } from '../customer/customer.entity'
 
 export class ILegalPerson {
   @ApiProperty()
@@ -21,4 +22,7 @@ export class ILegalPerson {
 
   @ApiProperty()
   representatives?: string
+
+  @ApiProperty()
+  customer?: Customer
 }

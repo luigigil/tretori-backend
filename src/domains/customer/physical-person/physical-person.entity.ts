@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Customer } from '../customer/customer.entity'
 
 @Entity()
 export class PhysicalPerson {
@@ -22,4 +23,8 @@ export class PhysicalPerson {
 
   @Column()
   rg_emissor_uf: string
+
+  @OneToOne(() => Customer)
+  @JoinColumn()
+  customer: Customer
 }
