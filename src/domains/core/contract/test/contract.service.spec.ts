@@ -82,9 +82,7 @@ describe('ContractService', () => {
       expect(repoSpy).toHaveBeenCalledWith({
         relations: {
           legal_person: true,
-          move: true,
           physical_person: true,
-          renew: true,
         },
         where: {
           id: 1,

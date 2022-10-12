@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { Customer } from '../../customer/customer/customer.entity'
 import { LegalPerson } from '../../customer/legal-person/legal-person.entity'
 import { LegalPersonService } from '../../customer/legal-person/legal-person.service'
 import { PhysicalPerson } from '../../customer/physical-person/physical-person.entity'
@@ -26,6 +27,7 @@ import { ContractService } from './contract.service'
       LegalPerson,
       Access,
       Insurance,
+      Customer,
     ]),
   ],
   controllers: [ContractController],

@@ -1,5 +1,4 @@
-import { LegalPerson } from '../../customer/legal-person/legal-person.entity'
-import { PhysicalPerson } from '../../customer/physical-person/physical-person.entity'
+import { Customer } from '../../customer/customer/customer.entity'
 import {
   Column,
   Entity,
@@ -9,10 +8,10 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import { Insurance } from '../../insurance/insurance.entity'
+import { Access } from '../access/access.entity'
 import { Move } from '../move/move.entity'
 import { Renew } from '../renew/renew.entity'
-import { Access } from '../access/access.entity'
-import { Insurance } from '../../insurance/insurance.entity'
 
 @Entity()
 export class Contract {
@@ -82,25 +81,34 @@ export class Contract {
   @Column()
   first_invoice_date: string
 
-  @ManyToOne(() => PhysicalPerson, (physical_person) => physical_person.contracts)
-  physical_person?: PhysicalPerson
-
-  @ManyToOne(() => LegalPerson, (legal_person) => legal_person.contracts)
-  legal_person?: LegalPerson
+  @ManyToOne(() => Customer, (customer) => customer.contracts)
+  customer?: Customer
 
   @OneToMany(() => Insurance, (insurance) => insurance.contracts)
   @JoinColumn()
   insurance?: Insurance
 
-  @OneToOne(() => Access)
+  @OneToOne(() => Access, {
+    cascade: true,
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   access?: Access
 
-  @OneToMany(() => Move, (move) => move.contract)
+  @OneToMany(() => Move, (move) => move.contract, {
+    cascade: true,
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   move?: Move[]
 
-  @OneToMany(() => Renew, (renew) => renew.contract)
+  @OneToMany(() => Renew, (renew) => renew.contract, {
+    cascade: true,
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   renew?: Renew[]
 }

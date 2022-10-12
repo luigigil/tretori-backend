@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { IPhysicalPerson } from '../../common/customer.types'
 import { onePhysicalPersonFixture, physicalPersonArrayFixture } from './fixtures'
 import { PhysicalPersonController } from '../physical-person.controller'
 import { PhysicalPersonService } from '../physical-person.service'
 import { NotFoundException } from '@nestjs/common'
+import { IPhysicalPerson } from '../physical-person.types'
 
 describe('PhysicalPersonController', () => {
   let physicalPersonController: PhysicalPersonController
