@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common'
-import { JwtAuthGuard } from './shared/guards/jwt-auth.guard'
-import { LocalAuthGuard } from './shared/guards/local-auth.guard'
+import { Controller, Post, Request, UseGuards } from '@nestjs/common'
 import { AuthService } from './shared/auth/auth.service'
+import { LocalAuthGuard } from './shared/guards/local-auth.guard'
 
 @Controller()
 export class AppController {
@@ -12,12 +11,6 @@ export class AppController {
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user)
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user
   }
 
   // Role example

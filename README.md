@@ -72,6 +72,32 @@ Development database uses port `3306`. Test database, used to run e2e tests, use
 
 For troubleshooting connection in DBeaver, check https://stackoverflow.com/questions/61749304/connection-between-dbeaver-mysql
 
+## Migrations
+
+To create an empty migration, run:
+
+```
+yarn migration:create ./src/migrations/example-migration
+```
+
+To generate a migration based on database schema changes, run:
+
+```
+yarn migration:generate ./src/migrations/example-migration -d ./ormconfig.ts
+```
+
+To run migrations, run:
+
+```
+yarn migration:run ./src/migrations/create-default-users -d ./ormconfig.local.ts
+```
+
+To revert migrations, run:
+
+```
+yarn migration:revert -d ./ormconfig.local.ts
+```
+
 ## Environment
 
 There's a `.env.example`. You can duplicate this file and rename one of the duplicates as `.env` to use it locally, so you'll be able to setup your own local configuration.
