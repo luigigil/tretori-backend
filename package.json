@@ -29,10 +29,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:clear": "jest --clearCache",
     "prepare": "husky install",
-    "migration:generate":"typeorm-ts-node-esm migration:generate",
-    "migration:create":"typeorm-ts-node-esm migration:create",
-    "migration:run":"typeorm-ts-node-esm migration:run",
-    "migration:revert":"typeorm-ts-node-esm migration:revert"
+    "migration:generate": "typeorm-ts-node-esm migration:generate",
+    "migration:create": "typeorm-ts-node-esm migration:create",
+    "migration:run": "typeorm-ts-node-esm migration:run",
+    "migration:revert": "typeorm-ts-node-esm migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -110,7 +110,16 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s",
       "!**/*.module.ts",
-      "!**/main.ts"
+      "!**/main.ts",
+      "!**/*.types.ts",
+      "!**/constants.ts",
+      "!**/*.constants.ts",
+      "!**/*.enum.ts",
+      "!**/migrations/*.ts",
+      "!**/fixtures/*.ts",
+      "!**/*.entity.ts",
+      "!**/*.guard.ts",
+      "!**/*.decorator.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

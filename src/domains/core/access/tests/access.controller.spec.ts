@@ -21,12 +21,15 @@ describe('AccessController', () => {
               .mockImplementation(() => Promise.resolve({ id: 1, ...oneAccessFixture })),
             findOne: jest
               .fn()
-              .mockImplementation((id: number) => Promise.resolve({ id, ...oneAccessFixture })),
+              .mockResolvedValueOnce({ id: 1, ...oneAccessFixture })
+              .mockRejectedValueOnce(() => {
+                throw new NotFoundException('Access Not Found')
+              }),
             remove: jest
               .fn()
               .mockResolvedValueOnce({ id: 1, ...oneAccessFixture })
               .mockRejectedValueOnce(() => {
-                throw new NotFoundException('Access not found')
+                throw new NotFoundException('Access Not Found')
               }),
             update: jest.fn().mockImplementation(() => Promise.resolve({ ...updateAccessFixture })),
           },
@@ -59,6 +62,9 @@ describe('AccessController', () => {
   describe('FindOne access', () => {
     it('Should find one access', () => {
       expect(accessController.findOne(1)).resolves.toEqual(oneAccessFixture)
+    })
+    it('Should throw error when no access is found', () => {
+      expect(accessController.findOne(1)).rejects.toEqual(new NotFoundException('Access Not Found'))
     })
   })
 

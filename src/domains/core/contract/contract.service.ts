@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Access } from '../access/access.entity'
-import { AccessService } from '../access/access.service'
 import { Contract } from './contract.entity'
 import { IContract, IContractUpdate } from './contract.types'
 
@@ -10,8 +9,7 @@ import { IContract, IContractUpdate } from './contract.types'
 export class ContractService {
   constructor(
     @InjectRepository(Contract)
-    private readonly contractRepository: Repository<Contract>,
-    private readonly accessService: AccessService
+    private readonly contractRepository: Repository<Contract>
   ) {}
 
   findAll(): Promise<Contract[]> {

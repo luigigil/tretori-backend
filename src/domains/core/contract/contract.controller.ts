@@ -12,25 +12,24 @@ import {
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
-import { LegalPersonService } from '../../customer/legal-person/legal-person.service'
-import { PhysicalPersonService } from '../../customer/physical-person/physical-person.service'
-import { AccessService } from '../access/access.service'
 import { MoveService } from '../move/move.service'
 import { IMove } from '../move/move.types'
 import { RenewService } from '../renew/renew.service'
 import { IRenew } from '../renew/renew.types'
-import { IMoveResponse, IRenewResponse } from './contract.relations'
 import { ContractService } from './contract.service'
-import { ContractUpdateBody, IContract, IContractUpdate } from './contract.types'
+import {
+  ContractUpdateBody,
+  IContract,
+  IContractUpdate,
+  IMoveResponse,
+  IRenewResponse,
+} from './contract.types'
 
-@Controller('contract')
+@Controller('contracts')
 export class ContractController {
   constructor(
-    private readonly accessService: AccessService,
     private readonly contractService: ContractService,
-    private readonly legalPersonService: LegalPersonService,
     private readonly moveService: MoveService,
-    private readonly physicalPersonService: PhysicalPersonService,
     private readonly renewService: RenewService
   ) {}
 
@@ -75,25 +74,6 @@ export class ContractController {
     return this.contractService.remove(id)
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @ApiParam({ name: 'id', type: Number })
-  // @ApiParam({ name: 'personId', type: Number })
-  // @ApiResponse({ status: 200, type: ILegalPersonToContractResponse })
-  // @Post(':id/legal-person/:personId')
-  // async addLegalPerson(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Param('personId', ParseIntPipe) personId: number
-  // ): Promise<{ legalPerson: ILegalPerson; contract: IContract }> {
-  //   const contract = await this.contractService.findOne(id)
-  //   const legalPerson = await this.legalPersonService.findOne(personId)
-  //   contract.legal_person = legalPerson
-  //   await this.contractService.update(contract.id, contract)
-  //   return {
-  //     legalPerson,
-  //     contract,
-  //   }
-  // }
-
   @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IMoveResponse })
@@ -113,25 +93,6 @@ export class ContractController {
       contract,
     }
   }
-
-  // @UseGuards(JwtAuthGuard)
-  // @ApiParam({ name: 'id', type: Number })
-  // @ApiParam({ name: 'personId', type: Number })
-  // @ApiResponse({ status: 200, type: IPhysicalPersonToContractResponse })
-  // @Post(':id/physical-person/:personId')
-  // async addPhysicalPerson(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Param('personId', ParseIntPipe) personId: number
-  // ): Promise<{ physicalPerson: IPhysicalPerson; contract: IContract }> {
-  //   const contract = await this.contractService.findOne(id)
-  //   const physicalPerson = await this.physicalPersonService.findOne(personId)
-  //   contract.physical_person = physicalPerson
-  //   await this.contractService.update(contract.id, contract)
-  //   return {
-  //     physicalPerson,
-  //     contract,
-  //   }
-  // }
 
   @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', type: Number })

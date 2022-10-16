@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { ICustomer } from '../../customer/customer/customer.types'
 import { IAccess } from '../access/access.types'
+import { IMove } from '../move/move.types'
+import { IRenew } from '../renew/renew.types'
 
 export class IContract {
   @ApiProperty()
@@ -84,4 +86,19 @@ export interface IContractUpdate {
 export class ContractUpdateBody implements IContractUpdate {
   contract: IContract
   access: IAccess
+}
+
+export class IMoveResponse {
+  @ApiProperty()
+  move: IMove
+
+  @ApiProperty()
+  contract: IContract
+}
+export class IRenewResponse {
+  @ApiProperty()
+  renew: IRenew
+
+  @ApiProperty()
+  contract: IContract
 }

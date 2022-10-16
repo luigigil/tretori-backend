@@ -81,8 +81,7 @@ describe('ContractService', () => {
       await expect(service.findOne(1)).resolves.toEqual(oneContractFixture)
       expect(repoSpy).toHaveBeenCalledWith({
         relations: {
-          legal_person: true,
-          physical_person: true,
+          customer: true,
         },
         where: {
           id: 1,
