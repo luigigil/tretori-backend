@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { usersFixture, userFixture } from './fixtures'
 import { UsersService } from '../users.service'
 import { User } from '../user.entity'
+import { NotFoundException } from '@nestjs/common'
 
 describe('UsersService', () => {
   let service: UsersService
@@ -54,6 +55,10 @@ describe('UsersService', () => {
       await expect(service.findOne(userFixture.id)).resolves.toEqual(userFixture)
       expect(repoSpy).toHaveBeenCalledWith({ id: userFixture.id })
     })
+    it('should throw an error if user is not found', async () => {
+      jest.spyOn(repository, 'findOneBy').mockResolvedValue(null)
+      await expect(service.findOne(userFixture.id)).rejects.toThrow(NotFoundException)
+    })
   })
 
   describe('findOneByUsername()', () => {
@@ -61,6 +66,20 @@ describe('UsersService', () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
       await expect(service.findOneByUsername(userFixture.username)).resolves.toEqual(userFixture)
       expect(repoSpy).toHaveBeenCalledWith({ username: userFixture.username })
+    })
+
+    it('should throw an error if user is not found', async () => {
+      jest.spyOn(repository, 'findOneBy').mockResolvedValue(null)
+      await expect(service.findOneByUsername(userFixture.username)).rejects.toThrow(
+        NotFoundException
+      )
+    })
+  })
+
+  describe('update()', () => {
+    it('should update an user', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(userFixture as User)
+      await expect(service.update(userFixture.id, userFixture)).resolves.toEqual(userFixture)
     })
   })
 

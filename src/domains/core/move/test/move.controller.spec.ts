@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { IMove } from '../move.types'
-import { oneMoveFixture, moveArrayFixture } from './fixtures'
 import { MoveController } from '../move.controller'
 import { MoveService } from '../move.service'
+import { IMove } from '../move.types'
+import { moveArrayFixture, oneMoveFixture } from './fixtures'
 
 describe('MoveController', () => {
   let moveController: MoveController
@@ -24,6 +24,7 @@ describe('MoveController', () => {
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...oneMoveFixture })),
             remove: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -52,23 +53,6 @@ describe('MoveController', () => {
     it('should find all move', () => {
       moveController.findAll()
       expect(moveService.findAll).toHaveBeenCalled()
-    })
-  })
-
-  describe('findOne()', () => {
-    it('should find a move', async () => {
-      await expect(moveController.findOne(3)).resolves.toEqual({
-        id: 3,
-        ...oneMoveFixture,
-      })
-      expect(moveService.findOne).toHaveBeenCalled()
-    })
-  })
-
-  describe('remove()', () => {
-    it('should remove the move', () => {
-      moveController.remove(2)
-      expect(moveService.remove).toHaveBeenCalled()
     })
   })
 })

@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing'
-import { AccessService } from '../access.service'
-import { AccessController } from '../access.controller'
-import { oneAccessFixture, createAccessFixture, updateAccessFixture } from '../access.fixtures'
 import { NotFoundException } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
+import { AccessController } from '../access.controller'
+import { AccessService } from '../access.service'
+import { createAccessFixture, oneAccessFixture, updateAccessFixture } from './access.fixtures'
 
 describe('AccessController', () => {
   let accessController: AccessController
@@ -19,12 +19,7 @@ describe('AccessController', () => {
             create: jest
               .fn()
               .mockImplementation(() => Promise.resolve({ id: 1, ...oneAccessFixture })),
-            findOne: jest
-              .fn()
-              .mockResolvedValueOnce({ id: 1, ...oneAccessFixture })
-              .mockRejectedValueOnce(() => {
-                throw new NotFoundException('Access Not Found')
-              }),
+            findOne: jest.fn().mockResolvedValueOnce({ id: 1, ...oneAccessFixture }),
             remove: jest
               .fn()
               .mockResolvedValueOnce({ id: 1, ...oneAccessFixture })
@@ -60,11 +55,8 @@ describe('AccessController', () => {
   })
 
   describe('FindOne access', () => {
-    it('Should find one access', () => {
-      expect(accessController.findOne(1)).resolves.toEqual(oneAccessFixture)
-    })
-    it('Should throw error when no access is found', () => {
-      expect(accessController.findOne(1)).rejects.toEqual(new NotFoundException('Access Not Found'))
+    it('Should find one access', async () => {
+      await expect(accessController.findOne(1)).resolves.toEqual(oneAccessFixture)
     })
   })
 

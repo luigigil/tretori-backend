@@ -49,7 +49,7 @@ export class InsuranceController {
   @ApiResponse({ status: 200 })
   @Put(':id')
   @HttpCode(200)
-  update(@Body() insurance: IInsurance, @Param('id') id: number): Promise<void> {
+  update(@Param('id') id: number, @Body() insurance: IInsurance): Promise<IInsurance> {
     return this.insuranceService.update(id, insurance)
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { LegalPerson } from './legal-person.entity'
@@ -15,16 +15,22 @@ export class LegalPersonService {
     return this.legalPersonRepository.find()
   }
 
-  findOne(id: number): Promise<LegalPerson> {
-    return this.legalPersonRepository.findOneBy({ id })
+  async findOne(id: number): Promise<LegalPerson> {
+    const legalPerson = await this.legalPersonRepository.findOneBy({ id })
+    if (!legalPerson) {
+      throw new NotFoundException('Legal person not found')
+    }
+    return legalPerson
   }
 
   create(legalPerson: ILegalPerson): Promise<LegalPerson> {
     return this.legalPersonRepository.save(legalPerson)
   }
 
-  async update(id: number, legalPerson: ILegalPerson): Promise<void> {
-    await this.legalPersonRepository.update(id, legalPerson)
+  async update(id: number, newLegalPerson: ILegalPerson): Promise<ILegalPerson> {
+    const legalPerson = await this.findOne(id)
+    Object.assign(legalPerson, newLegalPerson)
+    return this.legalPersonRepository.save(legalPerson)
   }
 
   async remove(id: number): Promise<void> {

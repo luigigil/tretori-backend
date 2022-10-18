@@ -54,6 +54,15 @@ describe('InsuranceService', () => {
     })
   })
 
+  describe('update()', () => {
+    it('should update an insurance', async () => {
+      jest.spyOn(insuranceService, 'findOne').mockResolvedValue(oneInsuranceFixture as Insurance)
+      await expect(insuranceService.update(1, oneInsuranceFixture)).resolves.toEqual(
+        oneInsuranceFixture
+      )
+    })
+  })
+
   describe('findOne()', () => {
     it('should get a single insurance', async () => {
       const repoSpy = jest.spyOn(insuranceRepository, 'findOneBy')

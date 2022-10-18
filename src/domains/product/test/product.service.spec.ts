@@ -1,9 +1,10 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { productArrayFixture, oneProductFixture } from './fixtures'
-import { ProductService } from '../product.service'
 import { Product } from '../product.entity'
+import { ProductService } from '../product.service'
+import { oneProductFixture, productArrayFixture } from './fixtures'
 
 describe('ProductService', () => {
   let service: ProductService
@@ -47,11 +48,23 @@ describe('ProductService', () => {
     })
   })
 
+  describe('update()', () => {
+    it('should update a product', async () => {
+      jest.spyOn(repository, 'findOneBy').mockResolvedValue(oneProductFixture as Product)
+      await expect(service.update(1, oneProductFixture)).resolves.toEqual(oneProductFixture)
+    })
+  })
+
   describe('findOne()', () => {
     it('should get a single product', async () => {
       const repoSpy = jest.spyOn(repository, 'findOneBy')
       await expect(service.findOne(1)).resolves.toEqual(oneProductFixture)
       expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
+    })
+
+    it('should throw an error if product is not found', async () => {
+      jest.spyOn(repository, 'findOneBy').mockResolvedValue(null)
+      await expect(service.findOne(1)).rejects.toThrow(NotFoundException)
     })
   })
 

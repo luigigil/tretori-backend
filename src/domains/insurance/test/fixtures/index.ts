@@ -42,6 +42,7 @@ export const insuranceArrayFixture: IInsurance[] = [
 ]
 
 export const oneInsuranceFixture: IInsurance = {
+  id: 1,
   address: '9808 Maximillian Wells',
   cep: '74475-4112',
   city: 'Weimannchester',

@@ -10,9 +10,9 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { LegalPersonService } from './legal-person.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { LegalPersonService } from './legal-person.service'
 import { ILegalPerson } from './legal-person.types'
 
 @Controller('legal-person')
@@ -48,7 +48,7 @@ export class LegalPersonController {
   @ApiResponse({ status: 200 })
   @Put(':id')
   @HttpCode(200)
-  update(@Body() legalPerson: ILegalPerson, @Param('id') id: number): Promise<void> {
+  update(@Param('id') id: number, @Body() legalPerson: ILegalPerson): Promise<ILegalPerson> {
     return this.legalPersonService.update(id, legalPerson)
   }
 

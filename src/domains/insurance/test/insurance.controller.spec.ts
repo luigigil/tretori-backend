@@ -32,6 +32,7 @@ describe('InsuranceController', () => {
               .mockRejectedValueOnce(() => {
                 throw new NotFoundException('Insurance not found')
               }),
+            update: jest.fn(),
           },
         },
       ],
@@ -70,6 +71,15 @@ describe('InsuranceController', () => {
         ...oneInsuranceFixture,
       })
       expect(insuranceService.findOne).toHaveBeenCalled()
+    })
+  })
+
+  describe('update()', () => {
+    it('should update an insurance', async () => {
+      jest.spyOn(insuranceService, 'update').mockResolvedValue(oneInsuranceFixture as IInsurance)
+      await expect(
+        insuranceController.update(oneInsuranceFixture.id, oneInsuranceFixture)
+      ).resolves.toEqual(oneInsuranceFixture)
     })
   })
 

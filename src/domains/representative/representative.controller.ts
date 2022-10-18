@@ -9,12 +9,11 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common'
-import { IRepresentative } from './representative.types'
-import { RepresentativeService } from './representative.service'
-import { Representative } from './representative.entity'
-import { UpdateResult } from 'typeorm'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../shared/guards/jwt-auth.guard'
+import { Representative } from './representative.entity'
+import { RepresentativeService } from './representative.service'
+import { IRepresentative } from './representative.types'
 
 @Controller('representative')
 export class RepresentativeController {
@@ -51,7 +50,7 @@ export class RepresentativeController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRepresentative: IRepresentative
-  ): Promise<UpdateResult> {
+  ): Promise<IRepresentative> {
     return this.representativeService.update(id, updateRepresentative)
   }
 

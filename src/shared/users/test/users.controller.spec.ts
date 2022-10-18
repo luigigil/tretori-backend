@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { IUser } from '../../users/user.types'
 import { UsersController } from '../../users/users.controller'
 import { UsersService } from '../../users/users.service'
-import { IUser } from '../../users/user.types'
-import { usersFixture, userFixture } from './fixtures'
+import { userFixture, usersFixture } from './fixtures'
 
 describe('UsersController', () => {
   let usersController: UsersController
@@ -24,6 +24,7 @@ describe('UsersController', () => {
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...usersFixture })),
             remove: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -39,12 +40,22 @@ describe('UsersController', () => {
 
   describe('create()', () => {
     it('should create a user', async () => {
-      usersController.create(userFixture)
       await expect(usersController.create(userFixture)).resolves.toEqual({
         id: 1,
         ...userFixture,
       })
       expect(usersService.create).toHaveBeenCalledWith(userFixture)
+    })
+  })
+
+  describe('update()', () => {
+    it('should update a user', async () => {
+      const user = {
+        id: 1,
+        ...userFixture,
+      }
+      jest.spyOn(usersService, 'update').mockResolvedValue(user)
+      await expect(usersController.update(1, userFixture)).resolves.toEqual(user)
     })
   })
 

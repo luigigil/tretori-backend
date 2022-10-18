@@ -14,6 +14,7 @@ import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import { IUser } from './user.types'
 import { JwtAuthGuard } from '../../shared/guards/jwt-auth.guard'
+import { User } from './user.entity'
 
 @Controller('users')
 export class UsersController {
@@ -49,7 +50,7 @@ export class UsersController {
   @ApiResponse({ status: 200 })
   @Put(':id')
   @HttpCode(200)
-  update(@Body() user: IUser, @Param('id') id: number): Promise<void> {
+  update(@Param('id') id: number, @Body() user: IUser): Promise<User> {
     return this.usersService.update(id, user)
   }
 

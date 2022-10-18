@@ -48,7 +48,7 @@ export class ProductController {
   @ApiResponse({ status: 200 })
   @Put(':id')
   @HttpCode(200)
-  update(@Body() product: IProduct, @Param('id') id: number): Promise<void> {
+  update(@Param('id') id: number, @Body() product: IProduct): Promise<IProduct> {
     return this.productService.update(id, product)
   }
 

@@ -28,6 +28,7 @@ describe('LegalPersonController', () => {
                 Promise.resolve({ id, ...oneLegalPersonFixture })
               ),
             remove: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -73,6 +74,17 @@ describe('LegalPersonController', () => {
     it('should remove the legal person', () => {
       legalPersonController.remove(2)
       expect(legalPersonService.remove).toHaveBeenCalled()
+    })
+  })
+
+  describe('update()', () => {
+    it('should update a legal person', async () => {
+      jest
+        .spyOn(legalPersonService, 'update')
+        .mockResolvedValue(oneLegalPersonFixture as ILegalPerson)
+      await expect(
+        legalPersonController.update(oneLegalPersonFixture.id, oneLegalPersonFixture)
+      ).resolves.toEqual(oneLegalPersonFixture)
     })
   })
 })

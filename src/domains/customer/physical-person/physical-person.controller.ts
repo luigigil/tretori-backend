@@ -10,9 +10,9 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { PhysicalPersonService } from './physical-person.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { PhysicalPersonService } from './physical-person.service'
 import { IPhysicalPerson } from './physical-person.types'
 
 @Controller('physical-person')
@@ -49,7 +49,10 @@ export class PhysicalPersonController {
   @ApiResponse({ status: 200 })
   @Put(':id')
   @HttpCode(200)
-  update(@Body() physicalPerson: IPhysicalPerson, @Param('id') id: number): Promise<void> {
+  update(
+    @Param('id') id: number,
+    @Body() physicalPerson: IPhysicalPerson
+  ): Promise<IPhysicalPerson> {
     return this.physicalPersonService.update(id, physicalPerson)
   }
 

@@ -1,9 +1,10 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { customersFixture, customerFixture } from './fixtures'
 import { Customer } from '../../customer/customer.entity'
 import { CustomerService } from '../customer.service'
+import { customerFixture, customersFixture } from './fixtures'
 
 describe('CustomerService', () => {
   let service: CustomerService
@@ -59,8 +60,20 @@ describe('CustomerService', () => {
         },
       })
     })
+    it('should throw an error if no customer is found', async () => {
+      jest.spyOn(repository, 'findOne').mockResolvedValue(null)
+      await expect(service.findOne(customerFixture.id)).rejects.toThrow(NotFoundException)
+    })
   })
 
+  describe('update()', () => {
+    it('should update a customer', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(customerFixture as Customer)
+      await expect(service.update(customerFixture.id, customerFixture)).resolves.toEqual(
+        customerFixture
+      )
+    })
+  })
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete')

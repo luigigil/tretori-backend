@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Repository, UpdateResult } from 'typeorm'
+import { Repository } from 'typeorm'
 import {
   RepresentativeFixture,
   RepresentativeFixtureArray,
@@ -51,7 +51,9 @@ describe('RepresentativeService', () => {
 
   describe('findOne()', () => {
     it('should return Representative', () => {
-      jest.spyOn(service, 'findOne').mockResolvedValueOnce(RepresentativeFixture as Representative)
+      jest
+        .spyOn(repository, 'findOne')
+        .mockResolvedValueOnce(RepresentativeFixture as Representative)
       expect(service.findOne(1)).resolves.toBe(RepresentativeFixture)
     })
     it('should throw NotFoundException', () => {
@@ -72,15 +74,15 @@ describe('RepresentativeService', () => {
 
   describe('remove()', () => {
     it('should call remove with the passed value', () => {
-      jest.spyOn(service, 'remove').mockResolvedValueOnce(RepresentativeFixture as Representative)
+      jest.spyOn(service, 'findOne').mockResolvedValueOnce(RepresentativeFixture as Representative)
       expect(service.remove(1)).resolves.toBe(RepresentativeFixture)
     })
   })
 
   describe('update()', () => {
     it('should call update with the passed value', () => {
-      jest.spyOn(service, 'update').mockResolvedValueOnce(new UpdateResult())
-      expect(service.update(1, UpdateRepresentativeFixture)).resolves.toBeInstanceOf(UpdateResult)
+      jest.spyOn(service, 'findOne').mockResolvedValueOnce(RepresentativeFixture as Representative)
+      expect(service.update(1, UpdateRepresentativeFixture)).resolves.toEqual(RepresentativeFixture)
     })
     it('should throw NotFoundException', () => {
       jest.spyOn(repository, 'findOne').mockReturnValueOnce(null)

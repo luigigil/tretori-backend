@@ -1,9 +1,10 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { legalPersonArrayFixture, oneLegalPersonFixture } from './fixtures'
-import { LegalPersonService } from '../legal-person.service'
 import { LegalPerson } from '../legal-person.entity'
+import { LegalPersonService } from '../legal-person.service'
+import { legalPersonArrayFixture, oneLegalPersonFixture } from './fixtures'
 
 describe('LegalPersonService', () => {
   let service: LegalPersonService
@@ -17,7 +18,7 @@ describe('LegalPersonService', () => {
           provide: getRepositoryToken(LegalPerson),
           useValue: {
             find: jest.fn().mockResolvedValue(legalPersonArrayFixture),
-            findOneBy: jest.fn().mockResolvedValue(oneLegalPersonFixture),
+            findOneBy: jest.fn(),
             save: jest.fn().mockResolvedValue(oneLegalPersonFixture),
             remove: jest.fn(),
             delete: jest.fn(),
@@ -49,9 +50,21 @@ describe('LegalPersonService', () => {
 
   describe('findOne()', () => {
     it('should get a single legal person', async () => {
-      const repoSpy = jest.spyOn(repository, 'findOneBy')
+      jest
+        .spyOn(repository, 'findOneBy')
+        .mockResolvedValueOnce(oneLegalPersonFixture as LegalPerson)
       await expect(service.findOne(1)).resolves.toEqual(oneLegalPersonFixture)
-      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
+    })
+    it('should throw an error if no legal person is found', async () => {
+      jest.spyOn(repository, 'findOneBy').mockResolvedValueOnce(null)
+      await expect(service.findOne(1)).rejects.toThrow(NotFoundException)
+    })
+  })
+
+  describe('update()', () => {
+    it('should update a legal person', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValueOnce(oneLegalPersonFixture as LegalPerson)
+      await expect(service.update(1, oneLegalPersonFixture)).resolves.toEqual(oneLegalPersonFixture)
     })
   })
 

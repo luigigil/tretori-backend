@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, UpdateResult } from 'typeorm'
-import { IRepresentative } from './representative.types'
+import { Repository } from 'typeorm'
 import { Representative } from './representative.entity'
+import { IRepresentative } from './representative.types'
 
 @Injectable()
 export class RepresentativeService {
@@ -31,9 +31,10 @@ export class RepresentativeService {
     return this.representativeRepository.save(representative)
   }
 
-  async update(id: number, updateRepresentative: IRepresentative): Promise<UpdateResult> {
+  async update(id: number, updateRepresentative: IRepresentative): Promise<IRepresentative> {
     const representative = await this.findOne(id)
-    return this.representativeRepository.update(representative, updateRepresentative)
+    Object.assign(representative, updateRepresentative)
+    return this.representativeRepository.save(representative)
   }
 
   async remove(id: number): Promise<Representative> {

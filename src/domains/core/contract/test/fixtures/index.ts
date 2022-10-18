@@ -1,4 +1,5 @@
-import { IContract } from '../../contract.types'
+import { CustomerType } from 'domains/customer/customer/customer.entity'
+import { IContract, IContractUpdate } from '../../contract.types'
 
 export const contractArrayFixture: IContract[] = [
   {
@@ -50,6 +51,7 @@ export const contractArrayFixture: IContract[] = [
 ]
 
 export const oneContractFixture: IContract = {
+  id: 1,
   phone_on_insurancy: '',
   adhesion: true,
   contributor_perc: 0,
@@ -71,6 +73,8 @@ export const oneContractFixture: IContract = {
   first_invoice_date: '2020-01-01',
   invoice_amount: 0,
   total_contract_value: 0,
+  move: [],
+  renew: [],
 }
 
 export const oneMoveContract: IContract = {
@@ -95,4 +99,50 @@ export const oneMoveContract: IContract = {
   first_invoice_date: '2020-01-01',
   invoice_amount: 0,
   total_contract_value: 0,
+}
+
+export const updateContractPayload: IContractUpdate = {
+  contract: {
+    policy: '0001',
+    size: 'grande',
+    type: 'departamento',
+    version: 1,
+    number_of_lives: 10,
+    validity_start: '2022-10-12',
+    validity_end: '1995-06-28T04:00:00.000Z',
+    validity_time: 10,
+    inclusion_period: '12',
+    cutoff_date: '1995-06-28T04:00:00.000Z',
+    email_on_insurancy: 'nmklmk@asdsa.com',
+    phone_on_insurancy: 'mklm',
+    copay: true,
+    adhesion: true,
+    copay_perc: 12312,
+    contributor_perc: 12312,
+    copay_details: 'mklm',
+    cost: 12312,
+    invoice_amount: 12312,
+    total_contract_value: 12312,
+    first_invoice_date: '2022-10-12',
+    customer: {
+      id: 5,
+      code: '3c7f2057-eb6d-45ba-8b47-47df9c410dbf',
+      phone: 'asdsad61213123132132',
+      phone_secondary: 'sadas6132132132132',
+      address: 'asdsaasdsads',
+      cep: 'dsad1231231',
+      city: 'dsadasdasd',
+      neighborhood: 'sadsaasdasd',
+      uf: 'dsadassd',
+      email: 'asdsadsadasdsasa@adasdsa.com',
+      customer_type: CustomerType.PHYSICAL_PERSON,
+    },
+  },
+  access: {
+    login_client: 'dasd',
+    login_tret: 'dsad',
+    system: 'asdasdsa',
+    pass_client: 'asdasdas',
+    pass_tret: 'sadsad',
+  },
 }

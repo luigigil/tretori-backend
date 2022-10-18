@@ -22,6 +22,7 @@ export const legalPersonArrayFixture: ILegalPerson[] = [
 ]
 
 export const oneLegalPersonFixture: ILegalPerson = {
+  id: 3,
   cnpj: '2',
   fantasy_name: 'Orn Inc',
   representatives: '',

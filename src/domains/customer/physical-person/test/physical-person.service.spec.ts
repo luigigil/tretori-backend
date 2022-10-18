@@ -58,6 +58,22 @@ describe('PhysicalPersonService', () => {
       await expect(physicalPersonService.findOne(1)).resolves.toEqual(onePhysicalPersonFixture)
       expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
     })
+
+    it('should throw an error if physical person is not found', async () => {
+      jest.spyOn(physicalPersonRepository, 'findOneBy').mockResolvedValue(null)
+      await expect(physicalPersonService.findOne(1)).rejects.toThrow(NotFoundException)
+    })
+  })
+
+  describe('update()', () => {
+    it('should update a physical person', async () => {
+      jest
+        .spyOn(physicalPersonService, 'findOne')
+        .mockResolvedValue(onePhysicalPersonFixture as PhysicalPerson)
+      await expect(
+        physicalPersonService.update(onePhysicalPersonFixture.id, onePhysicalPersonFixture)
+      ).resolves.toEqual(onePhysicalPersonFixture)
+    })
   })
 
   describe('remove()', () => {

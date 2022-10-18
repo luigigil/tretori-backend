@@ -1,10 +1,10 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Repository, UpdateResult } from 'typeorm'
+import { Repository } from 'typeorm'
 import { Access } from '../access.entity'
-import { oneAccessFixture, updateAccessFixture } from '../access.fixtures'
 import { AccessService } from '../access.service'
+import { oneAccessFixture, updateAccessFixture } from './access.fixtures'
 
 describe('AccessService', () => {
   let service: AccessService
@@ -20,10 +20,7 @@ describe('AccessService', () => {
             findOne: jest.fn().mockResolvedValue(oneAccessFixture),
             save: jest.fn().mockResolvedValue(oneAccessFixture),
             remove: jest.fn(),
-            update: jest
-              .fn()
-              .mockResolvedValue(updateAccessFixture)
-              .mockRejectedValue(new NotFoundException('Access not found')),
+            update: jest.fn().mockResolvedValue(updateAccessFixture),
           },
         },
       ],
@@ -50,9 +47,9 @@ describe('AccessService', () => {
       expect(service.findOne(1)).resolves.toBe(oneAccessFixture)
       expect(repoSpy).toBeCalledWith({ where: { id: 1 } })
     })
-    it('should throw NotFoundException', () => {
-      jest.spyOn(repository, 'findOne').mockReturnValueOnce(null)
-      expect(service.findOne(1)).rejects.toThrow(new NotFoundException('Access not found'))
+    it('should throw NotFoundException', async () => {
+      jest.spyOn(repository, 'findOne').mockResolvedValueOnce(null)
+      await expect(service.findOne(1)).rejects.toThrow(NotFoundException)
     })
   })
 
@@ -70,15 +67,10 @@ describe('AccessService', () => {
   })
 
   describe('update()', () => {
-    it('should call update with the passed value', () => {
-      jest.spyOn(service, 'update').mockResolvedValueOnce(new UpdateResult())
-      expect(service.update(1, updateAccessFixture)).resolves.toBeInstanceOf(UpdateResult)
-    })
-    it('Should throw a not found exception', () => {
-      jest.spyOn(repository, 'findOne').mockReturnValueOnce(null)
-      expect(service.update(1, updateAccessFixture)).rejects.toThrow(
-        new NotFoundException('Access not found')
-      )
+    it('should call update with the passed value', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValueOnce(updateAccessFixture)
+      jest.spyOn(repository, 'save').mockResolvedValueOnce(updateAccessFixture)
+      await expect(service.update(1, oneAccessFixture)).resolves.toEqual(updateAccessFixture)
     })
   })
 })

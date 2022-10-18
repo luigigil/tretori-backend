@@ -24,6 +24,7 @@ describe('CustomerController', () => {
               .fn()
               .mockImplementation((id: number) => Promise.resolve({ id, ...customerFixture })),
             remove: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -52,6 +53,15 @@ describe('CustomerController', () => {
     it('should find all customer', () => {
       customerController.findAll()
       expect(customerService.findAll).toHaveBeenCalled()
+    })
+  })
+
+  describe('update()', () => {
+    it('should update a customer', async () => {
+      jest.spyOn(customerService, 'update').mockResolvedValue(customerFixture as ICustomer)
+      await expect(customerController.update(customerFixture.id, customerFixture)).resolves.toEqual(
+        customerFixture
+      )
     })
   })
 

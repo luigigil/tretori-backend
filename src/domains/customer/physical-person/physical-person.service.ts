@@ -15,8 +15,8 @@ export class PhysicalPersonService {
     return this.physicalPersonRepository.find()
   }
 
-  findOne(id: number): Promise<PhysicalPerson> {
-    const legalPerson = this.physicalPersonRepository.findOneBy({ id })
+  async findOne(id: number): Promise<PhysicalPerson> {
+    const legalPerson = await this.physicalPersonRepository.findOneBy({ id })
     if (!legalPerson) {
       throw new NotFoundException('Legal Person not found')
     }
@@ -27,17 +27,14 @@ export class PhysicalPersonService {
     return this.physicalPersonRepository.save(legalPerson)
   }
 
-  async update(id: number, legalPerson: IPhysicalPerson): Promise<void> {
+  async update(id: number, legalPerson: IPhysicalPerson): Promise<IPhysicalPerson> {
     const oldLegalPerson = await this.findOne(id)
-    await this.physicalPersonRepository.update(oldLegalPerson, legalPerson)
+    Object.assign(oldLegalPerson, legalPerson)
+    return this.physicalPersonRepository.save(oldLegalPerson)
   }
 
   async remove(id: number): Promise<void> {
     const legalPerson = await this.findOne(id)
-    try {
-      await this.physicalPersonRepository.remove(legalPerson)
-    } catch (e) {
-      throw new NotFoundException('Error removing Legal Person')
-    }
+    await this.physicalPersonRepository.remove(legalPerson)
   }
 }

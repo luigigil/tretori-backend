@@ -36,6 +36,7 @@ describe('PhysicalPersonController', () => {
               .mockRejectedValueOnce(() => {
                 throw new NotFoundException('Physical person not found')
               }),
+            update: jest.fn(),
           },
         },
       ],
@@ -74,6 +75,17 @@ describe('PhysicalPersonController', () => {
         ...onePhysicalPersonFixture,
       })
       expect(physicalPersonService.findOne).toHaveBeenCalled()
+    })
+  })
+
+  describe('update()', () => {
+    it('should update an physical person', async () => {
+      jest
+        .spyOn(physicalPersonService, 'update')
+        .mockResolvedValue(onePhysicalPersonFixture as IPhysicalPerson)
+      await expect(
+        physicalPersonController.update(onePhysicalPersonFixture.id, onePhysicalPersonFixture)
+      ).resolves.toEqual(onePhysicalPersonFixture)
     })
   })
 

@@ -16,6 +16,7 @@ import { MoveService } from '../move/move.service'
 import { IMove } from '../move/move.types'
 import { RenewService } from '../renew/renew.service'
 import { IRenew } from '../renew/renew.types'
+import { Contract } from './contract.entity'
 import { ContractService } from './contract.service'
 import {
   ContractUpdateBody,
@@ -62,7 +63,7 @@ export class ContractController {
   @ApiResponse({ status: 200 })
   @Put(':id')
   @HttpCode(200)
-  update(@Body() contract: IContractUpdate, @Param('id') id: number): Promise<void> {
+  update(@Param('id') id: number, @Body() contract: IContractUpdate): Promise<Contract> {
     return this.contractService.update(id, contract)
   }
 
@@ -80,18 +81,10 @@ export class ContractController {
   @ApiBody({ type: IMove })
   @Post(':id/move')
   async moveContract(
-    @Body() newMove: IMove,
-    @Param('id', ParseIntPipe) id: number
-  ): Promise<{ move: IMove; contract: IContract }> {
-    // TODO fix this, no need to make 3 db operations
-    const contract = await this.contractService.findOne(id)
-    const move = await this.moveService.create(newMove)
-    move.contract = contract
-    await this.moveService.update(move.id, move)
-    return {
-      move,
-      contract,
-    }
+    @Param('id', ParseIntPipe) id: number,
+    @Body() newMove: IMove
+  ): Promise<IMoveResponse> {
+    return this.contractService.moveContract(id, newMove)
   }
 
   @UseGuards(JwtAuthGuard)
@@ -100,17 +93,9 @@ export class ContractController {
   @ApiBody({ type: IRenew })
   @Post(':id/renew')
   async renewContract(
-    @Body() newRenew: IRenew,
-    @Param('id', ParseIntPipe) id: number
+    @Param('id', ParseIntPipe) id: number,
+    @Body() newRenew: IRenew
   ): Promise<{ renew: IRenew; contract: IContract }> {
-    // TODO fix this, no need to make 3 db operations
-    const contract = await this.contractService.findOne(id)
-    const renew = await this.renewService.create(newRenew)
-    renew.contract = contract
-    await this.renewService.update(renew.id, renew)
-    return {
-      renew,
-      contract,
-    }
+    return this.contractService.renewContract(id, newRenew)
   }
 }

@@ -76,6 +76,12 @@ export class IContract {
 
   @ApiProperty()
   access?: IAccess
+
+  @ApiProperty()
+  move?: IMove[]
+
+  @ApiProperty()
+  renew?: IRenew[]
 }
 
 export interface IContractUpdate {

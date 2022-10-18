@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, UpdateResult } from 'typeorm'
-import { IAccess } from './access.types'
+import { Repository } from 'typeorm'
 import { Access } from './access.entity'
+import { IAccess } from './access.types'
 
 @Injectable()
 export class AccessService {
@@ -23,17 +23,14 @@ export class AccessService {
     return this.accessRepository.save(access)
   }
 
-  async update(id: number, updateAccess: IAccess): Promise<UpdateResult> {
+  async update(id: number, updateAccess: IAccess): Promise<Access> {
     const access = await this.findOne(id)
-    return this.accessRepository.update(access, updateAccess)
+    Object.assign(access, updateAccess)
+    return this.accessRepository.save(access)
   }
 
   async remove(id: number): Promise<void> {
     const access = await this.findOne(id)
-    try {
-      await this.accessRepository.remove(access)
-    } catch (e) {
-      throw new NotFoundException(`Error removing access`)
-    }
+    await this.accessRepository.remove(access)
   }
 }

@@ -119,7 +119,8 @@
       "!**/fixtures/*.ts",
       "!**/*.entity.ts",
       "!**/*.guard.ts",
-      "!**/*.decorator.ts"
+      "!**/*.decorator.ts",
+      "!**/auth/strategies/*.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

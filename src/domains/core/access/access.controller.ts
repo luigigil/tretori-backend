@@ -4,19 +4,17 @@ import {
   Delete,
   Get,
   HttpCode,
-  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common'
-import { IAccess } from './access.types'
-import { AccessService } from './access.service'
-import { Access } from './access.entity'
-import { UpdateResult } from 'typeorm'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { Access } from './access.entity'
+import { AccessService } from './access.service'
+import { IAccess } from './access.types'
 
 @Controller('access')
 export class AccessController {
@@ -34,13 +32,8 @@ export class AccessController {
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, type: IAccess })
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<Access | NotFoundException> {
-    try {
-      const access = this.accessService.findOne(id)
-      return access
-    } catch (e) {
-      throw new NotFoundException('Access Not Found')
-    }
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Access> {
+    return this.accessService.findOne(id)
   }
 
   @UseGuards(JwtAuthGuard)
@@ -48,10 +41,7 @@ export class AccessController {
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, type: IAccess })
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateAccess: IAccess
-  ): Promise<UpdateResult> {
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateAccess: IAccess): Promise<Access> {
     return this.accessService.update(id, updateAccess)
   }
 

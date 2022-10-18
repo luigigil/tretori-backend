@@ -2,8 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Access } from '../access/access.entity'
+import { Move } from '../move/move.entity'
+import { IMove } from '../move/move.types'
+import { Renew } from '../renew/renew.entity'
+import { IRenew } from '../renew/renew.types'
 import { Contract } from './contract.entity'
-import { IContract, IContractUpdate } from './contract.types'
+import { IContract, IContractUpdate, IMoveResponse, IRenewResponse } from './contract.types'
 
 @Injectable()
 export class ContractService {
@@ -36,7 +40,7 @@ export class ContractService {
   async update(
     id: number,
     { contract: contractToUpdate, access: accessToUpdate }: IContractUpdate
-  ): Promise<void> {
+  ): Promise<Contract> {
     const contract = await this.findOne(id)
 
     if (!contract.access) {
@@ -46,7 +50,7 @@ export class ContractService {
     Object.assign(contract.access, accessToUpdate)
     Object.assign(contract, contractToUpdate)
 
-    await this.contractRepository.save(contract)
+    return await this.contractRepository.save(contract)
   }
 
   async remove(id: number): Promise<void> {
@@ -55,6 +59,26 @@ export class ContractService {
       await this.contractRepository.remove(contract)
     } catch (e) {
       throw new NotFoundException(`Error removing contract`)
+    }
+  }
+
+  async moveContract(id: number, move: IMove): Promise<IMoveResponse> {
+    const oldContract = await this.findOne(id)
+    oldContract.move.push(move as Move)
+    const newContract = await this.contractRepository.save(oldContract)
+    return {
+      move,
+      contract: newContract,
+    }
+  }
+
+  async renewContract(id: number, renew: IRenew): Promise<IRenewResponse> {
+    const oldContract = await this.findOne(id)
+    oldContract.renew.push(renew as Renew)
+    const newContract = await this.contractRepository.save(oldContract)
+    return {
+      renew,
+      contract: newContract,
     }
   }
 }

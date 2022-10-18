@@ -22,6 +22,7 @@ export const physicalPersonArrayFixture: IPhysicalPerson[] = [
 ]
 
 export const onePhysicalPersonFixture: IPhysicalPerson = {
+  id: 1,
   birthdate: '2020-01-01',
   cpf: '12345678901',
   name: 'Jakayla Waters',

@@ -18,6 +18,7 @@ export const moveArrayFixture: IMove[] = [
 ]
 
 export const oneMoveFixture: IMove = {
+  id: 1,
   action: '',
   description: '',
   details: '',

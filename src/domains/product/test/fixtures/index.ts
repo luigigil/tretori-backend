@@ -16,6 +16,7 @@ export const productArrayFixture: IProduct[] = [
 ]
 
 export const oneProductFixture: IProduct = {
+  id: 3,
   name: 'Product 1',
   plan: 'plan 1',
   size: 'size 1',

@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -9,7 +10,7 @@ import { RenewService } from '../../renew/renew.service'
 import { oneRenewFixture, renewArrayFixture } from '../../renew/test/fixtures'
 import { Contract } from '../contract.entity'
 import { ContractService } from '../contract.service'
-import { contractArrayFixture, oneContractFixture } from './fixtures'
+import { contractArrayFixture, oneContractFixture, updateContractPayload } from './fixtures'
 
 describe('ContractService', () => {
   let service: ContractService
@@ -68,6 +69,12 @@ describe('ContractService', () => {
     })
   })
 
+  describe('update()', () => {
+    it('should successfully update a contract', async () => {
+      await expect(service.update(1, updateContractPayload)).resolves.toEqual(oneContractFixture)
+    })
+  })
+
   describe('findAll()', () => {
     it('should return an array of contract', async () => {
       const physicalPersonArray = await service.findAll()
@@ -88,6 +95,11 @@ describe('ContractService', () => {
         },
       })
     })
+
+    it('should throw exception if no contract is found', async () => {
+      jest.spyOn(repository, 'findOne').mockResolvedValue(undefined)
+      await expect(service.findOne(3)).rejects.toThrow(NotFoundException)
+    })
   })
 
   describe('remove()', () => {
@@ -95,6 +107,32 @@ describe('ContractService', () => {
       const recontractSpy = jest.spyOn(repository, 'delete')
       await expect(service.remove(1)).resolves.not.toThrow()
       expect(recontractSpy).toBeDefined()
+    })
+    it('should throw an error if the contract to remove is not found', async () => {
+      jest
+        .spyOn(repository, 'remove')
+        .mockRejectedValueOnce(new NotFoundException('Error removing contract'))
+      await expect(service.remove(1)).rejects.toThrow(NotFoundException)
+    })
+  })
+
+  describe('moveContract()', () => {
+    it('should create a new movement to the contract', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(oneContractFixture as Contract)
+      await expect(service.moveContract(oneContractFixture.id, oneMoveFixture)).resolves.toEqual({
+        move: oneMoveFixture,
+        contract: oneContractFixture,
+      })
+    })
+  })
+
+  describe('renewContract()', () => {
+    it('should create a new renewal to the contract', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(oneContractFixture as Contract)
+      await expect(service.renewContract(oneContractFixture.id, oneRenewFixture)).resolves.toEqual({
+        renew: oneRenewFixture,
+        contract: oneContractFixture,
+      })
     })
   })
 })

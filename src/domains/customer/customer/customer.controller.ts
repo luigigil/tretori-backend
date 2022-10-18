@@ -9,10 +9,10 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { ICustomer } from './customer.types'
-import { CustomerService } from './customer.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { CustomerService } from './customer.service'
+import { ICustomer } from './customer.types'
 
 @Controller('customers')
 export class CustomerController {
@@ -46,7 +46,7 @@ export class CustomerController {
   @ApiBody({ type: ICustomer })
   @ApiResponse({ status: 200, type: ICustomer })
   @Put(':id')
-  update(@Param('id') id: number, @Body() customer: ICustomer): Promise<void> {
+  update(@Param('id') id: number, @Body() customer: ICustomer): Promise<ICustomer> {
     return this.customersService.update(id, customer)
   }
 

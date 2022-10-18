@@ -1,13 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { moveArrayFixture, oneMoveFixture } from './fixtures'
-import { MoveService } from '../move.service'
 import { Move } from '../move.entity'
+import { MoveService } from '../move.service'
+import { moveArrayFixture, oneMoveFixture } from './fixtures'
 
 describe('MoveService', () => {
   let service: MoveService
-  let repository: Repository<Move>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,7 +25,6 @@ describe('MoveService', () => {
     }).compile()
 
     service = module.get<MoveService>(MoveService)
-    repository = module.get<Repository<Move>>(getRepositoryToken(Move))
   })
 
   it('should be defined', () => {
@@ -44,23 +41,6 @@ describe('MoveService', () => {
     it('should return an array of move', async () => {
       const physicalPersonArray = await service.findAll()
       expect(physicalPersonArray).toEqual(moveArrayFixture)
-    })
-  })
-
-  describe('findOne()', () => {
-    it('should get a single move', async () => {
-      const repoSpy = jest.spyOn(repository, 'findOneBy')
-      await expect(service.findOne(1)).resolves.toEqual(oneMoveFixture)
-      expect(repoSpy).toHaveBeenCalledWith({ id: 1 })
-    })
-  })
-
-  describe('remove()', () => {
-    it('should call remove with the passed value', async () => {
-      const removeSpy = jest.spyOn(repository, 'delete')
-      const retVal = await service.remove(2)
-      expect(removeSpy).toHaveBeenCalledWith(2)
-      expect(retVal).toBeUndefined()
     })
   })
 })

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { IRenew } from '../renew.types'
-import { oneRenewFixture, renewArrayFixture } from './fixtures'
 import { RenewController } from '../renew.controller'
 import { RenewService } from '../renew.service'
+import { IRenew } from '../renew.types'
+import { oneRenewFixture, renewArrayFixture } from './fixtures'
 
 describe('RenewController', () => {
   let renewController: RenewController
@@ -52,23 +52,6 @@ describe('RenewController', () => {
     it('should find all renew', () => {
       renewController.findAll()
       expect(renewService.findAll).toHaveBeenCalled()
-    })
-  })
-
-  describe('findOne()', () => {
-    it('should find a renew', async () => {
-      await expect(renewController.findOne(3)).resolves.toEqual({
-        id: 3,
-        ...oneRenewFixture,
-      })
-      expect(renewService.findOne).toHaveBeenCalled()
-    })
-  })
-
-  describe('remove()', () => {
-    it('should remove the renew', () => {
-      renewController.remove(2)
-      expect(renewService.remove).toHaveBeenCalled()
     })
   })
 })

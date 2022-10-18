@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ICustomer } from './customer.types'
 import { Customer } from './customer.entity'
+import { ICustomer } from './customer.types'
 
 @Injectable()
 export class CustomerService {
@@ -23,6 +23,9 @@ export class CustomerService {
         legal_person: true,
       },
     })
+    if (!customer) {
+      throw new NotFoundException('Customer not found')
+    }
     return customer
   }
 
@@ -30,8 +33,10 @@ export class CustomerService {
     return this.customersRepository.save(customer)
   }
 
-  async update(id: number, customer: ICustomer): Promise<void> {
-    await this.customersRepository.update(id, customer)
+  async update(id: number, newCustomer: ICustomer): Promise<ICustomer> {
+    const customer = await this.findOne(id)
+    Object.assign(customer, newCustomer)
+    return this.customersRepository.save(customer)
   }
 
   async remove(id: number): Promise<void> {

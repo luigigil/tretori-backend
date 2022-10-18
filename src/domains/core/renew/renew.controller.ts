@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common'
-import { IRenew } from './renew.types'
-import { RenewService } from './renew.service'
-import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
+import { ApiBody, ApiResponse } from '@nestjs/swagger'
 import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
+import { RenewService } from './renew.service'
+import { IRenew } from './renew.types'
 
 @Controller('renew')
 export class RenewController {
@@ -21,23 +21,5 @@ export class RenewController {
   @Get()
   findAll(): Promise<IRenew[]> {
     return this.renewService.findAll()
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200, type: IRenew })
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<IRenew> {
-    return this.renewService.findOne(id)
-  }
-
-  // TODO update route
-
-  @UseGuards(JwtAuthGuard)
-  @ApiParam({ name: 'id', type: Number })
-  @ApiResponse({ status: 200 })
-  @Delete(':id')
-  remove(@Param('id') id: number): Promise<void> {
-    return this.renewService.remove(id)
   }
 }
