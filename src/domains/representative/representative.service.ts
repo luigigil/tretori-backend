@@ -20,11 +20,7 @@ export class RepresentativeService {
   }
 
   async findAll(): Promise<Representative[]> {
-    const representative = await this.representativeRepository.find({ take: 10 })
-    if (representative.length === 0) {
-      throw new NotFoundException('Representatives not found')
-    }
-    return representative
+    return this.representativeRepository.find({ take: 10 })
   }
 
   async create(representative: IRepresentative): Promise<Representative> {
