@@ -31,6 +31,8 @@ export async function buildAppModule(): Promise<INestApplication> {
         database: 'tretori-test',
         autoLoadEntities: true,
         synchronize: true,
+        migrationsRun: true,
+        migrations: ['src/migrations/*.ts'],
       }),
       AccessModule,
       CustomerModule,
