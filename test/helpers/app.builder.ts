@@ -32,7 +32,7 @@ export async function buildAppModule(): Promise<INestApplication> {
         autoLoadEntities: true,
         synchronize: true,
         migrationsRun: true,
-        migrations: ['src/migrations/*.ts'],
+        migrations: ['**/migrations/*.ts'],
       }),
       AccessModule,
       CustomerModule,
