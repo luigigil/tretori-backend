@@ -1,4 +1,4 @@
-import { CustomerType } from 'domains/customer/customer/customer.entity'
+import { CustomerType } from '../../../../../../src/domains/customer/customer/customer.entity'
 import { IContract, IContractUpdate } from '../../contract.types'
 
 export const contractArrayFixture: IContract[] = [

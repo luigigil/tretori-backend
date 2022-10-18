@@ -1,45 +1,23 @@
 import { INestApplication } from '@nestjs/common'
-import { Test, TestingModule } from '@nestjs/testing'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ContractModule } from 'src/domains/core/contract/contract.module'
 import { IContract } from '../../../../src/domains/core/contract/contract.types'
-import { oneContractFixture } from 'src/domains/core/contract/test/fixtures'
-import { MoveModule } from 'src/domains/core/move/move.module'
-import { RenewModule } from 'src/domains/core/renew/renew.module'
-import * as request from 'supertest'
+import { oneContractFixture } from '../../../../src/domains/core/contract/test/fixtures'
+import { buildAppModule, buildRequester } from '../../../helpers/app.builder'
 
 describe('Contract - /contract (e2e)', () => {
   const contract: IContract = oneContractFixture
 
   let app: INestApplication
   let id: number
+  let agent
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: 'localhost',
-          port: 3307,
-          username: 'tretori-user',
-          password: 'tr3t0r!',
-          database: 'tretori-test',
-          entities: ['src/**/*.entity.ts'],
-          synchronize: true,
-        }),
-        ContractModule,
-        MoveModule,
-        RenewModule,
-      ],
-    }).compile()
-
-    app = moduleFixture.createNestApplication()
-    await app.init()
+    app = await buildAppModule()
+    agent = buildRequester(app)
   })
 
   it('Create [POST /contract]', () => {
-    return request(app.getHttpServer())
-      .post('/contract')
+    return agent
+      .post('/contracts')
       .send(contract as IContract)
       .expect(201)
       .then(({ body }) => {
@@ -49,8 +27,8 @@ describe('Contract - /contract (e2e)', () => {
   })
 
   it('Get all contract [GET /contract]', () => {
-    return request(app.getHttpServer())
-      .get('/contract')
+    return agent
+      .get('/contracts')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -58,8 +36,8 @@ describe('Contract - /contract (e2e)', () => {
   })
 
   it('Get one contract [GET /contract/:id]', () => {
-    return request(app.getHttpServer())
-      .get(`/contract/${id}`)
+    return agent
+      .get(`/contracts/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -69,7 +47,7 @@ describe('Contract - /contract (e2e)', () => {
   // TODO add update test
 
   it('Delete one contract [DELETE /contract/:id]', () => {
-    return request(app.getHttpServer()).delete(`/contract/${id}`).expect(200)
+    return agent.delete(`/contracts/${id}`).expect(200)
   })
 
   afterAll(async () => {

@@ -36,7 +36,7 @@ export class ContractController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: IContract })
-  @ApiResponse({ status: 200, type: IContract })
+  @ApiResponse({ status: 201, type: IContract })
   @Post()
   create(@Body() contract: IContract): Promise<IContract> {
     return this.contractService.create(contract)

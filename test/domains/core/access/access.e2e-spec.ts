@@ -1,14 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
-import * as request from 'supertest'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { IAccess } from 'src/domains/core/access/access.types'
+import { IAccess } from '../../../../src/domains/core/access/access.types'
 import {
   createAccessFixture,
-  updateAccessFixture,
   oneAccessFixture,
-} from 'src/domains/core/access/access.fixtures'
-import { AccessModule } from 'src/domains/core/access/access.module'
+  updateAccessFixture,
+} from '../../../../src/domains/core/access/tests/access.fixtures'
+import { buildAppModule, buildRequester } from '../../../helpers/app.builder'
 
 describe('Access - /access (e2e)', () => {
   const access: IAccess = oneAccessFixture
@@ -17,30 +14,15 @@ describe('Access - /access (e2e)', () => {
 
   let app: INestApplication
   let id: number
+  let agent
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: 'localhost',
-          port: 3307,
-          username: 'tretori-user',
-          password: 'tr3t0r!',
-          database: 'tretori-test',
-          autoLoadEntities: true,
-          synchronize: true,
-        }),
-        AccessModule,
-      ],
-    }).compile()
-
-    app = moduleFixture.createNestApplication()
-    await app.init()
+    app = await buildAppModule()
+    agent = buildRequester(app)
   })
 
-  it('Create [POST /access]', () => {
-    return request(app.getHttpServer())
+  it('Create [POST /access]', async () => {
+    return agent
       .post('/access')
       .send(createAccess)
       .expect(201)
@@ -51,8 +33,9 @@ describe('Access - /access (e2e)', () => {
   })
 
   it('Get access [GET /access]', () => {
-    return request(app.getHttpServer())
+    return agent
       .get(`/access/${id}`)
+      .set('Authorization', `Bearer ${process.env.ACCESS_TOKEN}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -60,14 +43,15 @@ describe('Access - /access (e2e)', () => {
   })
 
   it('Updates access [PATCH /access/:id]', () => {
-    return request(app.getHttpServer())
+    return agent
       .patch(`/access/${id}`)
+      .set('Authorization', `Bearer ${process.env.ACCESS_TOKEN}`)
       .send({ ...updateAccess })
       .expect(200)
   })
 
   it('Deletes access [DELETE /access/:id]', () => {
-    return request(app.getHttpServer()).delete(`/access/${id}`).expect(204)
+    return agent.delete(`/access/${id}`).expect(204)
   })
 
   afterAll(async () => {

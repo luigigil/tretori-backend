@@ -1,40 +1,22 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
-import * as request from 'supertest'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { IProduct } from 'src/domains/product/product.types'
-import { oneProductFixture } from 'src/domains/product/test/fixtures'
-import { ProductModule } from 'src/domains/product/product.module'
+import { IProduct } from '../../../src/domains/product/product.types'
+import { oneProductFixture } from '../../../src/domains/product/test/fixtures'
+import { buildAppModule, buildRequester } from '../../helpers/app.builder'
 
 describe('Product - /product (e2e)', () => {
   const product: IProduct = oneProductFixture
 
   let app: INestApplication
   let id: number
+  let agent
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: 'localhost',
-          port: 3307,
-          username: 'tretori-user',
-          password: 'tr3t0r!',
-          database: 'tretori-test',
-          autoLoadEntities: true,
-          synchronize: true,
-        }),
-        ProductModule,
-      ],
-    }).compile()
-
-    app = moduleFixture.createNestApplication()
-    await app.init()
+    app = await buildAppModule()
+    agent = buildRequester(app)
   })
 
   it('Create [POST /product]', () => {
-    return request(app.getHttpServer())
+    return agent
       .post('/product')
       .send(product as IProduct)
       .expect(201)
@@ -45,7 +27,7 @@ describe('Product - /product (e2e)', () => {
   })
 
   it('Get all product [GET /product]', () => {
-    return request(app.getHttpServer())
+    return agent
       .get('/product')
       .expect(200)
       .then(({ body }) => {
@@ -54,7 +36,7 @@ describe('Product - /product (e2e)', () => {
   })
 
   it('Get one product [GET /product/:id]', () => {
-    return request(app.getHttpServer())
+    return agent
       .get(`/product/${id}`)
       .expect(200)
       .then(({ body }) => {
@@ -65,7 +47,7 @@ describe('Product - /product (e2e)', () => {
   // TODO: test update
 
   it('Delete one product [DELETE /product/:id]', () => {
-    return request(app.getHttpServer()).delete(`/product/${id}`).expect(200)
+    return agent.delete(`/product/${id}`).expect(200)
   })
 
   afterAll(async () => {

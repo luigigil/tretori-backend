@@ -1,73 +1,36 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
-import * as request from 'supertest'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { IRenew } from 'src/domains/core/renew/renew.types'
-import { oneRenewFixture } from 'src/domains/core/renew/test/fixtures'
-import { RenewModule } from 'src/domains/core/renew/renew.module'
-import { ContractModule } from 'src/domains/core/contract/contract.module'
+import { IRenew } from '../../../../src/domains/core/renew/renew.types'
+import { oneRenewFixture } from '../../../../src/domains/core/renew/test/fixtures'
+import { buildAppModule, buildRequester } from '../../../helpers/app.builder'
 
 describe('Renew - /renew (e2e)', () => {
   const renew: IRenew = oneRenewFixture
 
   let app: INestApplication
-  let id: number
+  let agent
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: 'localhost',
-          port: 3307,
-          username: 'tretori-user',
-          password: 'tr3t0r!',
-          database: 'tretori-test',
-          autoLoadEntities: true,
-          synchronize: true,
-        }),
-        RenewModule,
-        ContractModule,
-      ],
-    }).compile()
-
-    app = moduleFixture.createNestApplication()
-    await app.init()
+    app = await buildAppModule()
+    agent = buildRequester(app)
   })
 
   it('Create [POST /renew]', () => {
-    return request(app.getHttpServer())
+    return agent
       .post('/renew')
       .send(renew)
       .expect(201)
       .then(({ body }) => {
-        id = body.id
         expect(body).toEqual({ ...renew, id: body.id })
       })
   })
 
   it('Get all renew [GET /renew]', () => {
-    return request(app.getHttpServer())
+    return agent
       .get('/renew')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
-  })
-
-  it('Get one renew [GET /renew/:id]', () => {
-    return request(app.getHttpServer())
-      .get(`/renew/${id}`)
-      .expect(200)
-      .then(({ body }) => {
-        expect(body).toBeDefined()
-      })
-  })
-
-  // TODO - test update
-
-  it('Delete one renew [DELETE /renew/:id]', () => {
-    return request(app.getHttpServer()).delete(`/renew/${id}`).expect(200)
   })
 
   afterAll(async () => {

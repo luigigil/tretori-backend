@@ -123,6 +123,7 @@
       "!**/auth/strategies/*.ts"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "globalSetup": "./test/global-setup.ts"
   }
 }
