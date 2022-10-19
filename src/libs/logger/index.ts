@@ -14,7 +14,13 @@ let logger = winston.createLogger({
 
 if (process.env.NODE_ENV === 'production') {
   logger = winston.createLogger({
-    level: 'info',
+    levels: {
+      error: 0,
+      warn: 1,
+      info: 2,
+      http: 3,
+      debug: 4,
+    },
     exitOnError: false,
     format: winston.format.json(),
     transports: [new winston.transports.Http(httpTransportOptions)],
