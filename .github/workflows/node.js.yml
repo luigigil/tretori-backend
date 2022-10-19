@@ -54,10 +54,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Lint
+      - name: lint
         run: yarn lint
 
-      - name: Lint
+      - name: tsc
         run: yarn tsc
 
       - name: Build project
