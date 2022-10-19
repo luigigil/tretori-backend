@@ -1,9 +1,12 @@
+import tracer from 'libs/logger/tracer'
+tracer.init()
+
 import { levels } from 'libs/logger/levels'
 import * as winston from 'winston'
 
 const httpTransportOptions = {
   host: 'http-intake.logs.datadoghq.com',
-  path: `/api/v2/logs?dd-api-key=${process.env.DD_API_KEY}&ddsource=nodejs&service=${process.env.SERVICE_NAME}`,
+  path: `/api/v2/logs?dd-api-key=${process.env.DD_API_KEY}&ddsource=nodejs&service=${process.env.NODE_SERVICE_NAME}`,
   ssl: true,
 }
 
@@ -25,4 +28,4 @@ if (process.env.NODE_ENV === 'production') {
 logger.log('info', 'Hello simple log!')
 logger.info('Hello log with metas', { color: 'blue' })
 
-export default logger
+export { logger, tracer }

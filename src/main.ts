@@ -4,8 +4,7 @@ import * as Sentry from '@sentry/node'
 import { AppModule } from 'app.module'
 import * as cookieParser from 'cookie-parser'
 import { StatsD } from 'hot-shots'
-import logger from 'libs/logger'
-import 'src/tracer'
+import { logger } from 'libs/logger'
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { cors: true })
