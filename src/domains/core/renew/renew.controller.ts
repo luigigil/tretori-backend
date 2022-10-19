@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { ApiBody, ApiResponse } from '@nestjs/swagger'
-import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
-import { RenewService } from './renew.service'
-import { IRenew } from './renew.types'
+import { RenewService } from 'domains/core/renew/renew.service'
+import { IRenew } from 'domains/core/renew/renew.types'
+import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('renew')
+@Controller('renewals')
 export class RenewController {
   constructor(private readonly renewService: RenewService) {}
 

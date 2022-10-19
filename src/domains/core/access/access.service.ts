@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { Access } from 'domains/core/access/access.entity'
+import { IAccess } from 'domains/core/access/access.types'
 import { Repository } from 'typeorm'
-import { Access } from './access.entity'
-import { IAccess } from './access.types'
 
 @Injectable()
 export class AccessService {

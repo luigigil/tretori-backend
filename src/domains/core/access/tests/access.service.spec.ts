@@ -1,10 +1,10 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
+import { Access } from 'domains/core/access/access.entity'
+import { AccessService } from 'domains/core/access/access.service'
+import { oneAccessFixture, updateAccessFixture } from 'domains/core/access/tests/access.fixtures'
 import { Repository } from 'typeorm'
-import { Access } from '../access.entity'
-import { AccessService } from '../access.service'
-import { oneAccessFixture, updateAccessFixture } from './access.fixtures'
 
 describe('AccessService', () => {
   let service: AccessService

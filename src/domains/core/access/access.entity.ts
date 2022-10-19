@@ -1,5 +1,5 @@
+import { Contract } from 'domains/core/contract/contract.entity'
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Contract } from '../contract/contract.entity'
 
 @Entity()
 export class Access {

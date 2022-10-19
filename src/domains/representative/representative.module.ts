@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
-import { RepresentativeService } from './representative.service'
-import { RepresentativeController } from './representative.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Representative } from './representative.entity'
+import { RepresentativeController } from 'domains/representative/representative.controller'
+import { Representative } from 'domains/representative/representative.entity'
+import { RepresentativeService } from 'domains/representative/representative.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Representative])],

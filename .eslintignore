@@ -1,0 +1,17 @@
+# BUILD/PROD
+src/bin/*
+*.min.js
+dist
+
+# TEST
+**/test/**/__mocks__/*.js
+jest.config.js
+coverage
+
+# NODE
+package.json
+node_modules
+tmp
+
+# MISC
+*.yaml

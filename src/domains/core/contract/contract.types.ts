@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { ICustomer } from '../../customer/customer/customer.types'
-import { IAccess } from '../access/access.types'
-import { IMove } from '../move/move.types'
-import { IRenew } from '../renew/renew.types'
+import { IAccess } from 'domains/core/access/access.types'
+import { IMove } from 'domains/core/move/move.types'
+import { IRenew } from 'domains/core/renew/renew.types'
+import { ICustomer } from 'domains/customer/customer/customer.types'
 
 export class IContract {
   @ApiProperty()

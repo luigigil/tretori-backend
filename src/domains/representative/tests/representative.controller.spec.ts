@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { RepresentativeService } from '../representative.service'
-import { RepresentativeController } from '../representative.controller'
+import { RepresentativeController } from 'domains/representative/representative.controller'
+import { RepresentativeService } from 'domains/representative/representative.service'
 import {
   CreateRepresentativeFixture,
   RepresentativeFixture,
   RepresentativeFixtureArray,
   UpdateRepresentativeFixture,
-} from '../fixtures/representative.fixtures'
+} from 'domains/representative/tests/fixtures'
 import { DeleteResult } from 'typeorm'
 
 describe('AccessController', () => {

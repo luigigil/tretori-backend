@@ -10,9 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
-import { CustomerService } from './customer.service'
-import { ICustomer } from './customer.types'
+import { CustomerService } from 'domains/customer/customer/customer.service'
+import { ICustomer } from 'domains/customer/customer/customer.types'
+import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
 @Controller('customers')
 export class CustomerController {

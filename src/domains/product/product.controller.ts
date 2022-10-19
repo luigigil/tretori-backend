@@ -10,12 +10,12 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { IProduct } from './product.types'
-import { ProductService } from './product.service'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { JwtAuthGuard } from '../../shared/guards/jwt-auth.guard'
+import { ProductService } from 'domains/product/product.service'
+import { IProduct } from 'domains/product/product.types'
+import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

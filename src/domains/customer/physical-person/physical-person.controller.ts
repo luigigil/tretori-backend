@@ -11,11 +11,11 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
-import { PhysicalPersonService } from './physical-person.service'
-import { IPhysicalPerson } from './physical-person.types'
+import { PhysicalPersonService } from 'domains/customer/physical-person/physical-person.service'
+import { IPhysicalPerson } from 'domains/customer/physical-person/physical-person.types'
+import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('physical-person')
+@Controller('physical-people')
 export class PhysicalPersonController {
   constructor(private readonly physicalPersonService: PhysicalPersonService) {}
 

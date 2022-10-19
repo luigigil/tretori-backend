@@ -1,4 +1,8 @@
-import { Customer } from '../../customer/customer/customer.entity'
+import { Access } from 'domains/core/access/access.entity'
+import { Move } from 'domains/core/move/move.entity'
+import { Renew } from 'domains/core/renew/renew.entity'
+import { Customer } from 'domains/customer/customer/customer.entity'
+import { Insurance } from 'domains/insurance/insurance.entity'
 import {
   Column,
   Entity,
@@ -8,10 +12,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { Insurance } from '../../insurance/insurance.entity'
-import { Access } from '../access/access.entity'
-import { Move } from '../move/move.entity'
-import { Renew } from '../renew/renew.entity'
 
 @Entity()
 export class Contract {

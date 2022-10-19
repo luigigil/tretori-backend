@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IContract } from '../../core/contract/contract.types'
-import { ILegalPerson } from '../legal-person/legal-person.types'
-import { IPhysicalPerson } from '../physical-person/physical-person.types'
-import { CustomerType } from './customer.entity'
+import { IContract } from 'domains/core/contract/contract.types'
+import { CustomerType } from 'domains/customer/customer/customer.entity'
+import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
+import { IPhysicalPerson } from 'domains/customer/physical-person/physical-person.types'
 
 export class ICustomer {
   @ApiProperty()

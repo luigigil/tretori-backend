@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { Representative } from 'domains/representative/representative.entity'
+import { IRepresentative } from 'domains/representative/representative.types'
 import { Repository } from 'typeorm'
-import { Representative } from './representative.entity'
-import { IRepresentative } from './representative.types'
 
 @Injectable()
 export class RepresentativeService {

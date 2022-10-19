@@ -1,4 +1,6 @@
-import { Contract } from '../../core/contract/contract.entity'
+import { Contract } from 'domains/core/contract/contract.entity'
+import { LegalPerson } from 'domains/customer/legal-person/legal-person.entity'
+import { PhysicalPerson } from 'domains/customer/physical-person/physical-person.entity'
 import {
   Column,
   Entity,
@@ -8,8 +10,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { PhysicalPerson } from '../physical-person/physical-person.entity'
-import { LegalPerson } from '../legal-person/legal-person.entity'
 
 export enum CustomerType {
   LEGAL_PERSON = 'LEGAL_PERSON',

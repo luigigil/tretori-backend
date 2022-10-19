@@ -1,5 +1,5 @@
 import { Column, Entity, Generated, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { Contract } from '../core/contract/contract.entity'
+import { Contract } from 'domains/core/contract/contract.entity'
 
 @Entity()
 export class Insurance {
