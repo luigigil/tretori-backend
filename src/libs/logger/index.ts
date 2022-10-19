@@ -27,8 +27,4 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-// Example logs
-logger.log('info', 'Hello simple log!')
-logger.info('Hello log with metas', { color: 'blue' })
-
 export { logger }
