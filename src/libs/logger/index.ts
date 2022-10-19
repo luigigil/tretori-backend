@@ -1,5 +1,5 @@
-import { levels } from 'libs/logger/levels'
 import * as winston from 'winston'
+import { levels } from '~/libs/logger/levels'
 
 const httpTransportOptions = {
   host: 'http-intake.logs.datadoghq.com',

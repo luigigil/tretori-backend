@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { userFixture, usersFixture } from 'shared/users/tests/fixtures'
-import { IUser } from 'shared/users/user.types'
-import { UsersController } from 'shared/users/users.controller'
-import { UsersService } from 'shared/users/users.service'
+import { userFixture, usersFixture } from '~/shared/users/tests/fixtures'
+import { IUser } from '~/shared/users/user.types'
+import { UsersController } from '~/shared/users/users.controller'
+import { UsersService } from '~/shared/users/users.service'
 
 describe('UsersController', () => {
   let usersController: UsersController

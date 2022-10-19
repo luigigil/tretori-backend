@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Customer } from 'domains/customer/customer/customer.entity'
+import { Customer } from '~/domains/customer/customer/customer.entity'
 
 @Entity()
 export class PhysicalPerson {

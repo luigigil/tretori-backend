@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Move } from 'domains/core/move/move.entity'
-import { IMove } from 'domains/core/move/move.types'
+import { Move } from '~/domains/core/move/move.entity'
+import { IMove } from '~/domains/core/move/move.types'
 import { Repository } from 'typeorm'
 
 @Injectable()

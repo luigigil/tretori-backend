@@ -1,17 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Access } from 'domains/core/access/access.entity'
-import { Contract } from 'domains/core/contract/contract.entity'
+import { Access } from '~/domains/core/access/access.entity'
+import { Contract } from '~/domains/core/contract/contract.entity'
 import {
   IContract,
   IContractUpdate,
   IMoveResponse,
   IRenewResponse,
-} from 'domains/core/contract/contract.types'
-import { Move } from 'domains/core/move/move.entity'
-import { IMove } from 'domains/core/move/move.types'
-import { Renew } from 'domains/core/renew/renew.entity'
-import { IRenew } from 'domains/core/renew/renew.types'
+} from '~/domains/core/contract/contract.types'
+import { Move } from '~/domains/core/move/move.entity'
+import { IMove } from '~/domains/core/move/move.types'
+import { Renew } from '~/domains/core/renew/renew.entity'
+import { IRenew } from '~/domains/core/renew/renew.types'
 import { Repository } from 'typeorm'
 
 @Injectable()

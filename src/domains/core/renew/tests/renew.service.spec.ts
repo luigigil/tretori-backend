@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Renew } from 'domains/core/renew/renew.entity'
-import { RenewService } from 'domains/core/renew/renew.service'
-import { oneRenewFixture, renewArrayFixture } from 'domains/core/renew/tests/fixtures'
+import { Renew } from '~/domains/core/renew/renew.entity'
+import { RenewService } from '~/domains/core/renew/renew.service'
+import { oneRenewFixture, renewArrayFixture } from '~/domains/core/renew/tests/fixtures'
 
 describe('RenewService', () => {
   let service: RenewService

@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Product } from 'domains/product/product.entity'
-import { ProductService } from 'domains/product/product.service'
-import { oneProductFixture, productArrayFixture } from 'domains/product/tests/fixtures'
+import { Product } from '~/domains/product/product.entity'
+import { ProductService } from '~/domains/product/product.service'
+import { oneProductFixture, productArrayFixture } from '~/domains/product/tests/fixtures'
 import { Repository } from 'typeorm'
 
 describe('ProductService', () => {

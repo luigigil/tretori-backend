@@ -1,4 +1,4 @@
-import { IPhysicalPerson } from 'domains/customer/physical-person/physical-person.types'
+import { IPhysicalPerson } from '~/domains/customer/physical-person/physical-person.types'
 
 export const physicalPersonArrayFixture: IPhysicalPerson[] = [
   {

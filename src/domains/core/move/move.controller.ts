@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { ApiBody, ApiResponse } from '@nestjs/swagger'
-import { MoveService } from 'domains/core/move/move.service'
-import { IMove } from 'domains/core/move/move.types'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
+import { MoveService } from '~/domains/core/move/move.service'
+import { IMove } from '~/domains/core/move/move.types'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
 
 @Controller('movements')
 export class MoveController {

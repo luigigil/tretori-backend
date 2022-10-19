@@ -1,19 +1,19 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Contract } from 'domains/core/contract/contract.entity'
-import { ContractService } from 'domains/core/contract/contract.service'
+import { Contract } from '~/domains/core/contract/contract.entity'
+import { ContractService } from '~/domains/core/contract/contract.service'
 import {
   contractArrayFixture,
   oneContractFixture,
   updateContractPayload,
-} from 'domains/core/contract/tests/fixtures'
-import { Move } from 'domains/core/move/move.entity'
-import { MoveService } from 'domains/core/move/move.service'
-import { moveArrayFixture, oneMoveFixture } from 'domains/core/move/tests/fixtures'
-import { Renew } from 'domains/core/renew/renew.entity'
-import { RenewService } from 'domains/core/renew/renew.service'
-import { oneRenewFixture, renewArrayFixture } from 'domains/core/renew/tests/fixtures'
+} from '~/domains/core/contract/tests/fixtures'
+import { Move } from '~/domains/core/move/move.entity'
+import { MoveService } from '~/domains/core/move/move.service'
+import { moveArrayFixture, oneMoveFixture } from '~/domains/core/move/tests/fixtures'
+import { Renew } from '~/domains/core/renew/renew.entity'
+import { RenewService } from '~/domains/core/renew/renew.service'
+import { oneRenewFixture, renewArrayFixture } from '~/domains/core/renew/tests/fixtures'
 import { Repository } from 'typeorm'
 
 describe('ContractService', () => {

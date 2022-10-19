@@ -11,10 +11,10 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
-import { User } from 'shared/users/user.entity'
-import { IUser } from 'shared/users/user.types'
-import { UsersService } from 'shared/users/users.service'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
+import { User } from '~/shared/users/user.entity'
+import { IUser } from '~/shared/users/user.types'
+import { UsersService } from '~/shared/users/users.service'
 
 @Controller('users')
 export class UsersController {

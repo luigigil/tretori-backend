@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ProductController } from 'domains/product/product.controller'
-import { ProductService } from 'domains/product/product.service'
-import { IProduct } from 'domains/product/product.types'
-import { oneProductFixture, productArrayFixture } from 'domains/product/tests/fixtures'
+import { ProductController } from '~/domains/product/product.controller'
+import { ProductService } from '~/domains/product/product.service'
+import { IProduct } from '~/domains/product/product.types'
+import { oneProductFixture, productArrayFixture } from '~/domains/product/tests/fixtures'
 
 describe('ProductController', () => {
   let productController: ProductController

@@ -11,20 +11,20 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { Contract } from 'domains/core/contract/contract.entity'
-import { ContractService } from 'domains/core/contract/contract.service'
+import { Contract } from '~/domains/core/contract/contract.entity'
+import { ContractService } from '~/domains/core/contract/contract.service'
 import {
   ContractUpdateBody,
   IContract,
   IContractUpdate,
   IMoveResponse,
   IRenewResponse,
-} from 'domains/core/contract/contract.types'
-import { MoveService } from 'domains/core/move/move.service'
-import { IMove } from 'domains/core/move/move.types'
-import { RenewService } from 'domains/core/renew/renew.service'
-import { IRenew } from 'domains/core/renew/renew.types'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
+} from '~/domains/core/contract/contract.types'
+import { MoveService } from '~/domains/core/move/move.service'
+import { IMove } from '~/domains/core/move/move.types'
+import { RenewService } from '~/domains/core/renew/renew.service'
+import { IRenew } from '~/domains/core/renew/renew.types'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
 
 @Controller('contracts')
 export class ContractController {

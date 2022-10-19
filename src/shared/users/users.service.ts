@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { genSalt, hash } from 'bcrypt'
 import { Repository } from 'typeorm'
-import { User } from 'shared/users/user.entity'
-import { IUser } from 'shared/users/user.types'
+import { User } from '~/shared/users/user.entity'
+import { IUser } from '~/shared/users/user.types'
 
 @Injectable()
 export class UsersService {

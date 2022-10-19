@@ -1,4 +1,4 @@
-import { IProduct } from 'domains/product/product.types'
+import { IProduct } from '~/domains/product/product.types'
 
 export const productArrayFixture: IProduct[] = [
   {

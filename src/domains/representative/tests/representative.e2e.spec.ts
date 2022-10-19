@@ -1,11 +1,11 @@
 import { INestApplication } from '@nestjs/common'
-import { IRepresentative } from 'domains/representative/representative.types'
+import { IRepresentative } from '~/domains/representative/representative.types'
 import {
   CreateRepresentativeFixture,
   RepresentativeFixture,
   UpdateRepresentativeFixture,
-} from 'domains/representative/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+} from '~/domains/representative/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Representative - /representatives (e2e)', () => {
   const representative: IRepresentative = RepresentativeFixture

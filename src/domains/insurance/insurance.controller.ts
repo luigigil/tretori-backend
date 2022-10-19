@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { InsuranceService } from 'domains/insurance/insurance.service'
-import { IInsurance } from 'domains/insurance/insurance.types'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
+import { InsuranceService } from '~/domains/insurance/insurance.service'
+import { IInsurance } from '~/domains/insurance/insurance.types'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
 
 @Controller('insurances')
 export class InsuranceController {

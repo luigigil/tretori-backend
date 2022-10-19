@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { CustomerController } from 'domains/customer/customer/customer.controller'
-import { CustomerService } from 'domains/customer/customer/customer.service'
-import { ICustomer } from 'domains/customer/customer/customer.types'
-import { customerFixture, customersFixture } from 'domains/customer/customer/tests/fixtures'
+import { CustomerController } from '~/domains/customer/customer/customer.controller'
+import { CustomerService } from '~/domains/customer/customer/customer.service'
+import { ICustomer } from '~/domains/customer/customer/customer.types'
+import { customerFixture, customersFixture } from '~/domains/customer/customer/tests/fixtures'
 
 describe('CustomerController', () => {
   let customerController: CustomerController

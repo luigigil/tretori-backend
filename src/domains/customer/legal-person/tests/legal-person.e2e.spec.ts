@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
-import { oneLegalPersonFixture } from 'domains/customer/legal-person/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { ILegalPerson } from '~/domains/customer/legal-person/legal-person.types'
+import { oneLegalPersonFixture } from '~/domains/customer/legal-person/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Legal Person - /legal-people (e2e)', () => {
   const legalPerson: ILegalPerson = oneLegalPersonFixture

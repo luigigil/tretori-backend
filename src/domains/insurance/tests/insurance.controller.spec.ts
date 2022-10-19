@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { InsuranceController } from 'domains/insurance/insurance.controller'
-import { InsuranceService } from 'domains/insurance/insurance.service'
-import { IInsurance } from 'domains/insurance/insurance.types'
-import { insuranceArrayFixture, oneInsuranceFixture } from 'domains/insurance/tests/fixtures'
+import { InsuranceController } from '~/domains/insurance/insurance.controller'
+import { InsuranceService } from '~/domains/insurance/insurance.service'
+import { IInsurance } from '~/domains/insurance/insurance.types'
+import { insuranceArrayFixture, oneInsuranceFixture } from '~/domains/insurance/tests/fixtures'
 
 describe('InsuranceController', () => {
   let insuranceController: InsuranceController

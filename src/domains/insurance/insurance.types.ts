@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IContract } from 'domains/core/contract/contract.types'
+import { IContract } from '~/domains/core/contract/contract.types'
 
 export class IInsurance {
   @ApiProperty()

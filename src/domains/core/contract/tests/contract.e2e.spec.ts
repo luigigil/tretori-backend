@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { IContract } from 'domains/core/contract/contract.types'
-import { oneContractFixture } from 'domains/core/contract/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { IContract } from '~/domains/core/contract/contract.types'
+import { oneContractFixture } from '~/domains/core/contract/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Contract - /contract (e2e)', () => {
   const contract: IContract = oneContractFixture

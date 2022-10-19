@@ -1,5 +1,5 @@
-import { IContract, IContractUpdate } from 'domains/core/contract/contract.types'
-import { CustomerType } from 'domains/customer/customer/customer.entity'
+import { IContract, IContractUpdate } from '~/domains/core/contract/contract.types'
+import { CustomerType } from '~/domains/customer/customer/customer.entity'
 
 export const contractArrayFixture: IContract[] = [
   {

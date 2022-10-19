@@ -1,5 +1,5 @@
-import { CustomerType } from 'domains/customer/customer/customer.entity'
-import { ICustomer } from 'domains/customer/customer/customer.types'
+import { CustomerType } from '~/domains/customer/customer/customer.entity'
+import { ICustomer } from '~/domains/customer/customer/customer.types'
 
 export const customersFixture: ICustomer[] = [
   {

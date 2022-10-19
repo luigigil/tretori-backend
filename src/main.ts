@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as Sentry from '@sentry/node'
-import { AppModule } from 'app.module'
 import * as cookieParser from 'cookie-parser'
 import { StatsD } from 'hot-shots'
-import { logger } from 'libs/logger'
+import { logger } from '~/libs/logger'
+import { AppModule } from '~/shared/app.module'
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { cors: true })

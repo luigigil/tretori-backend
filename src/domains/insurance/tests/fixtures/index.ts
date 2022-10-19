@@ -1,4 +1,4 @@
-import { IInsurance } from 'domains/insurance/insurance.types'
+import { IInsurance } from '~/domains/insurance/insurance.types'
 
 export const insuranceArrayFixture: IInsurance[] = [
   {

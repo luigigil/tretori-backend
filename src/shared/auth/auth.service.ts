@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { ILoginResponse } from 'shared/auth/auth.controller'
-import { IUser } from 'shared/users/user.types'
-import { UsersService } from 'shared/users/users.service'
+import { ILoginResponse } from '~/shared/auth/auth.controller'
+import { IUser } from '~/shared/users/user.types'
+import { UsersService } from '~/shared/users/users.service'
 
 export interface IValidateUserParams {
   username: string

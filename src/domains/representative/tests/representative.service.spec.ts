@@ -1,13 +1,13 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Representative } from 'domains/representative/representative.entity'
-import { RepresentativeService } from 'domains/representative/representative.service'
+import { Representative } from '~/domains/representative/representative.entity'
+import { RepresentativeService } from '~/domains/representative/representative.service'
 import {
   RepresentativeFixture,
   RepresentativeFixtureArray,
   UpdateRepresentativeFixture,
-} from 'domains/representative/tests/fixtures'
+} from '~/domains/representative/tests/fixtures'
 import { Repository } from 'typeorm'
 
 describe('RepresentativeService', () => {

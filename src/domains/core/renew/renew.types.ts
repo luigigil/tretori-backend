@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Contract } from 'domains/core/contract/contract.entity'
+import { Contract } from '~/domains/core/contract/contract.entity'
 
 export class IRenew {
   @ApiProperty()

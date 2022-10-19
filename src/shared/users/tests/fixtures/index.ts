@@ -1,4 +1,4 @@
-import { IUser } from 'shared/users/user.types'
+import { IUser } from '~/shared/users/user.types'
 
 export const usersFixture: IUser[] = [
   {

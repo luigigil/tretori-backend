@@ -1,12 +1,12 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { AccessController } from 'domains/core/access/access.controller'
-import { AccessService } from 'domains/core/access/access.service'
+import { AccessController } from '~/domains/core/access/access.controller'
+import { AccessService } from '~/domains/core/access/access.service'
 import {
   createAccessFixture,
   oneAccessFixture,
   updateAccessFixture,
-} from 'domains/core/access/tests/access.fixtures'
+} from '~/domains/core/access/tests/access.fixtures'
 
 describe('AccessController', () => {
   let accessController: AccessController

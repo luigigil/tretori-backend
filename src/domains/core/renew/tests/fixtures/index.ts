@@ -1,4 +1,4 @@
-import { IRenew } from 'domains/core/renew/renew.types'
+import { IRenew } from '~/domains/core/renew/renew.types'
 
 export const renewArrayFixture: IRenew[] = [
   {

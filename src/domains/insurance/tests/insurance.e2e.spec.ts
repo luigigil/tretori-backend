@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { IInsurance } from 'domains/insurance/insurance.types'
-import { oneInsuranceFixture } from 'domains/insurance/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { IInsurance } from '~/domains/insurance/insurance.types'
+import { oneInsuranceFixture } from '~/domains/insurance/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Insurance - /insurance (e2e)', () => {
   const insurance: IInsurance = oneInsuranceFixture

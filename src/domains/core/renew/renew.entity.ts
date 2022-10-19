@@ -1,4 +1,4 @@
-import { Contract } from 'domains/core/contract/contract.entity'
+import { Contract } from '~/domains/core/contract/contract.entity'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()

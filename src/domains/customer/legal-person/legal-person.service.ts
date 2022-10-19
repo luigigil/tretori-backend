@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { LegalPerson } from 'domains/customer/legal-person/legal-person.entity'
-import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
+import { LegalPerson } from '~/domains/customer/legal-person/legal-person.entity'
+import { ILegalPerson } from '~/domains/customer/legal-person/legal-person.types'
 import { Repository } from 'typeorm'
 
 @Injectable()

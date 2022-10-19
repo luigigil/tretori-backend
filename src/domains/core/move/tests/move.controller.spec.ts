@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { MoveController } from 'domains/core/move/move.controller'
-import { MoveService } from 'domains/core/move/move.service'
-import { IMove } from 'domains/core/move/move.types'
-import { moveArrayFixture, oneMoveFixture } from 'domains/core/move/tests/fixtures'
+import { MoveController } from '~/domains/core/move/move.controller'
+import { MoveService } from '~/domains/core/move/move.service'
+import { IMove } from '~/domains/core/move/move.types'
+import { moveArrayFixture, oneMoveFixture } from '~/domains/core/move/tests/fixtures'
 
 describe('MoveController', () => {
   let moveController: MoveController

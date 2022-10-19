@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Insurance } from 'domains/insurance/insurance.entity'
-import { InsuranceService } from 'domains/insurance/insurance.service'
-import { insuranceArrayFixture, oneInsuranceFixture } from 'domains/insurance/tests/fixtures'
+import { Insurance } from '~/domains/insurance/insurance.entity'
+import { InsuranceService } from '~/domains/insurance/insurance.service'
+import { insuranceArrayFixture, oneInsuranceFixture } from '~/domains/insurance/tests/fixtures'
 import { Repository } from 'typeorm'
 
 describe('InsuranceService', () => {

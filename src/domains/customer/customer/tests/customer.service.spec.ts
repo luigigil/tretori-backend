@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Customer } from 'domains/customer/customer/customer.entity'
-import { CustomerService } from 'domains/customer/customer/customer.service'
-import { customerFixture, customersFixture } from 'domains/customer/customer/tests/fixtures'
+import { Customer } from '~/domains/customer/customer/customer.entity'
+import { CustomerService } from '~/domains/customer/customer/customer.service'
+import { customerFixture, customersFixture } from '~/domains/customer/customer/tests/fixtures'
 import { Repository } from 'typeorm'
 
 describe('CustomerService', () => {

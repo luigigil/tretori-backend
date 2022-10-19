@@ -1,12 +1,12 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { PhysicalPerson } from 'domains/customer/physical-person/physical-person.entity'
-import { PhysicalPersonService } from 'domains/customer/physical-person/physical-person.service'
+import { PhysicalPerson } from '~/domains/customer/physical-person/physical-person.entity'
+import { PhysicalPersonService } from '~/domains/customer/physical-person/physical-person.service'
 import {
   onePhysicalPersonFixture,
   physicalPersonArrayFixture,
-} from 'domains/customer/physical-person/tests/fixtures'
+} from '~/domains/customer/physical-person/tests/fixtures'
 import { Repository } from 'typeorm'
 
 describe('PhysicalPersonService', () => {

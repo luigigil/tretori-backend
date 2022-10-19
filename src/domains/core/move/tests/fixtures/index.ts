@@ -1,4 +1,4 @@
-import { IMove } from 'domains/core/move/move.types'
+import { IMove } from '~/domains/core/move/move.types'
 
 export const moveArrayFixture: IMove[] = [
   {

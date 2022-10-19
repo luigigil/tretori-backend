@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { LegalPersonService } from 'domains/customer/legal-person/legal-person.service'
-import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
+import { LegalPersonService } from '~/domains/customer/legal-person/legal-person.service'
+import { ILegalPerson } from '~/domains/customer/legal-person/legal-person.types'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
 
 @Controller('legal-people')
 export class LegalPersonController {

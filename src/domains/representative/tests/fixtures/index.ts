@@ -1,4 +1,4 @@
-import { IRepresentative } from 'domains/representative/representative.types'
+import { IRepresentative } from '~/domains/representative/representative.types'
 
 export const RepresentativeFixture: IRepresentative = {
   id: 1,

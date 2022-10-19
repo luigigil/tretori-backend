@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Move } from 'domains/core/move/move.entity'
-import { MoveService } from 'domains/core/move/move.service'
-import { moveArrayFixture, oneMoveFixture } from 'domains/core/move/tests/fixtures'
+import { Move } from '~/domains/core/move/move.entity'
+import { MoveService } from '~/domains/core/move/move.service'
+import { moveArrayFixture, oneMoveFixture } from '~/domains/core/move/tests/fixtures'
 
 describe('MoveService', () => {
   let service: MoveService

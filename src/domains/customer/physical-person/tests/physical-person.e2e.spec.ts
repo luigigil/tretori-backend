@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { IPhysicalPerson } from 'domains/customer/physical-person/physical-person.types'
-import { onePhysicalPersonFixture } from 'domains/customer/physical-person/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { IPhysicalPerson } from '~/domains/customer/physical-person/physical-person.types'
+import { onePhysicalPersonFixture } from '~/domains/customer/physical-person/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Physical Person - /physical-people (e2e)', () => {
   const physicalPerson: IPhysicalPerson = onePhysicalPersonFixture

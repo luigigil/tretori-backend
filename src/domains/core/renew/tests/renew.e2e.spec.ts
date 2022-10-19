@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { IRenew } from 'domains/core/renew/renew.types'
-import { oneRenewFixture } from 'domains/core/renew/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { IRenew } from '~/domains/core/renew/renew.types'
+import { oneRenewFixture } from '~/domains/core/renew/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Renew - /renewals (e2e)', () => {
   const renew: IRenew = oneRenewFixture

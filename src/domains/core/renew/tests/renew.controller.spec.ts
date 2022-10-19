@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { RenewController } from 'domains/core/renew/renew.controller'
-import { RenewService } from 'domains/core/renew/renew.service'
-import { IRenew } from 'domains/core/renew/renew.types'
-import { oneRenewFixture, renewArrayFixture } from 'domains/core/renew/tests/fixtures'
+import { RenewController } from '~/domains/core/renew/renew.controller'
+import { RenewService } from '~/domains/core/renew/renew.service'
+import { IRenew } from '~/domains/core/renew/renew.types'
+import { oneRenewFixture, renewArrayFixture } from '~/domains/core/renew/tests/fixtures'
 
 describe('RenewController', () => {
   let renewController: RenewController

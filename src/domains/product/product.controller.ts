@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { ProductService } from 'domains/product/product.service'
-import { IProduct } from 'domains/product/product.types'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
+import { ProductService } from '~/domains/product/product.service'
+import { IProduct } from '~/domains/product/product.types'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
 
 @Controller('products')
 export class ProductController {

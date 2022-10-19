@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { IMove } from 'domains/core/move/move.types'
-import { oneMoveFixture } from 'domains/core/move/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { IMove } from '~/domains/core/move/move.types'
+import { oneMoveFixture } from '~/domains/core/move/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Move - /move (e2e)', () => {
   const move: IMove = oneMoveFixture

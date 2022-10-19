@@ -10,10 +10,10 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { Representative } from 'domains/representative/representative.entity'
-import { RepresentativeService } from 'domains/representative/representative.service'
-import { IRepresentative } from 'domains/representative/representative.types'
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
+import { Representative } from '~/domains/representative/representative.entity'
+import { RepresentativeService } from '~/domains/representative/representative.service'
+import { IRepresentative } from '~/domains/representative/representative.types'
+import { JwtAuthGuard } from '~/shared/guards/jwt-auth.guard'
 
 @Controller('representatives')
 export class RepresentativeController {

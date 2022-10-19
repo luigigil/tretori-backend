@@ -1,35 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { Access } from 'domains/core/access/access.entity'
-import { AccessService } from 'domains/core/access/access.service'
-import { oneAccessFixture } from 'domains/core/access/tests/access.fixtures'
-import { ContractController } from 'domains/core/contract/contract.controller'
-import { Contract } from 'domains/core/contract/contract.entity'
-import { ContractService } from 'domains/core/contract/contract.service'
-import { IContract } from 'domains/core/contract/contract.types'
+import { Access } from '~/domains/core/access/access.entity'
+import { AccessService } from '~/domains/core/access/access.service'
+import { oneAccessFixture } from '~/domains/core/access/tests/access.fixtures'
+import { ContractController } from '~/domains/core/contract/contract.controller'
+import { Contract } from '~/domains/core/contract/contract.entity'
+import { ContractService } from '~/domains/core/contract/contract.service'
+import { IContract } from '~/domains/core/contract/contract.types'
 import {
   contractArrayFixture,
   oneContractFixture,
   updateContractPayload,
-} from 'domains/core/contract/tests/fixtures'
-import { Move } from 'domains/core/move/move.entity'
-import { MoveService } from 'domains/core/move/move.service'
-import { moveArrayFixture, oneMoveFixture } from 'domains/core/move/tests/fixtures'
-import { Renew } from 'domains/core/renew/renew.entity'
-import { RenewService } from 'domains/core/renew/renew.service'
-import { oneRenewFixture, renewArrayFixture } from 'domains/core/renew/tests/fixtures'
-import { LegalPerson } from 'domains/customer/legal-person/legal-person.entity'
-import { LegalPersonService } from 'domains/customer/legal-person/legal-person.service'
+} from '~/domains/core/contract/tests/fixtures'
+import { Move } from '~/domains/core/move/move.entity'
+import { MoveService } from '~/domains/core/move/move.service'
+import { moveArrayFixture, oneMoveFixture } from '~/domains/core/move/tests/fixtures'
+import { Renew } from '~/domains/core/renew/renew.entity'
+import { RenewService } from '~/domains/core/renew/renew.service'
+import { oneRenewFixture, renewArrayFixture } from '~/domains/core/renew/tests/fixtures'
+import { LegalPerson } from '~/domains/customer/legal-person/legal-person.entity'
+import { LegalPersonService } from '~/domains/customer/legal-person/legal-person.service'
 import {
   legalPersonArrayFixture,
   oneLegalPersonFixture,
-} from 'domains/customer/legal-person/tests/fixtures'
-import { PhysicalPerson } from 'domains/customer/physical-person/physical-person.entity'
-import { PhysicalPersonService } from 'domains/customer/physical-person/physical-person.service'
+} from '~/domains/customer/legal-person/tests/fixtures'
+import { PhysicalPerson } from '~/domains/customer/physical-person/physical-person.entity'
+import { PhysicalPersonService } from '~/domains/customer/physical-person/physical-person.service'
 import {
   onePhysicalPersonFixture,
   physicalPersonArrayFixture,
-} from 'domains/customer/physical-person/tests/fixtures'
+} from '~/domains/customer/physical-person/tests/fixtures'
 
 describe('ContractController', () => {
   let contractController: ContractController

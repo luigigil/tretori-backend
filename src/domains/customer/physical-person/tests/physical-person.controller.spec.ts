@@ -1,12 +1,12 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { PhysicalPersonController } from 'domains/customer/physical-person/physical-person.controller'
-import { PhysicalPersonService } from 'domains/customer/physical-person/physical-person.service'
-import { IPhysicalPerson } from 'domains/customer/physical-person/physical-person.types'
+import { PhysicalPersonController } from '~/domains/customer/physical-person/physical-person.controller'
+import { PhysicalPersonService } from '~/domains/customer/physical-person/physical-person.service'
+import { IPhysicalPerson } from '~/domains/customer/physical-person/physical-person.types'
 import {
   onePhysicalPersonFixture,
   physicalPersonArrayFixture,
-} from 'domains/customer/physical-person/tests/fixtures'
+} from '~/domains/customer/physical-person/tests/fixtures'
 
 describe('PhysicalPersonController', () => {
   let physicalPersonController: PhysicalPersonController

@@ -1,11 +1,11 @@
 import { INestApplication } from '@nestjs/common'
-import { IAccess } from 'domains/core/access/access.types'
+import { IAccess } from '~/domains/core/access/access.types'
 import {
   createAccessFixture,
   oneAccessFixture,
   updateAccessFixture,
-} from 'domains/core/access/tests/access.fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+} from '~/domains/core/access/tests/access.fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Access - /access (e2e)', () => {
   const access: IAccess = oneAccessFixture

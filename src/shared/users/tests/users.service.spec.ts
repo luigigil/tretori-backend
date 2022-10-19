@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { userFixture, usersFixture } from 'shared/users/tests/fixtures'
-import { User } from 'shared/users/user.entity'
-import { UsersService } from 'shared/users/users.service'
+import { userFixture, usersFixture } from '~/shared/users/tests/fixtures'
+import { User } from '~/shared/users/user.entity'
+import { UsersService } from '~/shared/users/users.service'
 import { Repository } from 'typeorm'
 
 describe('UsersService', () => {

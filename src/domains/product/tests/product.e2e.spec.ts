@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
-import { IProduct } from 'domains/product/product.types'
-import { oneProductFixture } from 'domains/product/tests/fixtures'
-import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
+import { IProduct } from '~/domains/product/product.types'
+import { oneProductFixture } from '~/domains/product/tests/fixtures'
+import { buildAppModule, buildRequester } from '~/shared/tests/helpers/app.builder'
 
 describe('Product - /product (e2e)', () => {
   const product: IProduct = oneProductFixture

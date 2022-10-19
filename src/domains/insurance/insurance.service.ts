@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Insurance } from 'domains/insurance/insurance.entity'
-import { IInsurance } from 'domains/insurance/insurance.types'
+import { Insurance } from '~/domains/insurance/insurance.entity'
+import { IInsurance } from '~/domains/insurance/insurance.types'
 import { Repository } from 'typeorm'
 
 @Injectable()

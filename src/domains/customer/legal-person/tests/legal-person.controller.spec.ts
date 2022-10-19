@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { LegalPersonController } from 'domains/customer/legal-person/legal-person.controller'
-import { LegalPersonService } from 'domains/customer/legal-person/legal-person.service'
-import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
+import { LegalPersonController } from '~/domains/customer/legal-person/legal-person.controller'
+import { LegalPersonService } from '~/domains/customer/legal-person/legal-person.service'
+import { ILegalPerson } from '~/domains/customer/legal-person/legal-person.types'
 import {
   legalPersonArrayFixture,
   oneLegalPersonFixture,
-} from 'domains/customer/legal-person/tests/fixtures'
+} from '~/domains/customer/legal-person/tests/fixtures'
 
 describe('LegalPersonController', () => {
   let legalPersonController: LegalPersonController

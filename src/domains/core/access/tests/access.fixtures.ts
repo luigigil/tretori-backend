@@ -1,5 +1,5 @@
-import { Access } from 'domains/core/access/access.entity'
-import { IAccess } from 'domains/core/access/access.types'
+import { Access } from '~/domains/core/access/access.entity'
+import { IAccess } from '~/domains/core/access/access.types'
 
 export const oneAccessFixture: IAccess = {
   id: 1,
