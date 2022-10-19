@@ -1,17 +1,9 @@
 module.exports = {
   //   setupFilesAfterEnv: ['./src/shared/test/setup.ts', 'jest-extended/all'],
-  collectCoverageFrom: [
-    './src/**/*.ts',
-    '!**/main.ts',
-    '!**/constants.ts',
-    '!**/tests/**/*.ts',
-    '!**/auth/strategies/*.ts',
-    '!**/(migrations|fixtures)/*.ts',
-    '!**/*.(entity|guard|decorator|enum|constants|types|module).ts',
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!**/main.ts', '!**/tests/**/*.ts', '!**/migrations/*.ts'],
   coverageReporters: ['html', 'text'],
-  modulePaths: ['<rootDir>/src', '<rootDir>'],
-  testPathIgnorePatterns: ['/node_modules/'],
+  modulePaths: ['<rootDir>/src'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
