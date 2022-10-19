@@ -11,10 +11,10 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger'
-import { JwtAuthGuard } from '../../../shared/guards/jwt-auth.guard'
-import { Access } from './access.entity'
-import { AccessService } from './access.service'
-import { IAccess } from './access.types'
+import { Access } from 'domains/core/access/access.entity'
+import { AccessService } from 'domains/core/access/access.service'
+import { IAccess } from 'domains/core/access/access.types'
+import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
 @Controller('access')
 export class AccessController {

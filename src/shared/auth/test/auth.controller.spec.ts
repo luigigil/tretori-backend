@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { AuthController, ILoginResponse } from '../auth.controller'
-import { AuthService } from '../auth.service'
+import { AuthController, ILoginResponse } from 'shared/auth/auth.controller'
+import { AuthService } from 'shared/auth/auth.service'
 
 describe('AuthController', () => {
   let authController: AuthController

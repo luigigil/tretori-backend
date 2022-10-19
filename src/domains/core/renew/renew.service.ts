@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { Renew } from 'domains/core/renew/renew.entity'
+import { IRenew } from 'domains/core/renew/renew.types'
 import { Repository } from 'typeorm'
-import { Renew } from './renew.entity'
-import { IRenew } from './renew.types'
 
 @Injectable()
 export class RenewService {

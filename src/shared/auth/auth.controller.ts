@@ -1,6 +1,6 @@
 import { Controller, Post, Request, UseGuards } from '@nestjs/common'
-import { AuthService } from './auth.service'
-import { LocalAuthGuard } from '../guards/local-auth.guard'
+import { AuthService } from 'shared/auth/auth.service'
+import { LocalAuthGuard } from 'shared/guards/local-auth.guard'
 
 export interface ILoginResponse {
   access_token: string

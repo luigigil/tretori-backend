@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
-import { AccessService } from './access.service'
-import { AccessController } from './access.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Access } from './access.entity'
+import { AccessController } from 'domains/core/access/access.controller'
+import { Access } from 'domains/core/access/access.entity'
+import { AccessService } from 'domains/core/access/access.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Access])],

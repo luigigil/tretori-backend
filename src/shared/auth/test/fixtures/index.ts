@@ -1,4 +1,4 @@
-import { ILegalPerson } from '../../../../domains/customer/legal-person/legal-person.types'
+import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
 
 export const legalPersonArrayFixture: ILegalPerson[] = [
   {

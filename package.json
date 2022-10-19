@@ -17,7 +17,7 @@
     "fmt": "prettier --write .",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "lint:eslint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "lint:prettier": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint:prettier": "prettier --check \"src/**/*.ts\"",
     "lint:fix": "yarn lint:eslint --fix",
     "verify": "yarn tsc && yarn lint && yarn build && yarn test",
     "verify:quick": "yarn tsc && yarn fmt && yarn lint:fix",
@@ -26,7 +26,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config ./jest-e2e.json",
     "test:clear": "jest --clearCache",
     "prepare": "husky install",
     "migration:generate": "typeorm-ts-node-esm migration:generate",
@@ -91,38 +91,5 @@
     "ts-node": "^10.8.2",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.8.0"
-  },
-  "jest": {
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s",
-      "!**/*.module.ts",
-      "!**/main.ts",
-      "!**/*.types.ts",
-      "!**/constants.ts",
-      "!**/*.constants.ts",
-      "!**/*.enum.ts",
-      "!**/migrations/*.ts",
-      "!**/fixtures/*.ts",
-      "!**/*.entity.ts",
-      "!**/*.guard.ts",
-      "!**/*.decorator.ts",
-      "!**/auth/strategies/*.ts"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }
