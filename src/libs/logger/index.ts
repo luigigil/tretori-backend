@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
       http: 3,
       debug: 4,
     },
-    exitOnError: false,
+    exitOnError: true,
     format: winston.format.json(),
     transports: [new winston.transports.Http(httpTransportOptions)],
   })
