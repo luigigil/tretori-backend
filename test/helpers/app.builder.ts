@@ -17,6 +17,7 @@ import { RepresentativeModule } from '../../src/domains/representative/represent
 import { AuthModule } from '../../src/shared/auth/auth.module'
 import { RolesGuard } from '../../src/shared/roles/roles.guard'
 import { UsersModule } from '../../src/shared/users/users.module'
+import { UsersService } from '../../src/shared/users/users.service'
 
 export async function buildAppModule(): Promise<INestApplication> {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -31,8 +32,6 @@ export async function buildAppModule(): Promise<INestApplication> {
         database: 'tretori-test',
         autoLoadEntities: true,
         synchronize: true,
-        migrationsRun: true,
-        migrations: ['**/migrations/*.ts'],
       }),
       AccessModule,
       CustomerModule,
@@ -58,6 +57,18 @@ export async function buildAppModule(): Promise<INestApplication> {
   const app = moduleFixture.createNestApplication()
 
   await app.init()
+
+  const uMod = await app.resolve(UsersService)
+
+  let user = await uMod.findOneByUsername('dev-admin@tretori.com')
+
+  if (!user) {
+    user = await uMod.create({ username: '', password: 'teste1234', roles: 'admin' })
+  }
+
+  expect(user).toBeDefined()
+  expect(user.username).toBe('dev-admin@tretori.com')
+  expect(user.roles).toBe('admin')
 
   const loginReponse = await request(app.getHttpServer())
     .post('/auth/login')
