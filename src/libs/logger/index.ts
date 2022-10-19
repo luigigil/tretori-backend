@@ -1,6 +1,3 @@
-import tracer from 'libs/logger/tracer'
-tracer.init()
-
 import { levels } from 'libs/logger/levels'
 import * as winston from 'winston'
 
@@ -28,4 +25,4 @@ if (process.env.NODE_ENV === 'production') {
 logger.log('info', 'Hello simple log!')
 logger.info('Hello log with metas', { color: 'blue' })
 
-export { logger, tracer }
+export { logger }
