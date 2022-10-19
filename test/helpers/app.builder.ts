@@ -60,10 +60,16 @@ export async function buildAppModule(): Promise<INestApplication> {
 
   const uMod = await app.resolve(UsersService)
 
-  let user = await uMod.findOneByUsername('dev-admin@tretori.com')
+  let user
 
-  if (!user) {
-    user = await uMod.create({ username: '', password: 'teste1234', roles: 'admin' })
+  try {
+    user = await uMod.findOneByUsername('dev-admin@tretori.com')
+  } catch (error) {
+    user = await uMod.create({
+      username: 'dev-admin@tretori.com',
+      password: 'teste1234',
+      roles: 'admin',
+    })
   }
 
   expect(user).toBeDefined()
