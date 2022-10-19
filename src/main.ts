@@ -15,21 +15,6 @@ async function bootstrap(): Promise<void> {
     tracesSampleRate: 1.0,
   })
 
-  const transaction = Sentry.startTransaction({
-    op: 'test',
-    name: 'My First Test Transaction',
-  })
-
-  setTimeout(() => {
-    try {
-      throw new Error('Broke')
-    } catch (e) {
-      Sentry.captureException(e)
-    } finally {
-      transaction.finish()
-    }
-  }, 99)
-
   const config = new DocumentBuilder()
     .setTitle('Tretori')
     .setDescription('The Tretori API description')
