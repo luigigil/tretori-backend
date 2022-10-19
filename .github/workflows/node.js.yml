@@ -57,13 +57,14 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Lint
+        run: yarn tsc
+
       - name: Build project
         run: yarn build
+
       # - name: Migrate
       # run: knex migrate:latest
 
       - name: Test - unit tests
         run: yarn test
-
-      - name: Test - e2e tests
-        run: yarn test:e2e
