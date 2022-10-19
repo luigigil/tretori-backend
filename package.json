@@ -48,6 +48,7 @@
     "cookie-parser": "^1.4.6",
     "csurf": "^1.11.0",
     "helmet": "^6.0.0",
+    "hot-shots": "^9.2.0",
     "luxon": "^3.0.1",
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",
