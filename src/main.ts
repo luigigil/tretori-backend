@@ -4,6 +4,7 @@ import * as Sentry from '@sentry/node'
 import { AppModule } from 'app.module'
 import * as cookieParser from 'cookie-parser'
 import { StatsD } from 'hot-shots'
+import logger from 'libs/logger'
 import 'src/tracer'
 
 async function bootstrap(): Promise<void> {
@@ -41,6 +42,8 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('api', app, document)
 
   app.use(cookieParser())
+
+  app.useLogger(logger)
 
   await app.listen(process.env.PORT || 3000)
 
