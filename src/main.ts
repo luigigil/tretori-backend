@@ -22,7 +22,6 @@ async function bootstrap(): Promise<void> {
       throw new Error('Broke')
     } catch (e) {
       Sentry.captureException(e)
-      console.log('error')
     } finally {
       transaction.finish()
     }
