@@ -16,7 +16,7 @@ import { AccessService } from 'domains/core/access/access.service'
 import { IAccess } from 'domains/core/access/access.types'
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('access')
+@Controller('accesses')
 export class AccessController {
   constructor(private readonly accessService: AccessService) {}
 

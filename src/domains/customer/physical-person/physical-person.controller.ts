@@ -15,7 +15,7 @@ import { PhysicalPersonService } from 'domains/customer/physical-person/physical
 import { IPhysicalPerson } from 'domains/customer/physical-person/physical-person.types'
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('physical-person')
+@Controller('physical-people')
 export class PhysicalPersonController {
   constructor(private readonly physicalPersonService: PhysicalPersonService) {}
 

@@ -7,7 +7,7 @@ import {
 } from 'domains/representative/tests/fixtures'
 import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
 
-describe('Representative - /representative (e2e)', () => {
+describe('Representative - /representatives (e2e)', () => {
   const representative: IRepresentative = RepresentativeFixture
   const createRepresentative = CreateRepresentativeFixture
   const updateRepresentative = UpdateRepresentativeFixture
@@ -21,9 +21,9 @@ describe('Representative - /representative (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /representative]', () => {
+  it('Create [POST /representatives]', () => {
     return agent
-      .post('/representative')
+      .post('/representatives')
       .send(createRepresentative)
       .expect(201)
       .then(({ body }) => {
@@ -37,33 +37,33 @@ describe('Representative - /representative (e2e)', () => {
     expect(id).toBeDefined()
   })
 
-  it('Get all representative [GET /representative]', () => {
+  it('Get all representative [GET /representatives]', () => {
     return agent
-      .get('/representative/')
+      .get('/representatives/')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get representative [GET /representative/id]', () => {
+  it('Get representative [GET /representatives/id]', () => {
     return agent
-      .get(`/representative/${id}`)
+      .get(`/representatives/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Updates representative [PATCH /representative/:id]', () => {
+  it('Updates representative [PATCH /representatives/:id]', () => {
     return agent
-      .patch(`/representative/${id}`)
+      .patch(`/representatives/${id}`)
       .send({ ...updateRepresentative })
       .expect(200)
   })
 
-  it('Deletes representative [DELETE /representative/:id]', () => {
-    return agent.delete(`/representative/${id}`).expect(200)
+  it('Deletes representative [DELETE /representatives/:id]', () => {
+    return agent.delete(`/representatives/${id}`).expect(200)
   })
 
   afterAll(async () => {

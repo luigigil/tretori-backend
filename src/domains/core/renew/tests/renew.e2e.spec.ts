@@ -3,7 +3,7 @@ import { IRenew } from 'domains/core/renew/renew.types'
 import { oneRenewFixture } from 'domains/core/renew/tests/fixtures'
 import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
 
-describe('Renew - /renew (e2e)', () => {
+describe('Renew - /renewals (e2e)', () => {
   const renew: IRenew = oneRenewFixture
 
   let app: INestApplication
@@ -14,9 +14,9 @@ describe('Renew - /renew (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /renew]', () => {
+  it('Create [POST /renewals]', () => {
     return agent
-      .post('/renew')
+      .post('/renewals')
       .send(renew)
       .expect(201)
       .then(({ body }) => {
@@ -24,9 +24,9 @@ describe('Renew - /renew (e2e)', () => {
       })
   })
 
-  it('Get all renew [GET /renew]', () => {
+  it('Get all renew [GET /renewals]', () => {
     return agent
-      .get('/renew')
+      .get('/renewals')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()

@@ -21,9 +21,9 @@ describe('Access - /access (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /access]', async () => {
+  it('Create [POST /accesses]', async () => {
     return agent
-      .post('/access')
+      .post('/accesses')
       .send(createAccess)
       .expect(201)
       .then(({ body }) => {
@@ -32,9 +32,9 @@ describe('Access - /access (e2e)', () => {
       })
   })
 
-  it('Get access [GET /access]', () => {
+  it('Get access [GET /accesses]', () => {
     return agent
-      .get(`/access/${id}`)
+      .get(`/accesses/${id}`)
       .set('Authorization', `Bearer ${process.env.ACCESS_TOKEN}`)
       .expect(200)
       .then(({ body }) => {
@@ -42,16 +42,16 @@ describe('Access - /access (e2e)', () => {
       })
   })
 
-  it('Updates access [PATCH /access/:id]', () => {
+  it('Updates access [PATCH /accesses/:id]', () => {
     return agent
-      .patch(`/access/${id}`)
+      .patch(`/accesses/${id}`)
       .set('Authorization', `Bearer ${process.env.ACCESS_TOKEN}`)
       .send({ ...updateAccess })
       .expect(200)
   })
 
-  it('Deletes access [DELETE /access/:id]', () => {
-    return agent.delete(`/access/${id}`).expect(204)
+  it('Deletes access [DELETE /accesses/:id]', () => {
+    return agent.delete(`/accesses/${id}`).expect(204)
   })
 
   afterAll(async () => {

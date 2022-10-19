@@ -15,9 +15,9 @@ describe('Insurance - /insurance (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /insurance]', () => {
+  it('Create [POST /insurances]', () => {
     return agent
-      .post('/insurance')
+      .post('/insurances')
       .send(insurance as IInsurance)
       .expect(201)
       .then(({ body }) => {
@@ -26,18 +26,18 @@ describe('Insurance - /insurance (e2e)', () => {
       })
   })
 
-  it('Get all Insurance [GET /insurance]', () => {
+  it('Get all Insurance [GET /insurances]', () => {
     return agent
-      .get('/insurance')
+      .get('/insurances')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one Insurance [GET /insurance/:id]', () => {
+  it('Get one Insurance [GET /insurances/:id]', () => {
     return agent
-      .get(`/insurance/${id}`)
+      .get(`/insurances/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -45,9 +45,9 @@ describe('Insurance - /insurance (e2e)', () => {
   })
 
   // Teste para criação da rota de update
-  // it('Update one Insurance [PATCH /insurance/:id]', () => {
+  // it('Update one Insurance [PATCH /insurances/:id]', () => {
   //   return agent
-  //     .patch(`/insurance/${id}`)
+  //     .patch(`/insurances/${id}`)
   //     .send({ cnpj: '23789' })
   //     .expect(200)
   //     .then(({ body }) => {
@@ -55,17 +55,17 @@ describe('Insurance - /insurance (e2e)', () => {
   //     })
   // })
 
-  it('Delete one Insurance [DELETE /insurance/:id]', () => {
+  it('Delete one Insurance [DELETE /insurances/:id]', () => {
     return agent
-      .delete(`/insurance/${id}`)
+      .delete(`/insurances/${id}`)
       .expect(204)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Should throw a NotFound Exception [DELETE /insurance/:id]', () => {
-    return agent.delete(`/insurance/${id * 2}`).expect(404)
+  it('Should throw a NotFound Exception [DELETE /insurances/:id]', () => {
+    return agent.delete(`/insurances/${id * 2}`).expect(404)
   })
 
   afterAll(async () => {

@@ -15,9 +15,9 @@ describe('Product - /product (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /product]', () => {
+  it('Create [POST /products]', () => {
     return agent
-      .post('/product')
+      .post('/products')
       .send(product as IProduct)
       .expect(201)
       .then(({ body }) => {
@@ -26,18 +26,18 @@ describe('Product - /product (e2e)', () => {
       })
   })
 
-  it('Get all product [GET /product]', () => {
+  it('Get all product [GET /products]', () => {
     return agent
-      .get('/product')
+      .get('/products')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one product [GET /product/:id]', () => {
+  it('Get one product [GET /products/:id]', () => {
     return agent
-      .get(`/product/${id}`)
+      .get(`/products/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -46,8 +46,8 @@ describe('Product - /product (e2e)', () => {
 
   // TODO: test update
 
-  it('Delete one product [DELETE /product/:id]', () => {
-    return agent.delete(`/product/${id}`).expect(200)
+  it('Delete one product [DELETE /products/:id]', () => {
+    return agent.delete(`/products/${id}`).expect(200)
   })
 
   afterAll(async () => {

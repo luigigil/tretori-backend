@@ -16,7 +16,7 @@ describe('Move - /move (e2e)', () => {
 
   it('Create [POST /move]', () => {
     return agent
-      .post('/move')
+      .post('/movements')
       .send(move)
       .expect(201)
       .then(({ body }) => {
@@ -24,9 +24,9 @@ describe('Move - /move (e2e)', () => {
       })
   })
 
-  it('Get all move [GET /move]', () => {
+  it('Get all move [GET /movements]', () => {
     return agent
-      .get('/move')
+      .get('/movements')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()

@@ -15,7 +15,7 @@ import { RepresentativeService } from 'domains/representative/representative.ser
 import { IRepresentative } from 'domains/representative/representative.types'
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('representative')
+@Controller('representatives')
 export class RepresentativeController {
   constructor(private readonly representativeService: RepresentativeService) {}
 

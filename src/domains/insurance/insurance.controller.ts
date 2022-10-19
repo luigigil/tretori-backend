@@ -15,7 +15,7 @@ import { InsuranceService } from 'domains/insurance/insurance.service'
 import { IInsurance } from 'domains/insurance/insurance.types'
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('insurance')
+@Controller('insurances')
 export class InsuranceController {
   constructor(private readonly insuranceService: InsuranceService) {}
 

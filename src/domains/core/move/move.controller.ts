@@ -4,7 +4,7 @@ import { MoveService } from 'domains/core/move/move.service'
 import { IMove } from 'domains/core/move/move.types'
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('move')
+@Controller('movements')
 export class MoveController {
   constructor(private readonly moveService: MoveService) {}
 

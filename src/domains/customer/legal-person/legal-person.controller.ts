@@ -15,7 +15,7 @@ import { LegalPersonService } from 'domains/customer/legal-person/legal-person.s
 import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard'
 
-@Controller('legal-person')
+@Controller('legal-people')
 export class LegalPersonController {
   constructor(private readonly legalPersonService: LegalPersonService) {}
 

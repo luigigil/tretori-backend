@@ -3,7 +3,7 @@ import { ILegalPerson } from 'domains/customer/legal-person/legal-person.types'
 import { oneLegalPersonFixture } from 'domains/customer/legal-person/tests/fixtures'
 import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
 
-describe('Legal Person - /legal-person (e2e)', () => {
+describe('Legal Person - /legal-people (e2e)', () => {
   const legalPerson: ILegalPerson = oneLegalPersonFixture
 
   let app: INestApplication
@@ -15,9 +15,9 @@ describe('Legal Person - /legal-person (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /legal-person]', () => {
+  it('Create [POST /legal-people]', () => {
     return agent
-      .post('/legal-person')
+      .post('/legal-people')
       .send(legalPerson as ILegalPerson)
       .expect(201)
       .then(({ body }) => {
@@ -26,18 +26,18 @@ describe('Legal Person - /legal-person (e2e)', () => {
       })
   })
 
-  it('Get all legal person [GET /legal-person]', () => {
+  it('Get all legal person [GET /legal-people]', () => {
     return agent
-      .get('/legal-person')
+      .get('/legal-people')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one legal person [GET /legal-person/:id]', () => {
+  it('Get one legal person [GET /legal-people/:id]', () => {
     return agent
-      .get(`/legal-person/${id}`)
+      .get(`/legal-people/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -46,8 +46,8 @@ describe('Legal Person - /legal-person (e2e)', () => {
 
   // TODO - test update
 
-  it('Delete one legal person [DELETE /legal-person/:id]', () => {
-    return agent.delete(`/legal-person/${id}`).expect(200)
+  it('Delete one legal person [DELETE /legal-people/:id]', () => {
+    return agent.delete(`/legal-people/${id}`).expect(200)
   })
 
   afterAll(async () => {

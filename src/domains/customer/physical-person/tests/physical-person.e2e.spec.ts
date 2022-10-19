@@ -3,7 +3,7 @@ import { IPhysicalPerson } from 'domains/customer/physical-person/physical-perso
 import { onePhysicalPersonFixture } from 'domains/customer/physical-person/tests/fixtures'
 import { buildAppModule, buildRequester } from 'shared/tests/helpers/app.builder'
 
-describe('Physical Person - /physical-person (e2e)', () => {
+describe('Physical Person - /physical-people (e2e)', () => {
   const physicalPerson: IPhysicalPerson = onePhysicalPersonFixture
 
   let app: INestApplication
@@ -15,9 +15,9 @@ describe('Physical Person - /physical-person (e2e)', () => {
     agent = buildRequester(app)
   })
 
-  it('Create [POST /physical-person]', () => {
+  it('Create [POST /physical-people]', () => {
     return agent
-      .post('/physical-person')
+      .post('/physical-people')
       .send(physicalPerson as IPhysicalPerson)
       .expect(201)
       .then(({ body }) => {
@@ -26,18 +26,18 @@ describe('Physical Person - /physical-person (e2e)', () => {
       })
   })
 
-  it('Get all physical person [GET /physical-person]', () => {
+  it('Get all physical person [GET /physical-people]', () => {
     return agent
-      .get('/physical-person')
+      .get('/physical-people')
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
       })
   })
 
-  it('Get one physical person [GET /physical-person/:id]', () => {
+  it('Get one physical person [GET /physical-people/:id]', () => {
     return agent
-      .get(`/physical-person/${id}`)
+      .get(`/physical-people/${id}`)
       .expect(200)
       .then(({ body }) => {
         expect(body).toBeDefined()
@@ -46,8 +46,8 @@ describe('Physical Person - /physical-person (e2e)', () => {
 
   // TODO - test update
 
-  it('Delete one physical person [DELETE /physical-person/:id]', () => {
-    return agent.delete(`/physical-person/${id}`).expect(204)
+  it('Delete one physical person [DELETE /physical-people/:id]', () => {
+    return agent.delete(`/physical-people/${id}`).expect(204)
   })
 
   afterAll(async () => {
